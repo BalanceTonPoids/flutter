@@ -1,16 +1,10 @@
-# balancetonpoids
+# BalanceTonPoids
 
-A new Flutter project.
+Un projet d'école sous Flutter.
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Clonez le projet
+```git clone https://github.com/BalanceTonPoids/flutter.git```
+### Ouvrez le sur Android Studio et installez les dépendances
+``flutter pub get``
