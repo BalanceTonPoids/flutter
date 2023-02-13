@@ -3,6 +3,25 @@ import 'package:flutter/material.dart';
 
 double screenWidth = MediaQueryData.fromWindow(window).size.width;
 
+AppBar appBar(String title) {
+  return AppBar(
+    title: Row(
+      children: [
+        const Expanded(
+          flex: 1,
+          child: Text("Bienvenue"),
+        ),
+        Expanded(
+          flex: 1,
+          child: Image.asset("assets/logo_white.png", width: 50, height: 50, alignment: Alignment.centerRight),
+        ),
+      ],
+    ),
+    automaticallyImplyLeading: false,
+    shadowColor: Colors.transparent,
+  );
+}
+
 GestureDetector buttonCard(
     String title,
     String subtitle,
