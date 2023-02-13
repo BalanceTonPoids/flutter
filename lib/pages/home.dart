@@ -14,22 +14,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            const Expanded(
-              flex: 1,
-              child: Text("Bienvenue"),
-            ),
-            Expanded(
-              flex: 1,
-              child: Image.asset("assets/logo_white.png", width: 50, height: 50, alignment: Alignment.centerRight),
-            ),
-          ],
-        ),
-        automaticallyImplyLeading: false,
-        shadowColor: Colors.transparent,
-      ),
+      appBar: appBar("Bienvenue"),
       body: Column(
         children: [
           Container(
