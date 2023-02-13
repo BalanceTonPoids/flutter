@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import './pages/welcome.dart';
+import 'pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,9 +35,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return DefaultTabController(length: 3,
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('BalanceTonPoids'),
-          ),
           body: Center(
             child: BottomBar(
                 child: const TabBar(
@@ -51,9 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     TabBarView(
                         controller: null,
                         children: [
-                          Container(
-                            color: Colors.red,
-                          ),
+                          const Home(),
                           Container(
                             color: Colors.green,
                           ),
