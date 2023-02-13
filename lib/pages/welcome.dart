@@ -1,10 +1,11 @@
 import 'dart:ui';
-
+import 'package:balancetonpoids/theme/theme_constants.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../utils/widgets.dart';
 import './auth.dart';
 
+import '../inscription-connexion.dart';
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
 
@@ -36,17 +37,30 @@ class _WelcomeState extends State<Welcome> {
                             fontWeight: FontWeight.normal,
                           ))
                   ),
-                  const Padding(
-                      padding: EdgeInsets.only(top: 200),
-                      child: Text("Swipez vers la droite pour continuer.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Roboto',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w100,
-                          ))
+                   Padding(
+                    padding: EdgeInsets.only(top: 200),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Swipez vers la droite pour continuer.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Roboto',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w100,
+                            )),
+                        SizedBox(width: 10),
+                        Icon(
+                          Icons.swipe_left,
+                          size: 40,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
                   ),
+
+
                 ],
               )
           ),
@@ -57,12 +71,8 @@ class _WelcomeState extends State<Welcome> {
                     padding: EdgeInsets.only(top: 50),
                     child: Text("Connecter ma balance",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Roboto',
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ))
+
+                       )
                 ),
               ]
             ),

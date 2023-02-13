@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import './pages/welcome.dart';
 import 'pages/home.dart';
+import 'package:balancetonpoids/theme/theme_constants.dart';
 
-import './theme/theme_constants.dart';
 import './theme/theme_manager.dart';
 import './utils/helper_widgets.dart';
-import './inscriptionPage.dart';
+import './inscription-connexion.dart';
 
 
 void main() => runApp(MyApp());
@@ -61,6 +61,78 @@ class _MyAppState extends State<MyApp1> {
       themeMode: _themeManager.themeMode,
       home: MyHomeScreen(),
     );
+  }
+}
+
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+
+
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _themeManager.addListener(themeListener);
+    super.initState();
+  }
+
+  themeListener(){
+    if(mounted){
+      setState(() {
+
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('BalanceTonPoids'),
+          ),
+          body: Center(
+            child: BottomBar(
+                child: const TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.query_stats, color: Colors.white)),
+                    Tab(icon: Icon(Icons.monitor_weight, color: Colors.white)),
+                    Tab(icon: Icon(Icons.supervised_user_circle, color: Colors.white)),
+                  ],
+                  controller: null,
+                ),
+                body: (context, controller) =>
+                    TabBarView(
+                        controller: null,
+                        children: [
+                          Container(
+                            color: Colors.red,
+                          ),
+                          Container(
+                            color: Colors.green,
+                          ),
+                          Container(
+                            color: Colors.yellow,
+                          ),
+                        ])
+            ),
+          ),
+        ));
+
   }
 }
 
