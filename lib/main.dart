@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
+import './pages/welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,19 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'BalanceTonPoids',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Welcome(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -36,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return DefaultTabController(length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.title),
+            title: const Text('BalanceTonPoids'),
           ),
           body: Center(
             child: BottomBar(
