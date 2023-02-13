@@ -113,11 +113,7 @@ class _WelcomeState extends State<Welcome> {
 }
 
 Widget logoSection = Padding(padding: const EdgeInsets.only(top: 100),
-    child: Image.network(
-      "https://logodownload.org/wp-content/uploads/2014/09/peugeot-logo-5.png",
-      width: 200,
-      height: 200,
-    ));
+    child: Image.asset('lib/assets/img/logo.png', width: 200, height: 200, fit: BoxFit.cover));
 
 Widget titleText = const Padding(
     padding: EdgeInsets.only(top: 50),
