@@ -6,7 +6,7 @@ const Color white1 = Color(0xffeeeded);
 const Color blue = Color(0xff0044D6);
 const Color red = Color(0xffCB0B0B);
 const Color green = Color(0xff28AB21);
-ThemeData lightTheme = ThemeData(
+final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: blue,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -25,15 +25,19 @@ ThemeData lightTheme = ThemeData(
         )
     ),
     inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),borderSide: BorderSide.none
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: blue,
+            width: 3.0,
+          ),
+          borderRadius: BorderRadius.circular(10),
         ),
         filled: true,
         fillColor: Colors.grey.withOpacity(0.1)
     )
 );
 
-ThemeData darkTheme = ThemeData(
+final ThemeData darkTheme = ThemeData(
 
   brightness: Brightness.dark,
   accentColor: Colors.white,

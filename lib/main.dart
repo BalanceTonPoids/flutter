@@ -9,30 +9,27 @@ import './theme/theme_constants.dart';
 import './theme/theme_manager.dart';
 import './utils/helper_widgets.dart';
 import './inscriptionPage.dart';
-void main() {
-  runApp(MaterialApp(
-    theme: ThemeData(
-      primaryColor: Colors.blue,
-      textTheme: TextTheme(
-        headline1: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-        ),
-      ),
-    ),
-    home: SignUp1(),
-  ));
-}
+
+
+void main() => runApp(MyApp());
 
 ThemeManager _themeManager = ThemeManager();
-
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: lightTheme,
+      home: SignUp1(),
+    );
+  }
+}
+class MyApp1 extends StatefulWidget {
   // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp1> {
 
   @override
   void dispose() {
