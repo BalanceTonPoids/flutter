@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import './auth.dart';
-
+import '../inscriptionPage.dart';
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
 
@@ -98,7 +98,7 @@ class _WelcomeState extends State<Welcome> {
                   ),
                   Padding(
                       padding: const EdgeInsets.only(top: 10,bottom: 10),
-                      child: button(context, "Continuez avec un Email", Colors.blue, Colors.white, Colors.blue, 2, const Register())),
+                      child: button(context, "Continuez avec un Email", Colors.blue, Colors.white, Colors.blue, 2, const SignUp1())),
                   Padding(
                       padding: const EdgeInsets.only(top: 10,bottom: 10),
                       child: button(context, "Continuez en tant qu'invité", Colors.white, Colors.blue, Colors.blue, 2, const Register())),

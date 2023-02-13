@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 
 import './theme/theme_constants.dart';
 import './theme/theme_manager.dart';
@@ -13,6 +14,10 @@ void main() => runApp(MyApp());
 
 ThemeManager _themeManager = ThemeManager();
 class MyApp extends StatelessWidget {
+
+  const MyApp({super.key});
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,44 +29,77 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class MyApp1 extends StatefulWidget {
-  // This widget is the root of your application.
+
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+
   @override
-  _MyAppState createState() => _MyAppState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyAppState extends State<MyApp1> {
 
-  @override
-  void dispose() {
+
+
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    void dispose() {
     _themeManager.removeListener(themeListener);
     super.dispose();
-  }
+    }
 
-  @override
-  void initState() {
+    @override
+    void initState() {
     _themeManager.addListener(themeListener);
     super.initState();
-  }
-
-  themeListener(){
-    if(mounted){
-      setState(() {
-
-      });
     }
-  }
+
+    themeListener(){
+    if(mounted){
+    setState(() {
+
+    });
+    }
+    }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: _themeManager.themeMode,
-      home: MyHomeScreen(),
-    );
+    return DefaultTabController(length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
+          ),
+          body: Center(
+            child: BottomBar(
+                child: const TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.query_stats, color: Colors.white)),
+                    Tab(icon: Icon(Icons.monitor_weight, color: Colors.white)),
+                    Tab(icon: Icon(Icons.supervised_user_circle, color: Colors.white)),
+                  ],
+                  controller: null,
+                ),
+                body: (context, controller) =>
+                    TabBarView(
+                        controller: null,
+                        children: [
+                          Container(
+                            color: Colors.red,
+                          ),
+                          Container(
+                            color: Colors.green,
+                          ),
+                          Container(
+                            color: Colors.yellow,
+                          ),
+                        ])
+            ),
+          ),
+        ));
+
   }
 }
 
@@ -78,57 +116,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     TextTheme _textTheme = Theme.of(context).textTheme;
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-   /*   appBar: AppBar(
-        title: Text("Theme App"),
-        actions: [Switch(value: _themeManager.themeMode == ThemeMode.dark, onChanged: (newValue) {
-          _themeManager.toggleTheme(newValue);
-        })],
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-             /* Image.asset(
-                "assets/images/profile_pic.png",
-                width: 200,
-                height: 200,
-              ),*/
-              addVerticalSpace(10),
-              Text(
-                "Your Name",
-                style: _textTheme.headline4?.copyWith(
-                    color:isDark?Colors.white: Colors.black,fontWeight: FontWeight.bold
-                ),
-              ),
-              addVerticalSpace(10),
-              Text(
-                "@yourusername",
-                style: _textTheme.subtitle1,
-              ),
-              addVerticalSpace(10),
-              Text(
-                "This is a simple Status",
-              ),
-              addVerticalSpace(20),
-              TextField(),
-              addVerticalSpace(20),
-              ElevatedButton(child: Text("Just Click"), onPressed: () {}),
-              addVerticalSpace(20),
-              ElevatedButton(child: Text("Click Me"), onPressed: () {}),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: Theme(
-        data: Theme.of(context).copyWith(splashColor: Colors.black), // For Test
-        child: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {},
-        ),
-      ),*/
+
     );
   }
 }
