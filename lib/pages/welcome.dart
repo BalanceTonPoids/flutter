@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../utils/widgets.dart';
 import './auth.dart';
 
 class Welcome extends StatefulWidget {
@@ -128,28 +129,3 @@ Widget titleText = const Padding(
         ))
 );
 
-Widget button(
-  context,
-  String text,
-  Color backgroundColor,
-  Color textColor,
-  Color borderColor,
-  int borderWidth,
-  onPressed) {
-  return ElevatedButton(
-      onPressed: () => {
-        Navigator.push(context,
-        MaterialPageRoute(builder: (context) => onPressed)
-        )
-      },
-      style: ElevatedButton.styleFrom(
-          side: const BorderSide(color: Colors.blue, width: 2),
-          fixedSize: const Size(300, 50),
-          foregroundColor: textColor,
-          backgroundColor: backgroundColor,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15))
-          )
-      ),
-      child: Text(text));
-}
