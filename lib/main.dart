@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
+import 'package:balancetonpoids/theme/theme_constants.dart';
 
-import './theme/theme_constants.dart';
 import './theme/theme_manager.dart';
 import './utils/helper_widgets.dart';
-import './inscriptionPage.dart';
+import './inscription-connexion.dart';
 
 import './pages/welcome.dart';
 
@@ -22,9 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BalanceTonPoids',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: darkTheme,
       home: const Welcome(),
     );
   }
@@ -32,9 +30,8 @@ class MyApp extends StatelessWidget {
 
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
-  final String title;
 
 
   @override
@@ -45,32 +42,32 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
-    @override
-    void dispose() {
+  @override
+  void dispose() {
     _themeManager.removeListener(themeListener);
     super.dispose();
-    }
+  }
 
-    @override
-    void initState() {
+  @override
+  void initState() {
     _themeManager.addListener(themeListener);
     super.initState();
-    }
+  }
 
-    themeListener(){
+  themeListener(){
     if(mounted){
-    setState(() {
+      setState(() {
 
-    });
+      });
     }
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.title),
+            title: Text('BalanceTonPoids'),
           ),
           body: Center(
             child: BottomBar(

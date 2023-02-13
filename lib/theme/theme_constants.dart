@@ -6,9 +6,21 @@ const Color white1 = Color(0xffeeeded);
 const Color blue = Color(0xff0044D6);
 const Color red = Color(0xffCB0B0B);
 const Color green = Color(0xff28AB21);
+
 final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: blue,
+    textTheme: TextTheme(
+      bodyText1: TextStyle(
+        color: Colors.black,
+        fontSize: 16.0,
+      ),
+      headline1: TextStyle(
+        color: Colors.black,
+        fontSize: 24.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: blue
     ),
@@ -32,26 +44,53 @@ final ThemeData lightTheme = ThemeData(
           ),
           borderRadius: BorderRadius.circular(10),
         ),
-        filled: true,
-        fillColor: Colors.grey.withOpacity(0.1)
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.grey,
+            width: 3.0,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+
     )
 );
 
 final ThemeData darkTheme = ThemeData(
-
+  primaryColor: blue,
   brightness: Brightness.dark,
-  accentColor: Colors.white,
+  accentColor: white1,
+  textTheme: TextTheme(
+    bodyText1: TextStyle(
+      color: Colors.white,
+      fontSize: 16.0,
+    ),
+    headline1: TextStyle(
+      color: Colors.white,
+      fontSize: 24.0,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
   switchTheme: SwitchThemeData(
-    trackColor: MaterialStateProperty.all<Color>(Colors.black),
-    thumbColor: MaterialStateProperty.all<Color>(Colors.white),
+    trackColor: MaterialStateProperty.all<Color>(black1),
+    thumbColor: MaterialStateProperty.all<Color>(white1),
   ),
-  inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),borderSide: BorderSide.none
+    inputDecorationTheme: InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: white1,
+          width: 3.0,
+        ),
+        borderRadius: BorderRadius.circular(10),
       ),
-      filled: true,
-      fillColor: Colors.grey.withOpacity(0.1)
-  ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.grey,
+          width: 3.0,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+
+    ),
   elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
