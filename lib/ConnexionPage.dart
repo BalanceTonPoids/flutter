@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import './inscriptionPage.dart';
 class ConnexionPage extends StatelessWidget {
+  const ConnexionPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
