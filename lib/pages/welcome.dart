@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import '../main.dart';
 import './auth.dart';
 
 class Welcome extends StatefulWidget {
@@ -101,7 +102,7 @@ class _WelcomeState extends State<Welcome> {
                       child: button(context, "Continuez avec un Email", Colors.blue, Colors.white, Colors.blue, 2, const Register())),
                   Padding(
                       padding: const EdgeInsets.only(top: 10,bottom: 10),
-                      child: button(context, "Continuez en tant qu'invité", Colors.white, Colors.blue, Colors.blue, 2, const Register())),
+                      child: button(context, "Continuez en tant qu'invité", Colors.white, Colors.blue, Colors.blue, 2, const MyHomePage())),
                 ]
               ),
             ),
