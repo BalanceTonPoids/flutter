@@ -10,10 +10,6 @@ class SignUp1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
-    final TextEditingController _confirmPasswordController = TextEditingController();
-
 
     return SafeArea(
 
@@ -52,7 +48,7 @@ class SignUp1 extends StatelessWidget {
                             width: 300,
                             height: 60,
                             child:  TextFormField(
-                              controller: _emailController,
+
                               autofocus: true,
                               decoration: const InputDecoration(
 
@@ -62,6 +58,7 @@ class SignUp1 extends StatelessWidget {
                                   color: Colors.grey,
                                 ),
                               ),
+                              validator: (val)=>val?.length==0 ? "Validez votre E-Mail": null,
                             ),
                           ),
                           const SizedBox(
