@@ -17,8 +17,17 @@ class _ProfileState extends State<Profile> {
       appBar: appBar("Mon profil"),
       body: Column(
         children: [
-          titleSection("Mon poids", "Dernier poids enregistré"),
-          weightStack('55', 'kg', Colors.white),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Column(
+              children: [
+                titleSection("Mon poids", "Dernier poids enregistré"),
+                weightStack('55', 'kg', Colors.white, 200, 220)
+              ],
+            ),
+          ),
           Container(
             padding: const EdgeInsets.all(20),
             child: buttonCard("Modifier mon profil", "Renseignez ma taille, mes objectifs, etc.", Colors.blue, true, null),

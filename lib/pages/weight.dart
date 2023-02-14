@@ -19,7 +19,10 @@ class _WeightState extends State<Weight> {
         children: [
           Container(
             alignment: Alignment.topCenter,
-            child: weightStack('55', 'kg', Colors.blue),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
+              child: weightStack('55', 'kg', Colors.blue, 200, 200),
+            ),
           ),
           loadingSpinner()
         ]
