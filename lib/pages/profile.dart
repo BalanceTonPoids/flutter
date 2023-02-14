@@ -3,28 +3,22 @@ import 'package:flutter/material.dart';
 
 import '../utils/widgets.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _HomeState extends State<Home> {
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar("Bienvenue"),
+      appBar: appBar("Mon profil"),
       body: Column(
         children: [
           titleSection("Mon poids", "Dernier poids enregistré"),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-            ),
-            padding: const EdgeInsets.all(20),
-            child: buttonCard("Commencer la prise de poids", "Effectuer la première prise de poids", Colors.white, false, null),
-          ),
+          weightStack('55', 'kg', Colors.white),
           Container(
             padding: const EdgeInsets.all(20),
             child: buttonCard("Modifier mon profil", "Renseignez ma taille, mes objectifs, etc.", Colors.blue, true, null),
@@ -41,7 +35,7 @@ class _HomeState extends State<Home> {
               ],
             ),
           )
-        ]
+        ],
       ),
     );
   }

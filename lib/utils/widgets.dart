@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 double screenWidth = MediaQueryData.fromWindow(window).size.width;
 
@@ -7,9 +8,9 @@ AppBar appBar(String title) {
   return AppBar(
     title: Row(
       children: [
-        const Expanded(
+        Expanded(
           flex: 1,
-          child: Text("Bienvenue"),
+          child: Text(title),
         ),
         Expanded(
           flex: 1,
@@ -160,5 +161,89 @@ Container titleSection(
         ],
       ),
     ),
+  );
+}
+
+CustomPaint weightPolygon(Color bgColor) {
+  return CustomPaint(
+    painter: WeightPainter(bgColor),
+    child: const SizedBox(
+      width: 200,
+      height: 200,
+    ),
+  );
+}
+
+class WeightPainter extends CustomPainter {
+  const WeightPainter(this.bgColor) : super();
+
+  final Color bgColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = bgColor
+      ..style = PaintingStyle.fill;
+
+    final path = Path();
+    path.addPolygon([
+      Offset(0, size.height / 2),
+      Offset(size.width, size.height / 2),
+      Offset(size.width * 2 / 3, size.height),
+      Offset(size.width * 1 / 3, size.height)
+    ], true);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+Stack weightStack(
+    String weight,
+    String metric,
+    Color bgColor
+    ) {
+  return Stack(
+    alignment: Alignment.center,
+    children: [
+      Container(
+        child: weightPolygon(bgColor),
+      ),
+      Container(
+        padding: const EdgeInsets.only(top: 90),
+        child: Text("$weight $metric",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: bgColor == Colors.white ? Colors.black : Colors.white,
+          fontFamily: 'Roboto',
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+        )),
+      ),
+    ],
+  );
+}
+
+Column loadingSpinner() {
+  return Column(
+    children: const [
+      Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: SpinKitFadingCircle(
+        color: Colors.blue,
+        size: 50.0,
+      )),
+      Text("Ne bougez pas... prise du poids en cours...", style:
+      TextStyle(
+        color: Colors.blue,
+        fontFamily: 'Roboto',
+        fontSize: 15,
+        fontWeight: FontWeight.normal,
+      ), textAlign: TextAlign.center)
+    ],
   );
 }
