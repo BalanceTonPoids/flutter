@@ -1,93 +1,125 @@
-import 'dart:developer';
-
+import 'package:balancetonpoids/main.dart';
+import 'package:balancetonpoids/utils/widgets.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
-
-  @override
-  State<Register> createState() => _RegisterState();
-}
-
-class _RegisterState extends State<Register> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+class SignupPage extends StatelessWidget {
+  const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register"),
-      ),
-      body: Column(
-        children: [
-          registerForm()
-        ],
-      )
-    );
-  }
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+    final TextEditingController _confirmPasswordController = TextEditingController();
 
-  Column buildRegister() {
-    return Column(
-      children: <Widget>[
-        TextField(
-              controller: _emailController,
-            decoration: const InputDecoration(
-                labelText: "Email",
-                hintText: "example@gmail.com"
-            )
-        ),
-        TextField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-                labelText: "Password",
-                hintText: "Password"
-            )
-        ),
-        TextField(
-            controller: _confirmPasswordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-                labelText: "Confirm Password",
-                hintText: "Confirm Password"
-            )
-        ),
-      ],
-    );
-  }
-
-  Form registerForm() {
-    final registerKey = GlobalKey<FormState>();
-    return Form(
-      key: registerKey,
-      child: Column(
-        children: [
-          TextFormField(
-            controller: _emailController,
-            validator: (String? value) {
-              if (value == null || value.isEmpty || RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value) == false) {
-                return "Veuillez entrer une adresse email valide";
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              labelText: "Email",
-              hintText: "example@gmail.com"
-            )
+    return SafeArea(
+      child: Scaffold(
+        appBar: appBar("Inscription", true, context),
+        body: SingleChildScrollView(
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  const Padding(padding: EdgeInsets.all(10)),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: Image.asset(
+                      'assets/sign-up.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      children: <Widget>[
+                        inputForm(_emailController, "Entrez votre e-mail", const Icon(
+                          Icons.alternate_email,
+                          color: Colors.grey,
+                        )),
+                        inputForm(_passwordController, "Entrez votre mot de passe", const Icon(
+                          Icons.lock,
+                          color: Colors.grey,
+                        )),
+                        inputForm(_confirmPasswordController, "Confirmez votre mot de passe", const Icon(
+                          Icons.lock,
+                          color: Colors.grey,
+                        )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: button(context, "Créer mon compte", Colors.blue, Colors.white, Colors.white, 0, const MainPage()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: button(context, "Je possède déjà un compte", Colors.white, Colors.blue, Colors.blue, 0, const LoginPage()),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          ElevatedButton(
-              onPressed: () {
-                if (registerKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Processing Data"))
-                  );
-                }
-              },
-              child: const Text("Register"))
-        ]
-      )
+        ),
+      ),
+    );
+  }
+}
+
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: appBar("Connexion", true, context),
+        body: SingleChildScrollView(
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  const Padding(padding: EdgeInsets.all(10)),
+                  SizedBox(
+                    width: 100,
+                    child: Image.asset(
+                      'assets/log-in.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      children: <Widget>[
+                        inputForm(_emailController, "Entrez un e-mail", const Icon(
+                          Icons.alternate_email,
+                          color: Colors.grey,
+                        )),
+                        inputForm(_passwordController, "Entrez un mot de passe", const Icon(
+                          Icons.lock,
+                          color: Colors.grey,
+                        )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: button(context, "Se connecter", Colors.blue, Colors.white, Colors.white, 0, const MainPage()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: button(context, "Je n'ai pas de compte", Colors.white, Colors.blue, Colors.blue, 0, const SignupPage()),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

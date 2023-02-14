@@ -1,6 +1,4 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-
 import '../utils/widgets.dart';
 
 class Profile extends StatefulWidget {
@@ -14,7 +12,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar("Mon profil"),
+      appBar: appBar("Mon profil", false, context),
       body: Column(
         children: [
           Container(
@@ -30,7 +28,7 @@ class _ProfileState extends State<Profile> {
           ),
           Container(
             padding: const EdgeInsets.all(20),
-            child: buttonCard("Modifier mon profil", "Renseignez ma taille, mes objectifs, etc.", Colors.blue, true, null),
+            child: buttonCard("Modifier mon profil", "Renseignez ma taille, mes objectifs, etc.", Colors.blue, true, context, null),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),

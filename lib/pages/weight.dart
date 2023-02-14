@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../utils/widgets.dart';
 
@@ -14,7 +13,7 @@ class _WeightState extends State<Weight> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar("Mesure du poids"),
+      appBar: appBar("Mesure du poids", false, context),
       body: Column(
         children: [
           Container(
