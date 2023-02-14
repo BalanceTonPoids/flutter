@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:balancetonpoids/theme/theme_constants.dart';
-
+import 'package:balancetonpoids/pages/terms_and_policies.dart';
 import './theme/theme_manager.dart';
 import './utils/helper_widgets.dart';
-import './inscription-connexion.dart';
+import 'pages/inscription-connexion.dart';
 
 import './pages/welcome.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BalanceTonPoids',
       theme: darkTheme,
-      home: const Welcome(),
+      home:  Welcome(),
     );
   }
 }
@@ -42,6 +42,11 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+
   @override
   void dispose() {
     _themeManager.removeListener(themeListener);

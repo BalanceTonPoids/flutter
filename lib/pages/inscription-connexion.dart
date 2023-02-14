@@ -1,19 +1,26 @@
+import 'package:balancetonpoids/main.dart';
 import 'package:balancetonpoids/theme/theme_constants.dart';
 import 'package:flutter/material.dart';
 
 
 
 class SignUp1 extends StatelessWidget {
-  const SignUp1({super.key});
-
 
 
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+    final TextEditingController _confirmPasswordController = TextEditingController();
+
+
     return SafeArea(
 
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Inscription'),
+        ),
         body: SingleChildScrollView(
           child: Stack(
             children: <Widget>[
@@ -21,7 +28,7 @@ class SignUp1 extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
 
-                    const Padding(padding: EdgeInsets.all(30)),
+                    const Padding(padding: EdgeInsets.all(10)),
                     const SizedBox(
                       height: 30,
                     ),
@@ -44,12 +51,12 @@ class SignUp1 extends StatelessWidget {
                           Container(
                             width: 300,
                             height: 60,
-                            child: const TextField(
-
+                            child:  TextFormField(
+                              controller: _emailController,
                               autofocus: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
 
-                                labelText: 'Enter Your Email',
+                                labelText: 'Entrez votre E-mail',
                                 suffix: Icon(
                                   Icons.alternate_email,
                                   color: Colors.grey,
@@ -68,7 +75,7 @@ class SignUp1 extends StatelessWidget {
                               obscureText: true,
                               decoration: InputDecoration(
 
-                                labelText: 'Enter Your Password',
+                                labelText: 'Entrez votre Mot de passe',
                                 suffix: Icon(
                                   Icons.lock,
                                   color: Colors.grey,
@@ -87,7 +94,7 @@ class SignUp1 extends StatelessWidget {
                               obscureText: true,
                               decoration: InputDecoration(
 
-                                labelText: 'Confirm Your Password',
+                                labelText: 'Confirmez votre Mot de passe',
                                 suffix: Icon(
                                   Icons.lock,
                                   color: Colors.grey,
@@ -95,18 +102,7 @@ class SignUp1 extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              children: const <Widget>[
-                                Checkbox(
-                                  value: false,
-                                  onChanged: null,
-                                ),
-                                Text('I accept the policy and terms'),
-                              ],
-                            ),
-                          ),
+
                           const SizedBox(height: 20,),
                           TextButton(
                             onPressed: () {},
@@ -149,7 +145,7 @@ class SignUp1 extends StatelessWidget {
                               child: const Center(
                                 child: Text(
                                   'Déja inscrit ? Sign in',
-                                  style: TextStyle(color: white1),
+
                                 ),
                               ),
                             ),
@@ -202,13 +198,16 @@ class ConnexionPage extends StatelessWidget {
     return SafeArea(
 
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Connexion'),
+        ),
         body: SingleChildScrollView(
           child: Stack(
             children: <Widget>[
               Container(
                 child: Column(
                   children: <Widget>[
-                    const Padding(padding: EdgeInsets.all(30)),
+                    const Padding(padding: EdgeInsets.all(10)),
                     const SizedBox(
                       height: 30,
                     ),
@@ -268,7 +267,11 @@ class ConnexionPage extends StatelessWidget {
 
                           const SizedBox(height: 20,),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => MyHomePage()),
+    );},
                             child: Container(
                               width: 200,
                               height: 35,
@@ -308,7 +311,7 @@ class ConnexionPage extends StatelessWidget {
                               child: const Center(
                                 child: Text(
                                   'Pas de compte ? S\'inscrire',
-                                  style: TextStyle(color: Color(0xff2827e9)),
+
                                 ),
                               ),
                             ),
