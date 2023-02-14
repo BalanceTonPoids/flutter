@@ -127,3 +127,38 @@ Widget button(
       ),
       child: Text(text));
 }
+
+Container titleSection(
+    String title,
+    String subtitle,
+    ) {
+  return Container(
+    width: double.infinity,
+    decoration: const BoxDecoration(
+      color: Colors.blue,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Text(title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: 'Roboto',
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              )),
+          Text(subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: 'Roboto',
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+              ))
+        ],
+      ),
+    ),
+  );
+}
