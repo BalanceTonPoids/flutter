@@ -129,53 +129,95 @@ Widget button(
       child: Text(text));
 }
 
-CustomPaint weightPolygon() {
-  return CustomPaint(
-    painter: WeightPainter(),
-    child: const SizedBox(
-      width: 200,
-      height: 200,
+Container titleSection(
+    String title,
+    String subtitle,
+    ) {
+  return Container(
+    width: double.infinity,
+    decoration: const BoxDecoration(
+      color: Colors.blue,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Text(title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: 'Roboto',
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              )),
+          Text(subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: 'Roboto',
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+              ))
+        ],
+      ),
     ),
   );
 }
 
+CustomPaint weightPolygon(Color bgColor, double width, int height) {
+
+  return CustomPaint(
+    size: Size(width,(height*0.5).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+    painter: WeightPainter(bgColor),
+  );
+}
+
 class WeightPainter extends CustomPainter {
+  const WeightPainter(this.bgColor) : super();
+
+  final Color bgColor;
+
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.blue
-      ..style = PaintingStyle.fill;
 
-    final path = Path();
-    path.addPolygon([
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      Offset(size.width * 2 / 3, size.height),
-      Offset(size.width * 1 / 3, size.height)
-    ], true);
+    Path path_0 = Path();
+    path_0.moveTo(size.width*0.7839500,size.height);
+    path_0.lineTo(size.width*0.2187500,size.height);
+    path_0.lineTo(size.width*0.002500000,0);
+    path_0.lineTo(size.width*1.002500,0);
+    path_0.lineTo(size.width*0.7839500,size.height);
+    path_0.close();
 
-    canvas.drawPath(path, paint);
+    Paint paint_0_fill = Paint()..style=PaintingStyle.fill;
+    paint_0_fill.color = bgColor;
+    canvas.drawPath(path_0,paint_0_fill);
+
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
 }
 
-Stack weightStack() {
+Stack weightStack(
+    String weight,
+    String metric,
+    Color bgColor,
+    double width,
+    int height
+    ) {
   return Stack(
     alignment: Alignment.center,
     children: [
       Container(
-        child: weightPolygon(),
+        child: weightPolygon(bgColor, width, height),
       ),
       Container(
-        padding: const EdgeInsets.only(top: 90),
-        child: const Text("55,6",
+        child: Text("$weight $metric",
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Colors.white,
+          color: bgColor == Colors.white ? Colors.black : Colors.white,
           fontFamily: 'Roboto',
           fontSize: 40,
           fontWeight: FontWeight.bold,

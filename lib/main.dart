@@ -1,3 +1,4 @@
+import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
@@ -53,9 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       const Home(),
                       const Weight(),
-                      Container(
-                        color: Colors.yellow,
-                      ),
+                      const Profile(),
                       Container(
                         color: Colors.orange,
                       )
