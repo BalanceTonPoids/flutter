@@ -7,10 +7,33 @@ const Color blue = Color(0xff0044D6);
 const Color red = Color(0xffCB0B0B);
 const Color green = Color(0xff28AB21);
 
+class LogoSection extends StatelessWidget {
+  final ThemeData themeData;
+  const LogoSection({Key? key, required this.themeData}) : super(key: key);
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 20),
+      child: Image.asset(
+        themeData.brightness == Brightness.light ? "assets/logo-light.png" : "assets/logo-light.png",
+        height: 80,
+      ),
+    );
+  }
+}
+
+
+
 final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: blue,
-    textTheme: TextTheme(
+
+
+textTheme: TextTheme(
+
       bodyText1: TextStyle(
         color: Colors.black,
         fontSize: 16.0,

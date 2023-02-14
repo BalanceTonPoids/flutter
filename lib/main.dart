@@ -5,10 +5,10 @@ import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import './pages/welcome.dart';
 import 'pages/home.dart';
 import 'package:balancetonpoids/theme/theme_constants.dart';
-
+import 'package:balancetonpoids/pages/terms_and_policies.dart';
 import './theme/theme_manager.dart';
 import './utils/helper_widgets.dart';
-import './inscription-connexion.dart';
+import 'pages/inscription-connexion.dart';
 
 
 void main() => runApp(MyApp());
@@ -54,12 +54,9 @@ class _MyAppState extends State<MyApp1> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: _themeManager.themeMode,
-      home: MyHomeScreen(),
+      title: 'BalanceTonPoids',
+      theme: darkTheme,
+      home:  Welcome(),
     );
   }
 }
@@ -78,6 +75,11 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+
   @override
   void dispose() {
     _themeManager.removeListener(themeListener);
