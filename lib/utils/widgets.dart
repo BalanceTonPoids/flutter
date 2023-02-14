@@ -1,10 +1,19 @@
 import 'dart:ui';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-double screenWidth = MediaQueryData.fromWindow(window).size.width;
+import '../theme/theme_manager.dart';
 
-AppBar appBar(String title) {
+double screenWidth = MediaQueryData.fromWindow(window).size.width;
+ThemeManager _themeManager = ThemeManager();
+
+AppBar appBar(
+    String title,
+    bool automaticallyImplyLeading,
+    context
+    ) {
+
   return AppBar(
     title: Row(
       children: [
@@ -14,11 +23,16 @@ AppBar appBar(String title) {
         ),
         Expanded(
           flex: 1,
-          child: Image.asset("assets/logo_white.png", width: 50, height: 50, alignment: Alignment.centerRight),
+          child: GestureDetector(
+            onTap: () => {
+              AdaptiveTheme.of(context).toggleThemeMode(),
+            },
+            child: Image.asset("assets/logo_white.png", width: 50, height: 50, alignment: Alignment.centerRight),
+          ),
         ),
       ],
     ),
-    automaticallyImplyLeading: false,
+    automaticallyImplyLeading: automaticallyImplyLeading,
     shadowColor: Colors.transparent,
   );
 }
@@ -28,10 +42,15 @@ GestureDetector buttonCard(
     String subtitle,
     Color color,
     bool isAlert,
+    context,
     onTap
     ) {
   return GestureDetector(
-    onTap: onTap,
+    onTap: () => {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => onTap)
+      )
+    },
     child: Card(
       child: Column(
         children: [
@@ -244,5 +263,24 @@ Column loadingSpinner() {
         fontWeight: FontWeight.normal,
       ), textAlign: TextAlign.center)
     ],
+  );
+}
+
+SizedBox inputForm(
+    TextEditingController controller,
+    String label,
+    Icon icon
+    ) {
+  return SizedBox(
+    width: 300,
+    height: 60,
+    child:  TextFormField(
+      controller: controller,
+      autofocus: true,
+      decoration: InputDecoration(
+        labelText: label,
+        suffix: icon,
+      ),
+    ),
   );
 }
