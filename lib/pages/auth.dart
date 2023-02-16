@@ -15,16 +15,16 @@ class SignupPage extends StatelessWidget {
       child: Scaffold(
         appBar: appBar("Inscription", true, context),
         body: SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              Column(
+          child: Center(
+            child: Expanded(
+            child:  Column(
                 children: <Widget>[
                   const Padding(padding: EdgeInsets.all(10)),
                   const SizedBox(
                     height: 30,
                   ),
                   SizedBox(
-                    width: 100,
+                    width: 150,
                     child: Image.asset(
                       'assets/sign-up.png',
                       fit: BoxFit.fill,
@@ -59,7 +59,7 @@ class SignupPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+    ),
           ),
         ),
       ),
@@ -79,13 +79,13 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
         appBar: appBar("Connexion", true, context),
         body: SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              Column(
+          child: Center(
+            child: Expanded(
+            child:  Column(
                 children: <Widget>[
                   const Padding(padding: EdgeInsets.all(10)),
                   SizedBox(
-                    width: 100,
+                    width: 150,
                     child: Image.asset(
                       'assets/log-in.png',
                       fit: BoxFit.fill,
@@ -125,7 +125,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+    ),
           ),
         ),
       ),
@@ -177,7 +177,7 @@ class _MdpOubliePageState extends State<MdpOubliePage> {
                       fit: BoxFit.fill,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   const Text(
                     "Entrez votre adresse e-mail pour réinitialiser votre mot de passe :",
                     style: TextStyle(fontSize: 18),
