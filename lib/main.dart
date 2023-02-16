@@ -2,10 +2,10 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import './pages/welcome.dart';
 import 'pages/home.dart';
 import './theme/theme_manager.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 void main() => runApp(const MyApp());
 
@@ -66,32 +66,42 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(length: 4,
-    child: Scaffold(
-      body: Center(
-        child: BottomBar(
-            child: const TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.query_stats, color: Colors.white)),
-                Tab(icon: Icon(Icons.monitor_weight, color: Colors.white)),
-                Tab(icon: Icon(Icons.supervised_user_circle, color: Colors.white)),
-                Tab(icon: Icon(Icons.stacked_bar_chart, color: Colors.white)),
-              ],
-              controller: null,
-            ),
-            body: (context, controller) =>
-                TabBarView(
-                    controller: null,
-                    children: [
-                      const Home(),
-                      const Weight(),
-                      const Profile(),
-                      Container(
-                        color: Colors.orange,
-                      )
-                    ])
-        ),
-      ),
-    ));
+    return PersistentTabView(context,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
+        items: [
+          PersistentBottomNavBarItem(
+            icon: const Icon(Icons.home),
+            title: ("Accueil"),
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark ? Colors.grey : Colors.black,
+          ),
+          PersistentBottomNavBarItem(
+            icon: const Icon(Icons.monitor_weight),
+            title: ("Poids"),
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark ? Colors.grey : Colors.black,
+          ),
+          PersistentBottomNavBarItem(
+            icon: const Icon(Icons.person),
+            title: ("Profile"),
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark ? Colors.grey : Colors.black,
+          ),
+          PersistentBottomNavBarItem(
+            icon: const Icon(Icons.query_stats),
+            title: ("Statistiques"),
+            activeColorPrimary: Colors.blue,
+            inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark ? Colors.grey : Colors.black,
+          ),
+        ],
+        screens: const [
+          Home(),
+          Weight(),
+          Profile(),
+          Center(
+            child: Text("Statistiques"),
+          )
+        ],
+    );
   }
 }

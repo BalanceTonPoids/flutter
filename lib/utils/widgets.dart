@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../theme/theme_manager.dart';
 
 double screenWidth = MediaQueryData.fromWindow(window).size.width;
@@ -47,8 +47,10 @@ GestureDetector buttonCard(
     ) {
   return GestureDetector(
     onTap: () => {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => onTap)
+      PersistentNavBarNavigator.pushNewScreen(
+        context,
+        screen: onTap,
+        pageTransitionAnimation: PageTransitionAnimation.cupertino,
       )
     },
     child: Card(
