@@ -2,6 +2,8 @@ import 'package:balancetonpoids/main.dart';
 import 'package:balancetonpoids/utils/widgets.dart';
 import 'package:flutter/material.dart';
 
+import 'package:balancetonpoids/services/api_client.dart';
+
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
 
@@ -9,11 +11,12 @@ class SignupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController _emailController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
-    final TextEditingController _confirmPasswordController = TextEditingController();
+    final TextEditingController _confirmPasswordController =
+        TextEditingController();
 
     return SafeArea(
       child: Scaffold(
-        appBar: appBar("Inscription", true, context),
+        appBar: appBar('Inscription', true, context),
         body: SingleChildScrollView(
           child: Stack(
             children: <Widget>[
@@ -34,25 +37,48 @@ class SignupPage extends StatelessWidget {
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
                       children: <Widget>[
-                        inputForm(_emailController, "Entrez votre e-mail", const Icon(
-                          Icons.alternate_email,
-                          color: Colors.grey,
-                        )),
-                        inputForm(_passwordController, "Entrez votre mot de passe", const Icon(
-                          Icons.lock,
-                          color: Colors.grey,
-                        )),
-                        inputForm(_confirmPasswordController, "Confirmez votre mot de passe", const Icon(
-                          Icons.lock,
-                          color: Colors.grey,
-                        )),
+                        inputForm(
+                            _emailController,
+                            'Entrez votre e-mail',
+                            const Icon(
+                              Icons.alternate_email,
+                              color: Colors.grey,
+                            )),
+                        inputForm(
+                            _passwordController,
+                            'Entrez votre mot de passe',
+                            const Icon(
+                              Icons.lock,
+                              color: Colors.grey,
+                            )),
+                        inputForm(
+                            _confirmPasswordController,
+                            'Confirmez votre mot de passe',
+                            const Icon(
+                              Icons.lock,
+                              color: Colors.grey,
+                            )),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: buttonForm(
+                              context,
+                              'Créer mon compte',
+                              Colors.blue,
+                              Colors.white,
+                              Colors.white,
+                              0,
+                              print('test'),
+                            )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: button(context, "Créer mon compte", Colors.blue, Colors.white, Colors.white, 0, const MainPage()),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: button(context, "Je possède déjà un compte", Colors.white, Colors.blue, Colors.blue, 0, const LoginPage()),
+                          child: button(
+                              context,
+                              'Je possède déjà un compte',
+                              Colors.white,
+                              Colors.blue,
+                              Colors.blue,
+                              0,
+                              const LoginPage()),
                         ),
                       ],
                     ),
@@ -67,7 +93,6 @@ class SignupPage extends StatelessWidget {
   }
 }
 
-
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   @override
@@ -77,7 +102,7 @@ class LoginPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: appBar("Connexion", true, context),
+        appBar: appBar('Connexion', true, context),
         body: SingleChildScrollView(
           child: Stack(
             children: <Widget>[
@@ -95,21 +120,35 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
                       children: <Widget>[
-                        inputForm(_emailController, "Entrez un e-mail", const Icon(
-                          Icons.alternate_email,
-                          color: Colors.grey,
-                        )),
-                        inputForm(_passwordController, "Entrez un mot de passe", const Icon(
-                          Icons.lock,
-                          color: Colors.grey,
-                        )),
+                        inputForm(
+                            _emailController,
+                            'Entrez un e-mail',
+                            const Icon(
+                              Icons.alternate_email,
+                              color: Colors.grey,
+                            )),
+                        inputForm(
+                            _passwordController,
+                            'Entrez un mot de passe',
+                            const Icon(
+                              Icons.lock,
+                              color: Colors.grey,
+                            )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: button(context, "Se connecter", Colors.blue, Colors.white, Colors.white, 0, const MainPage()),
+                          child: button(context, 'Se connecter', Colors.blue,
+                              Colors.white, Colors.white, 0, const MainPage()),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: button(context, "Je n'ai pas de compte", Colors.white, Colors.blue, Colors.blue, 0, const SignupPage()),
+                          child: button(
+                              context,
+                              'Je n\'ai pas de compte',
+                              Colors.white,
+                              Colors.blue,
+                              Colors.blue,
+                              0,
+                              const SignupPage()),
                         ),
                       ],
                     ),
