@@ -1,11 +1,11 @@
 class ScaleData {
   final String id;
   final DateTime date;
-  final int weight;
-  final int fat;
-  final int muscle;
-  final int water;
-  final int imc;
+  final num weight;
+  final num fat;
+  final num muscle;
+  final num water;
+  final num imc;
 
   const ScaleData(
       {required this.id,
@@ -20,11 +20,11 @@ class ScaleData {
     return ScaleData(
       id: json['_id'] as String,
       date: json['date'] as DateTime,
-      weight: json['weight'] as int,
-      fat: json['fat'] as int,
-      muscle: json['muscle'] as int,
-      water: json['water'] as int,
-      imc: json['imc'] as int,
+      weight: json['weight'] as num,
+      fat: json['fat'] as num,
+      muscle: json['muscle'] as num,
+      water: json['water'] as num,
+      imc: json['imc'] as num,
     );
   }
 }
