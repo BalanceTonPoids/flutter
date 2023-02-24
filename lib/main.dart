@@ -1,5 +1,4 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:balancetonpoids/pages/modifier_profil.dart';
 import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +49,7 @@ class _MyAppState extends State<MyApp> {
         theme: theme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.system,
-        home: const EditProfilePage(),
+        home: const Welcome(),
       ),
     );
   }
