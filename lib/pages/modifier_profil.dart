@@ -15,13 +15,14 @@ class EditProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
 
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+            Image.asset(
+            'assets/Settings.png',height: 150,width: 150,
               ),
-            ),
 
-            SizedBox(height: 20.0),
+
+
+
+            SizedBox(height: 10.0),
             _buildPersonalInfoForm(),
             SizedBox(height: 40.0),
             _buildCredentialsForm(),
@@ -57,15 +58,7 @@ class EditProfilePage extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Text(
-            'Données personnelles',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
 
-            ),
-          ),
           SizedBox(height: 16.0),
           Row(
             children: <Widget>[
