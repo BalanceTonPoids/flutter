@@ -168,7 +168,6 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
   final _passwordController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   String? _validateEmail( value) {
     if (value.isEmpty) {
       return 'Veuillez saisir une adresse email.';
