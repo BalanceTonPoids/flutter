@@ -19,12 +19,20 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           titleSection("Mon poids", "Dernier poids enregistré"),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Weight()),
+              );
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+              ),
+              padding: const EdgeInsets.all(20),
+              child: buttonCard("Commencer la prise de poids", "Effectuer la première prise de poids", Colors.white, false, context, const Weight()),
             ),
-            padding: const EdgeInsets.all(20),
-            child: buttonCard("Commencer la prise de poids", "Effectuer la première prise de poids", Colors.white, false, context, const Weight()),
           ),
           Container(
             padding: const EdgeInsets.all(20),

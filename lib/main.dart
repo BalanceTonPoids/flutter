@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
         theme: theme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.system,
-        home: const Home(),
+        home: const Welcome(),
       ),
     );
   }
