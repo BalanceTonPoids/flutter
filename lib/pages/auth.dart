@@ -3,6 +3,8 @@ import 'package:balancetonpoids/utils/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:balancetonpoids/services/api_client.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -67,7 +69,48 @@ class SignupPage extends StatelessWidget {
                               Colors.white,
                               Colors.white,
                               0,
-                              print('test'),
+                              () => {
+                                ApiClient(httpClient: http.Client())
+                                    .registerUser(
+                                        _emailController.text,
+                                        _passwordController.text,
+                                        _confirmPasswordController.text)
+                                    .then((value) => {
+                                          if (value.keys.contains('success'))
+                                            {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const MainPage()),
+                                              )
+                                            }
+                                          else
+                                            {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: const Text('Erreur'),
+                                                    content: const Text(
+                                                        'Une erreur est survenue'),
+                                                    actions: <Widget>[
+                                                      ElevatedButton(
+                                                        child: const Text(
+                                                            'Fermer'),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              )
+                                            }
+                                        })
+                              },
                             )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
@@ -136,8 +179,55 @@ class LoginPage extends StatelessWidget {
                             )),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: button(context, 'Se connecter', Colors.blue,
-                              Colors.white, Colors.white, 0, const MainPage()),
+                          child: buttonForm(
+                              context,
+                              'Se connecter',
+                              Colors.blue,
+                              Colors.white,
+                              Colors.white,
+                              0,
+                              () => {
+                                    ApiClient(httpClient: http.Client())
+                                        .loginUser(_emailController.text,
+                                            _passwordController.text)
+                                        .then((value) => {
+                                              if (value)
+                                                {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const MainPage()),
+                                                  )
+                                                }
+                                              else
+                                                {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Erreur'),
+                                                        content: const Text(
+                                                            'Une erreur est survenue'),
+                                                        actions: <Widget>[
+                                                          ElevatedButton(
+                                                            child: const Text(
+                                                                'Fermer'),
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  )
+                                                }
+                                            })
+                                  }),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),

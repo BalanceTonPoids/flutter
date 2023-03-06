@@ -144,7 +144,7 @@ Widget button(context, String text, Color backgroundColor, Color textColor,
 Widget buttonForm(context, String text, Color backgroundColor, Color textColor,
     Color borderColor, int borderWidth, onPressed) {
   return ElevatedButton(
-      onPressed: () => onPressed,
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           side: const BorderSide(color: Colors.blue, width: 2),
           fixedSize: const Size(300, 50),
