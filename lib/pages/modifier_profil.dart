@@ -8,7 +8,7 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('Modifier mon Profil', false, context),
+      appBar: appBar('Modifier mon Profil', true, context),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(

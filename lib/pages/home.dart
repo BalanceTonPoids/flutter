@@ -1,3 +1,4 @@
+import 'package:balancetonpoids/pages/modifier_profil.dart';
 import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _HomeState extends State<Home> {
           ),
           Container(
             padding: const EdgeInsets.all(20),
-            child: buttonCard("Modifier mon profil", "Renseignez ma taille, mes objectifs, etc.", Colors.blue, true, context, const Profile()),
+            child: buttonCard("Modifier mon profil", "Renseignez ma taille, mes objectifs, etc.", Colors.blue, true, context, const EditProfilePage()),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
