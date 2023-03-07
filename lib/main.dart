@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:balancetonpoids/pages/profile.dart';
+import 'package:balancetonpoids/pages/stats.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:flutter/material.dart';
 import './pages/welcome.dart';
@@ -98,9 +99,7 @@ class _MainPageState extends State<MainPage> {
           Home(),
           Weight(),
           Profile(),
-          Center(
-            child: Text("Statistiques"),
-          )
+          Stats()
         ],
     );
   }

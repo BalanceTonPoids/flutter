@@ -226,7 +226,12 @@ class WeightPainter extends CustomPainter {
 }
 
 Stack weightStack(
-    String weight, String metric, Color bgColor, double width, int height) {
+    double weight,
+    String metric,
+    Color bgColor,
+    double width,
+    int height
+    ) {
   return Stack(
     alignment: Alignment.center,
     children: [
@@ -279,6 +284,26 @@ SizedBox inputForm(TextEditingController controller, String label, Icon icon) {
         labelText: label,
         suffix: icon,
       ),
+    ),
+  );
+}
+
+Container headerPolygon(
+    double double,
+    String metric,
+    String title,
+    String description,
+    Color bgColor,
+    ) {
+  return Container(
+    decoration: BoxDecoration(
+      color: bgColor,
+    ),
+    child: Column(
+      children: [
+        titleSection(title, description),
+        weightStack(double, metric, bgColor == Colors.blue ? Colors.white : Colors.blue, 200, 220)
+      ],
     ),
   );
 }
