@@ -13,11 +13,9 @@ AppBar appBar(String title, bool automaticallyImplyLeading, context) {
     title: Row(
       children: [
         Expanded(
-          flex: 1,
           child: Text(title),
         ),
         Expanded(
-          flex: 1,
           child: GestureDetector(
             onTap: () => {
               AdaptiveTheme.of(context).toggleThemeMode(),
