@@ -1,3 +1,4 @@
+import 'package:balancetonpoids/pages/imc.dart';
 import 'package:balancetonpoids/pages/modifier_profil.dart';
 import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
@@ -44,9 +45,9 @@ class _HomeState extends State<Home> {
               spacing: 10,
               runSpacing: 10,
               children: [
-                squareButton("IMC", "assets/imc.jpg", null),
-                squareButton("Evolution", "assets/evolution.jpg", null),
-                squareButton("Objectifs", "assets/objectifs.jpg", null),
+                squareButton("IMC", "assets/imc.jpg", context, IMCPage()),
+                squareButton("Evolution", "assets/evolution.jpg", context, null),
+                squareButton("Objectifs", "assets/objectifs.jpg", context, null),
               ],
             ),
           )
