@@ -1,7 +1,14 @@
+import 'dart:convert';
+
+import 'package:balancetonpoids/models/scale_data.dart';
 import 'package:balancetonpoids/pages/modifier_profil.dart';
 import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
+import 'package:balancetonpoids/services/api_client.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../models/user.dart';
 import '../utils/widgets.dart';
 
 class Home extends StatefulWidget {
@@ -12,12 +19,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  late Future<User> user;
+  late Future<String?> token;
+  late Future<String?> email;
+  late Future<String?> scale;
+  late Future<double?> weight;
+
+  @override
+  void initState() {
+    super.initState();
+    user = ApiClient(httpClient: http.Client()).getUserInfo();
+    scale = prefs.then((value) => value.getString('scale'));
+    scale.then((value) => print('scale : $value'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar("Bienvenue", false, context),
-      body: Column(
-        children: [
+        appBar: appBar("Bienvenue", false, context),
+        body: Column(children: [
           titleSection("Mon poids", "Dernier poids enregistré"),
           GestureDetector(
             onTap: () {
@@ -31,15 +52,28 @@ class _HomeState extends State<Home> {
                 color: Colors.blue,
               ),
               padding: const EdgeInsets.all(20),
-              child: buttonCard("Commencer la prise de poids", "Effectuer la première prise de poids", Colors.white, false, context, const Weight()),
+              child: buttonCard(
+                  "Commencer la prise de poids",
+                  "Effectuer la première prise de poids",
+                  Colors.white,
+                  false,
+                  context,
+                  const Weight()),
             ),
           ),
           Container(
             padding: const EdgeInsets.all(20),
-            child: buttonCard("Modifier mon profil", "Renseignez ma taille, mes objectifs, etc.", Colors.blue, true, context, const EditProfilePage()),
+            child: buttonCard(
+                "Modifier mon profil",
+                "Renseignez ma taille, mes objectifs, etc.",
+                Colors.blue,
+                true,
+                context,
+                const EditProfilePage()),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
+            padding:
+                const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
             child: Wrap(
               spacing: 10,
               runSpacing: 10,
@@ -50,8 +84,18 @@ class _HomeState extends State<Home> {
               ],
             ),
           )
-        ]
-      ),
-    );
+        ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            String scaleJson = await scale as String;
+            final List<ScaleData> data = ScaleData.decode(scaleJson);
+            final ScaleData? firstScaleData = data.first;
+            if (firstScaleData != null) {
+              print('IMC of the first scale data: ${firstScaleData.imc}');
+            }
+          },
+          backgroundColor: Colors.blue,
+          child: const Icon(Icons.add),
+        ));
   }
 }
