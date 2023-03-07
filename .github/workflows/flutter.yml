@@ -24,4 +24,5 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build apk
+      - run: flutter build ios
       - run: flutter build appbundle
