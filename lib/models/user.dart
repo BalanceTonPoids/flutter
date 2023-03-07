@@ -10,8 +10,8 @@ class User {
   final int age;
   final int height;
   final String role;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
   final List<ScaleData> scaleData;
 
   const User(
@@ -32,15 +32,27 @@ class User {
     return User(
         id: json['_id'],
         email: json['email'],
-        name: json['name'],
-        phone: json['phone'],
-        gender: json['gender'],
-        metric: json['metric'],
-        age: json['age'],
-        height: json['height'],
+        name: json['name'] ?? '',
+        phone: json['phone'] ?? '',
+        gender: json['gender'] ?? 'N/A',
+        metric: json['metric'] ?? '',
+        age: json['age'] ?? 0,
+        height: json['height'] ?? 0,
         role: json['role'],
         createdAt: json['created_at'],
         updatedAt: json['updated_at'],
-        scaleData: json['scale_data']);
+        scaleData: json['scale_data'] != null
+            ? (json['scale_data'] as List)
+                .map((e) => ScaleData.fromJson(e))
+                .toList()
+            : []);
+  }
+
+  ScaleData? getLastScale() {
+    if (scaleData.isNotEmpty) {
+      scaleData.sort((a, b) => b.date.compareTo(a.date));
+      return scaleData.last;
+    }
+    return null;
   }
 }

@@ -1,11 +1,13 @@
+import 'dart:convert';
+
 class ScaleData {
   final String id;
-  final DateTime date;
-  final num weight;
-  final num fat;
-  final num muscle;
-  final num water;
-  final num imc;
+  final String date;
+  final double weight;
+  final double fat;
+  final double muscle;
+  final double water;
+  final double imc;
 
   const ScaleData(
       {required this.id,
@@ -19,12 +21,39 @@ class ScaleData {
   factory ScaleData.fromJson(Map<String, dynamic> json) {
     return ScaleData(
       id: json['_id'] as String,
-      date: json['date'] as DateTime,
-      weight: json['weight'] as num,
-      fat: json['fat'] as num,
-      muscle: json['muscle'] as num,
-      water: json['water'] as num,
-      imc: json['imc'] as num,
+      date: json['date'] as String,
+      weight: json['weight'].toDouble(),
+      fat: json['fat'].toDouble(),
+      muscle: json['muscle'].toDouble(),
+      water: json['water'].toDouble(),
+      imc: json['IMC'].toDouble(),
     );
+  }
+
+  static Map<String, dynamic> toMap(ScaleData scale) => {
+        'id': scale.id,
+        'date': scale.date,
+        'weight': scale.weight,
+        'fat': scale.fat,
+        'muscle': scale.muscle,
+        'water': scale.water,
+        'imc': scale.imc,
+      };
+
+  static List<String> encode(List<ScaleData> scales) =>
+      scales
+          .map<Map<String, dynamic>>((scale) => ScaleData.toMap(scale))
+          .toList()
+          .cast<String>() ??
+      [];
+
+  static List<ScaleData> decode(String scales) =>
+      (json.decode(scales) as List<dynamic>)
+          .map<ScaleData>((item) => ScaleData.fromJson(item))
+          .toList();
+
+  @override
+  String toString() {
+    return '{id: $id, date: $date, weight: $weight, fat: $fat, muscle: $muscle, water: $water, imc: $imc}';
   }
 }
