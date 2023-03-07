@@ -14,6 +14,8 @@ class Stats extends StatefulWidget {
 class _StatsState extends State<Stats> {
 
   List<double> yValuesWeights = generateDataWeights();
+  List<double> yValuesHeights = generateDataHeights();
+  List<double> yValuesIMC = generateDataIMC();
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +47,10 @@ class _StatsState extends State<Stats> {
               ),
               AspectRatio(
                 aspectRatio: 1.7,
-                child: chartWeights(yValuesWeights),
+                child: chartIMC(yValuesIMC),
               ),
               ElevatedButton(
-                  onPressed: () => setState(() => yValuesWeights = generateDataWeights()),
+                  onPressed: () => setState(() => yValuesIMC = generateDataIMC()),
                   child: const Text("Rafraichir")
               )
             ],
@@ -168,15 +170,20 @@ LineChart chartIMC(List<double> yValues) {
 List<double> generateDataIMC() {
   // Weights
   List<double> weights = generateDataWeights();
+  print("weights: $weights");
   // Heights
   List<double> heights = generateDataHeights();
+  print("heights: $heights");
+  // IMC = poid (kg) / taille (m)
+  List<double> data = List.generate(7, (index) => double.parse((weights[index] / (heights[index] / 100) / (heights[index] / 100)).toStringAsFixed(1)));
+  print("data: $data");
   return data;
 }
 
 List<double> generateDataHeights() {
   // en cm
-  int startHeight = Random().nextInt(250) * 100 > 0 ? Random().nextInt(250) * 100 : 3;
-  List<int> data = List.generate(7, (index) => startHeight + Random().nextInt(1));
+  int startHeight = Random().nextInt(100) + 100;
+  List<double> data = List.generate(7, (index) => startHeight + double.parse((Random().nextDouble()).toStringAsFixed(1)));
   return data.map((e) => e.toDouble()).toList();
 }
 
