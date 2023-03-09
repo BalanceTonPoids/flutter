@@ -41,16 +41,13 @@ class ScaleData {
       };
 
   static List<String> encode(List<ScaleData> scales) =>
-      scales
-          .map<Map<String, dynamic>>((scale) => ScaleData.toMap(scale))
-          .toList()
-          .cast<String>() ??
-      [];
+      scales.map((scale) => json.encode(toMap(scale))).toList();
 
-  static List<ScaleData> decode(String scales) =>
-      (json.decode(scales) as List<dynamic>)
-          .map<ScaleData>((item) => ScaleData.fromJson(item))
-          .toList();
+  static List<ScaleData> decode(List<String> listScales) => listScales
+      .map((item) => json.decode(item))
+      .toList()
+      .map<ScaleData>((item) => ScaleData.fromJson(item))
+      .toList();
 
   @override
   String toString() {

@@ -9,7 +9,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiClient {
   final http.Client httpClient;
-  final String apiUrl = 'http://localhost:3000/v1';
+  final String apiUrl = 'http://balancetonpoids.alexisbriet.fr/v1';
   final storage = const FlutterSecureStorage();
 
   ApiClient({required this.httpClient});
@@ -116,10 +116,10 @@ class ApiClient {
       final scaleDataList = user.scaleData;
       if (scaleDataList.isNotEmpty) {
         final List<String> encodedScaleDataList =
-            scaleDataList.map((e) => (e.toString())).toList();
-        await prefs.setStringList('scaleData', encodedScaleDataList);
+            ScaleData.encode(scaleDataList);
+        await prefs.setStringList('scale', encodedScaleDataList);
       } else {
-        await prefs.setStringList('scaleData', []);
+        await prefs.setStringList('scale', []);
       }
 
       return user;

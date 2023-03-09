@@ -21,16 +21,17 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   late Future<User> user;
-  late Future<String?> token;
-  late Future<String?> email;
-  late Future<String?> scale;
-  late Future<double?> weight;
+  late Future<double> weight;
+  late Future<List<String>?> scale;
 
   @override
   void initState() {
     super.initState();
     user = ApiClient(httpClient: http.Client()).getUserInfo();
-    scale = prefs.then((value) => value.getString('scale'));
+    weight = user.then((value) => value.getLastScale()!.weight);
+    weight.then((value) => print('weight : $value'));
+
+    scale = prefs.then((value) => value.getStringList('scaleData'));
     scale.then((value) => print('scale : $value'));
   }
 
@@ -87,12 +88,11 @@ class _HomeState extends State<Home> {
         ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            String scaleJson = await scale as String;
-            final List<ScaleData> data = ScaleData.decode(scaleJson);
-            final ScaleData? firstScaleData = data.first;
-            if (firstScaleData != null) {
-              print('IMC of the first scale data: ${firstScaleData.imc}');
-            }
+            List<String> scaleJson = await scale ?? [];
+            final data = ScaleData.decode(scaleJson);
+            print('data : $data');
+            final ScaleData firstScaleData = data.first;
+            print('IMC of the first scale data: ${firstScaleData.imc}');
           },
           backgroundColor: Colors.blue,
           child: const Icon(Icons.add),
