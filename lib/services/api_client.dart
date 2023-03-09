@@ -43,9 +43,6 @@ class ApiClient {
           // get token and set it in local storage
           var token = jsonDecode(response.body)['token'];
           await storage.write(key: 'token', value: token);
-          // await SharedPreferences.getInstance()
-          //     .then((value) => value.setString('token', token));
-          // sharedPreferences.setString('token', token);
           return {'success': 'register success'};
         case 400:
           var json = jsonDecode(response.body);
@@ -70,9 +67,6 @@ class ApiClient {
           // get token and set it in local storage
           var token = jsonDecode(response.body)['token'];
           await storage.write(key: 'token', value: token);
-          // await SharedPreferences.getInstance()
-          //     .then((value) => value.setString('token', token));
-          // sharedPreferences.setString('token', token);
           return true;
         case 400:
           return false;
@@ -129,10 +123,6 @@ class ApiClient {
   }
 
   Future<String> getHeaderToken() async {
-    // Retrieve the token from local storage
-    // final token = await SharedPreferences.getInstance()
-    //     .then((value) => value.getString('token'));
-    // final token = sharedPreferences.getString('token');
     String? token = await storage.read(key: 'token');
     if (token != null) {
       return token;

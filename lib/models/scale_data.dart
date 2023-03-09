@@ -48,9 +48,4 @@ class ScaleData {
       .toList()
       .map<ScaleData>((item) => ScaleData.fromJson(item))
       .toList();
-
-  @override
-  String toString() {
-    return '{_id: $id, date: $date, weight: $weight, fat: $fat, muscle: $muscle, water: $water, IMC: $imc}';
-  }
 }
