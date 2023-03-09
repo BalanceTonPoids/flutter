@@ -23,7 +23,7 @@ class _ProfileState extends State<Profile> {
             child: Column(
               children: [
                 titleSection("Mon poids", "Dernier poids enregistré"),
-                weightStack('55', 'kg', Colors.white, 200, 220)
+                weightStack(55.0, 'kg', Colors.white, 200, 220)
               ],
             ),
           ),

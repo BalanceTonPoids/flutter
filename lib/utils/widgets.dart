@@ -13,11 +13,9 @@ AppBar appBar(String title, bool automaticallyImplyLeading, context) {
     title: Row(
       children: [
         Expanded(
-          flex: 1,
           child: Text(title),
         ),
         Expanded(
-          flex: 1,
           child: GestureDetector(
             onTap: () => {
               AdaptiveTheme.of(context).toggleThemeMode(),
@@ -228,7 +226,12 @@ class WeightPainter extends CustomPainter {
 }
 
 Stack weightStack(
-    String weight, String metric, Color bgColor, double width, int height) {
+    double weight,
+    String metric,
+    Color bgColor,
+    double width,
+    int height
+    ) {
   return Stack(
     alignment: Alignment.center,
     children: [
@@ -270,17 +273,48 @@ Column loadingSpinner() {
   );
 }
 
-SizedBox inputForm(TextEditingController controller, String label, Icon icon) {
+SizedBox inputForm(
+    TextEditingController controller,
+    bool autofocus,
+    bool obscureText,
+    bool enableSuggestions,
+    bool autocorrect,
+    String label,
+    Icon icon,
+    ) {
   return SizedBox(
     width: 300,
     height: 60,
     child: TextFormField(
       controller: controller,
-      autofocus: true,
+      autofocus: autofocus,
+      obscureText: obscureText,
+      enableSuggestions: enableSuggestions,
+      autocorrect: autocorrect,
       decoration: InputDecoration(
         labelText: label,
         suffix: icon,
       ),
+    ),
+  );
+}
+
+Container headerPolygon(
+    double double,
+    String metric,
+    String title,
+    String description,
+    Color bgColor,
+    ) {
+  return Container(
+    decoration: BoxDecoration(
+      color: bgColor,
+    ),
+    child: Column(
+      children: [
+        titleSection(title, description),
+        weightStack(double, metric, bgColor == Colors.blue ? Colors.white : Colors.blue, 200, 220)
+      ],
     ),
   );
 }
