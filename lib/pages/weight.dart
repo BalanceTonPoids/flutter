@@ -12,31 +12,39 @@ class Weight extends StatefulWidget {
 class _WeightState extends State<Weight> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   late Future<double?> weight;
+  late Future<String?> metric;
 
   @override
   void initState() {
     super.initState();
-    weight = prefs.then((value) => value.getDouble('weight'));
+    weight = prefs.then((value) => value.getDouble('weight') ?? 0.0);
+    metric = prefs.then((value) => value.getString('metric') ?? 'kg');
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<double?>(
-        future: weight,
+    return FutureBuilder(
+        future: Future.wait([weight, metric]),
         builder: (context, snapshot) {
-          double showWeight = snapshot.data != null ? snapshot.data! : 0.0;
-          return Scaffold(
-              appBar: appBar('Mesure du poids', false, context),
-              body: Column(children: [
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 20),
-                    child: weightStack(showWeight, 'kg', Colors.blue, 200, 200),
+          if (snapshot.hasData) {
+            double showWeight = snapshot.data![0] as double;
+            String showMetric = snapshot.data![1] as String;
+            return Scaffold(
+                appBar: appBar('Mesure du poids', false, context),
+                body: Column(children: [
+                  Container(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
+                      child: weightStack(
+                          showWeight, showMetric, Colors.blue, 200, 200),
+                    ),
                   ),
-                ),
-                loadingSpinner()
-              ]));
+                  loadingSpinner()
+                ]));
+          } else {
+            return const CircularProgressIndicator();
+          }
         });
   }
 }
