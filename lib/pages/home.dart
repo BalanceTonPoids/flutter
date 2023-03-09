@@ -1,3 +1,4 @@
+import 'package:balancetonpoids/pages/imc.dart';
 import 'dart:convert';
 
 import 'package:balancetonpoids/models/scale_data.dart';
@@ -81,9 +82,9 @@ class _HomeState extends State<Home> {
             spacing: 10,
             runSpacing: 10,
             children: [
-              squareButton("IMC", "assets/imc.jpg", null),
-              squareButton("Evolution", "assets/evolution.jpg", null),
-              squareButton("Objectifs", "assets/objectifs.jpg", null),
+              squareButton("IMC", "assets/imc.jpg", context, IMCPage()),
+              squareButton("Evolution", "assets/evolution.jpg", context, null),
+              squareButton("Objectifs", "assets/objectifs.jpg", context, null),
             ],
           ),
         )

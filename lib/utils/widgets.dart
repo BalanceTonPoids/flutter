@@ -95,9 +95,15 @@ GestureDetector buttonCard(
   );
 }
 
-GestureDetector squareButton(String title, String filePath, onTap) {
+GestureDetector squareButton(String title, String filePath, context, screen) {
   return GestureDetector(
-    onTap: onTap,
+    onTap: () => {
+      PersistentNavBarNavigator.pushNewScreen(
+        context,
+        screen: screen,
+        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+      )
+    },
     child: SizedBox(
       width: (screenWidth - 40) / 2,
       child: Card(
