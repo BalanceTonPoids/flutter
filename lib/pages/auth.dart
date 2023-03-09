@@ -39,13 +39,22 @@ class SignupPage extends StatelessWidget {
                   children: <Widget>[
                     inputForm(
                         _emailController,
+                        true,
+                        false,
+                        true,
+                        true,
                         'Entrez votre e-mail',
                         const Icon(
                           Icons.alternate_email,
                           color: Colors.grey,
-                        )),
+                        ),
+                    ),
                     inputForm(
                         _passwordController,
+                        false,
+                        true,
+                        false,
+                        false,
                         'Entrez votre mot de passe',
                         const Icon(
                           Icons.lock,
@@ -53,6 +62,10 @@ class SignupPage extends StatelessWidget {
                         )),
                     inputForm(
                         _confirmPasswordController,
+                        false,
+                        true,
+                        false,
+                        false,
                         'Confirmez votre mot de passe',
                         const Icon(
                           Icons.lock,
@@ -159,6 +172,10 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     inputForm(
                         _emailController,
+                        true,
+                        false,
+                        true,
+                        true,
                         'Entrez un e-mail',
                         const Icon(
                           Icons.alternate_email,
@@ -166,6 +183,10 @@ class LoginPage extends StatelessWidget {
                         )),
                     inputForm(
                         _passwordController,
+                        false,
+                        true,
+                        false,
+                        false,
                         'Entrez un mot de passe',
                         const Icon(
                           Icons.lock,
@@ -425,14 +446,30 @@ class ResetPasswordPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              inputForm(_passwordController, "Nouveau mot de passe", const Icon(
+              inputForm(
+                _passwordController,
+                false,
+                true,
+                false,
+                false,
+                "Nouveau mot de passe",
+                const Icon(
                 Icons.lock,
                 color: Colors.grey,
-              ), ),
-              inputForm(_confirmPasswordController, "Confirmez le nouveau mot de passe", const Icon(
+              ),
+              ),
+              inputForm(
+                _confirmPasswordController,
+                false,
+                true,
+                false,
+                false,
+                "Confirmez le nouveau mot de passe",
+                const Icon(
                 Icons.lock,
                 color: Colors.grey,
-              ), ),
+              ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: ElevatedButton(

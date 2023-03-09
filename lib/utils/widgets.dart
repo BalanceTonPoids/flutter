@@ -273,13 +273,24 @@ Column loadingSpinner() {
   );
 }
 
-SizedBox inputForm(TextEditingController controller, String label, Icon icon) {
+SizedBox inputForm(
+    TextEditingController controller,
+    bool autofocus,
+    bool obscureText,
+    bool enableSuggestions,
+    bool autocorrect,
+    String label,
+    Icon icon,
+    ) {
   return SizedBox(
     width: 300,
     height: 60,
     child: TextFormField(
       controller: controller,
-      autofocus: true,
+      autofocus: autofocus,
+      obscureText: obscureText,
+      enableSuggestions: enableSuggestions,
+      autocorrect: autocorrect,
       decoration: InputDecoration(
         labelText: label,
         suffix: icon,
