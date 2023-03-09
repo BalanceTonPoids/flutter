@@ -20,7 +20,7 @@ class ScaleData {
 
   factory ScaleData.fromJson(Map<String, dynamic> json) {
     return ScaleData(
-      id: json['_id'] as String,
+      id: json['_id'] ?? json['id'] as String,
       date: json['date'] as String,
       weight: json['weight'].toDouble(),
       fat: json['fat'].toDouble(),
@@ -31,13 +31,13 @@ class ScaleData {
   }
 
   static Map<String, dynamic> toMap(ScaleData scale) => {
-        'id': scale.id,
+        '_id': scale.id,
         'date': scale.date,
         'weight': scale.weight,
         'fat': scale.fat,
         'muscle': scale.muscle,
         'water': scale.water,
-        'imc': scale.imc,
+        'IMC': scale.imc,
       };
 
   static List<String> encode(List<ScaleData> scales) =>
@@ -51,6 +51,6 @@ class ScaleData {
 
   @override
   String toString() {
-    return '{id: $id, date: $date, weight: $weight, fat: $fat, muscle: $muscle, water: $water, imc: $imc}';
+    return '{_id: $id, date: $date, weight: $weight, fat: $fat, muscle: $muscle, water: $water, IMC: $imc}';
   }
 }

@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
     weight = user.then((value) => value.getLastScale()!.weight);
     weight.then((value) => print('weight : $value'));
 
-    scale = prefs.then((value) => value.getStringList('scaleData'));
+    scale = prefs.then((value) => value.getStringList('scale'));
     scale.then((value) => print('scale : $value'));
   }
 
