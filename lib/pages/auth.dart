@@ -1,4 +1,5 @@
 import 'package:balancetonpoids/main.dart';
+import 'package:balancetonpoids/pages/terms_and_policies.dart';
 import 'package:balancetonpoids/utils/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -253,7 +254,7 @@ class LoginPage extends StatelessWidget {
                           Colors.blue,
                           Colors.blue,
                           0,
-                          const SignupPage()),
+                          const TermsAndPoliciesPage()),
                     ),
                   ],
                 ),
