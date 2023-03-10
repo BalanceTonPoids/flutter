@@ -84,36 +84,31 @@ class _MainPageState extends State<MainPage> {
   }
 
   List<Widget> _buildScreens() {
-    return [
-      Home(),
-      Weight(),
-      Profile(),
-      Stats()
-    ];
+    return [const Home(), const Weight(), const Profile(), const Stats()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
         title: ("Accueil"),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.monitor_weight),
+        icon: const Icon(Icons.monitor_weight),
         title: ("Poids"),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
+        icon: const Icon(Icons.person),
         title: ("Profil"),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.query_stats),
+        icon: const Icon(Icons.query_stats),
         title: ("Statistiques"),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,

@@ -1,12 +1,11 @@
 import 'package:balancetonpoids/pages/imc.dart';
-import 'package:balancetonpoids/pages/stats.dart';
+import 'package:balancetonpoids/pages/edit_profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:balancetonpoids/services/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/widgets.dart';
-import 'edit_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
