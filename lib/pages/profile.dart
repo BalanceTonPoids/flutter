@@ -1,5 +1,7 @@
 import 'package:balancetonpoids/pages/imc.dart';
 import 'package:balancetonpoids/pages/modifier_profil.dart';
+import 'package:balancetonpoids/pages/stats.dart';
+import 'package:balancetonpoids/pages/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/widgets.dart';
@@ -47,31 +49,45 @@ class _ProfileState extends State<Profile> {
                       ],
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    child: buttonCard(
-                        'Modifier mon profil',
-                        'Renseignez ma taille, mes objectifs, etc.',
-                        Colors.blue,
-                        true,
-                        context,
-                        const EditProfilePage()),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, bottom: 20, left: 10, right: 10),
-                    child: Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Column(
+                      // Taille, Sexe, Préférences, dernière mise à jour des données
                       children: [
-                        squareButton(
-                            'IMC', 'assets/imc.jpg', context, IMCPage()),
-                        squareButton(
-                            'Evolution', 'assets/evolution.jpg', context, null),
-                        squareButton(
-                            'Objectifs', 'assets/objectifs.jpg', context, null),
+                        resumeDiv(const Icon(Icons.height, color: Colors.blue), "1m80"),
+                        resumeDiv(const Icon(Icons.wc, color: Colors.blue), "Homme"),
+                        resumeDiv(const Icon(Icons.favorite, color: Colors.blue), "60kg"),
                       ],
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        buttonCard("Modifier mon profil", "Renseignez ma taille, mes données, etc.", Colors.blue, true, context, const EditProfilePage()),
+                        buttonCard("Changer ma balance", "Changer de balance connectée", Colors.blue, false, context, Welcome())
+                      ],
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          button(context, "Se déconnecter", Colors.white, Colors.blue, Colors.blue, 2, null),
+                          Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: const TextSpan(
+                                      children: [
+                                        WidgetSpan(child: Icon(Icons.update, color: Colors.blue)),
+                                        TextSpan(text: " Dernière mise à jour : 12/12/2020", style: TextStyle(fontSize: 14, color: Colors.black))
+                                      ]
+                                  )
+                              )
+                          )
+                        ],
+                      )
                   )
                 ],
               ),
@@ -81,4 +97,19 @@ class _ProfileState extends State<Profile> {
           }
         });
   }
+}
+
+RichText resumeDiv(
+    Icon icon,
+    String text,
+) {
+  return RichText(
+    textAlign: TextAlign.center,
+    text: TextSpan(
+        children: [
+          WidgetSpan(child: icon),
+          TextSpan(text: " ${text}", style: const TextStyle(fontSize: 20, color: Colors.black))
+        ]
+    )
+  );
 }
