@@ -9,7 +9,6 @@ class User {
   final String metric;
   final int age;
   final int height;
-  final String role;
   final String createdAt;
   final String updatedAt;
   final List<ScaleData> scaleData;
@@ -23,7 +22,6 @@ class User {
       required this.metric,
       required this.age,
       required this.height,
-      required this.role,
       required this.createdAt,
       required this.updatedAt,
       required this.scaleData});
@@ -38,7 +36,6 @@ class User {
         metric: json['metric'] ?? '',
         age: json['age'] ?? 0,
         height: json['height'] ?? 0,
-        role: json['role'],
         createdAt: json['created_at'],
         updatedAt: json['updated_at'],
         scaleData: json['scale_data'] != null
