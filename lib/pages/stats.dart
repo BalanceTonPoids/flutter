@@ -15,20 +15,27 @@ class Stats extends StatefulWidget {
 
 class _StatsState extends State<Stats> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  late List<ScaleData> scaleData;
-  List<double> yValuesWeights = generateDataWeights();
-  List<double> yValuesHeights = generateDataHeights();
-  List<double> yValuesIMC = generateDataIMC();
-  List<double> yValuesMuscularMass = generateMuscularMass();
+  late Future<List<String>?> scaleData;
+  late Future<List<ScaleData>?> scaleDataList;
+  late Future<List<double>?> weightsList;
+  late Future<List<double>?> fatList;
+  late Future<List<double>?> waterList;
+  late Future<List<double>?> imcList;
+  late Future<List<double>?> muscleList;
 
   @override
   void initState() {
     super.initState();
-    prefs.then((value) {
-      final List<String>? scaleDataString = value.getStringList('scale');
-      scaleData =
-          scaleDataString != null ? ScaleData.decode(scaleDataString) : [];
-    });
+    scaleData = prefs.then((value) => value.getStringList('scale'));
+    scaleDataList = scaleData.then((value) => ScaleData.decode(value!));
+    weightsList =
+        scaleDataList.then((value) => value!.map((e) => e.weight).toList());
+    fatList = scaleDataList.then((value) => value?.map((e) => e.fat).toList());
+    waterList =
+        scaleDataList.then((value) => value?.map((e) => e.water).toList());
+    imcList = scaleDataList.then((value) => value?.map((e) => e.imc).toList());
+    muscleList =
+        scaleDataList.then((value) => value?.map((e) => e.muscle).toList());
   }
 
   @override
@@ -36,248 +43,266 @@ class _StatsState extends State<Stats> {
     return Scaffold(
         appBar: appBar('Statistiques', false, context),
         body: FutureBuilder(
-            future: Future.value(scaleData),
+            future: Future.wait(
+                [weightsList, fatList, waterList, imcList, muscleList]),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final List<double> weightsList =
-                    snapshot.data!.map((e) => e.weight).toList();
-                print(weightsList);
+                List<double> wList = snapshot.data![0] as List<double>;
+                List<double> fList = snapshot.data![1] as List<double>;
+                List<double> waList = snapshot.data![2] as List<double>;
+                List<double> iList = snapshot.data![3] as List<double>;
+                List<double> mList = snapshot.data![4] as List<double>;
+                return PageView(
+                  children: [
+                    Column(
+                      children: [
+                        headerPolygon(wList.last, 'kg', 'Mon poids',
+                            'Dernier poids enregistré', Colors.blue),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                              top: 20, bottom: 20, left: 10, right: 10),
+                          child: Text('Évolution de mon poids',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                        ),
+                        AspectRatio(
+                          aspectRatio: 1.7,
+                          child: chartSample(wList),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, bottom: 20, left: 10, right: 10),
+                            child: Text(
+                              'Poids actuel: ${wList.last} kg',
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )),
+                        const Padding(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Text(
+                                'Retrouvez ci-dessus votre poids actuel ainsi que l\'évolution de votre poids au cours des 7 derniers relevés.',
+                                style: TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center))
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        headerPolygon(fList.last, '%', 'Taux de graisse',
+                            'Dernière donnée', Colors.blue),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                              top: 20, bottom: 20, left: 10, right: 10),
+                          child: Text('Évolution de mon taux de graisse',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                        ),
+                        AspectRatio(
+                          aspectRatio: 1.7,
+                          child: chartSample(fList),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, bottom: 20, left: 10, right: 10),
+                            child: Text(
+                              'Taux actuel: ${fList.last} %',
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )),
+                        const Padding(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Text(
+                                'Retrouvez ci-dessus votre taux actuelle ainsi que l\'évolution de votre taux au cours des 7 derniers relevés.',
+                                style: TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center))
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        headerPolygon(waList.last, '%', 'Taux d\'eau',
+                            'Dernière donnée', Colors.blue),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                              top: 20, bottom: 20, left: 10, right: 10),
+                          child: Text('Évolution de mon taux d\'eau',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                        ),
+                        AspectRatio(
+                          aspectRatio: 1.7,
+                          child: chartSample(waList),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, bottom: 20, left: 10, right: 10),
+                            child: Text(
+                              'Taux actuelle: ${waList.last} %',
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )),
+                        const Padding(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Text(
+                                'Retrouvez ci-dessus votre taux actuelle ainsi que l\'évolution de votre taux au cours des 7 derniers relevés.',
+                                style: TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center))
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        headerPolygon(
+                            iList.last, '%', 'Mon IMC', '', Colors.blue),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                              top: 20, bottom: 20, left: 10, right: 10),
+                          child: Text('Évolution de mon IMC',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                        ),
+                        AspectRatio(
+                          aspectRatio: 1.7,
+                          child: chartSample(iList),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, bottom: 20, left: 10, right: 10),
+                            child: Text(
+                              'IMC actuel: ${iList.last}',
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )),
+                        const Padding(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Text(
+                                'Retrouvez ci-dessus votre IMC actuel ainsi que l\'évolution de votre IMC au cours des 7 derniers jours.',
+                                style: TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center))
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        headerPolygon(mList.last, '', 'Masse musculaire', '',
+                            Colors.blue),
+                        const Padding(
+                          padding: EdgeInsets.only(
+                              top: 20, bottom: 20, left: 10, right: 10),
+                          child: Text('Évolution de ma masse musculaire',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                        ),
+                        AspectRatio(
+                          aspectRatio: 1.7,
+                          child: chartSample(mList),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, bottom: 20, left: 10, right: 10),
+                            child: Text(
+                              'Masse musculaire actuelle: ${mList.last}',
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )),
+                        const Padding(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Text(
+                                'Retrouvez ci-dessus votre masse musculaire actuelle ainsi que l\'évolution de votre masse musculaire au cours des 7 derniers relevés.',
+                                style: TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center))
+                      ],
+                    )
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
-              return PageView(
-                children: [
-                  Column(
-                    children: [
-                      headerPolygon(yValuesWeights.last, 'kg', 'Mon poids',
-                          'Dernier poids enregistré', Colors.blue),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, bottom: 20, left: 10, right: 10),
-                        child: Text('Évolution de mon poids',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                      ),
-                      AspectRatio(
-                        aspectRatio: 1.7,
-                        child: chartSample(yValuesWeights),
-                      ),
-                      ElevatedButton(
-                          onPressed: () => setState(
-                              () => yValuesWeights = generateDataWeights()),
-                          child: const Text('Rafraichir')),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
-                          child: Text(
-                            'Poids actuel: ${yValuesWeights.last} kg',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                      const Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: Text(
-                              'Retrouvez ci-dessus votre poids actuel ainsi que l\'évolution de votre poids au cours des 7 derniers jours.',
-                              style: TextStyle(fontSize: 14),
-                              textAlign: TextAlign.center))
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      headerPolygon(
-                          yValuesHeights.last.roundToDouble() / 100,
-                          'm',
-                          'Ma taille',
-                          'Dernière taille enregistrée',
-                          Colors.blue),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, bottom: 20, left: 10, right: 10),
-                        child: Text('Évolution de ma taille',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                      ),
-                      AspectRatio(
-                        aspectRatio: 1.7,
-                        child: chartSample(yValuesHeights),
-                      ),
-                      ElevatedButton(
-                          onPressed: () => setState(
-                              () => yValuesHeights = generateDataHeights()),
-                          child: const Text('Rafraichir')),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
-                          child: Text(
-                            'Taille actuelle: ${yValuesHeights.last.roundToDouble() / 100} m',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                      const Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: Text(
-                              'Retrouvez ci-dessus votre taille actuelle ainsi que l\'évolution de votre taille au cours des 7 derniers jours.',
-                              style: TextStyle(fontSize: 14),
-                              textAlign: TextAlign.center))
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      headerPolygon(
-                          yValuesIMC.last, '', 'Mon IMC', '', Colors.blue),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, bottom: 20, left: 10, right: 10),
-                        child: Text('Évolution de mon IMC',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                      ),
-                      AspectRatio(
-                        aspectRatio: 1.7,
-                        child: chartSample(yValuesIMC),
-                      ),
-                      ElevatedButton(
-                          onPressed: () =>
-                              setState(() => yValuesIMC = generateDataIMC()),
-                          child: const Text('Rafraichir')),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
-                          child: Text(
-                            'IMC actuel: ${yValuesIMC.last}',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                      const Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: Text(
-                              'Retrouvez ci-dessus votre IMC actuel ainsi que l\'évolution de votre IMC au cours des 7 derniers jours.',
-                              style: TextStyle(fontSize: 14),
-                              textAlign: TextAlign.center))
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      headerPolygon(yValuesMuscularMass.last, '',
-                          'Masse musculaire', '', Colors.blue),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, bottom: 20, left: 10, right: 10),
-                        child: Text('Évolution de ma masse musculaire',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                      ),
-                      AspectRatio(
-                        aspectRatio: 1.7,
-                        child: chartSample(yValuesMuscularMass),
-                      ),
-                      ElevatedButton(
-                          onPressed: () => setState(() =>
-                              yValuesMuscularMass = generateMuscularMass()),
-                          child: const Text('Rafraichir')),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
-                          child: Text(
-                            'Masse musculaire actuelle: ${yValuesMuscularMass.last}',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                      const Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: Text(
-                              'Retrouvez ci-dessus votre masse musculaire actuelle ainsi que l\'évolution de votre masse musculaire au cours des 7 derniers jours.',
-                              style: TextStyle(fontSize: 14),
-                              textAlign: TextAlign.center))
-                    ],
-                  )
-                ],
-              );
             }));
   }
 }
 
-// Generate data
-List<double> generateMuscularMass() {
-  // Weights
-  List<double> weights = generateDataWeights();
-  print('weights: $weights');
-  // Heights
-  List<double> heights = generateDataHeights();
-  print('heights: $heights');
-  // Genre H : 0,407 x poids (kg) + 0,267 x taille (cm) - 19,2
-  // Genre F : 0,252 x poids (kg) + 0,473 x taille (cm) - 48,3
-  double firstDouble = 0;
-  double secondDouble = 0;
-  double thirdDouble = 0;
-  String genre = 'M'; // M F O NULL
-  if (genre == 'F') {
-    print('A');
-    firstDouble = 0.252;
-    secondDouble = 0.473;
-    thirdDouble = 48.3;
-  } else {
-    print('B');
-    firstDouble = 0.407;
-    secondDouble = 0.267;
-    thirdDouble = 19.2;
-  }
-  List<double> data = List.generate(
-      7,
-      (index) => double.parse((firstDouble * weights[index] +
-              secondDouble * heights[index] -
-              thirdDouble)
-          .toStringAsFixed(1)));
-  print('data: $data');
-  return data;
-}
+// // Generate data
+// List<double> generateMuscularMass() {
+//   // Weights
+//   List<double> weights = generateDataWeights();
+//   print('weights: $weights');
+//   // Heights
+//   List<double> heights = generateDataHeights();
+//   print('heights: $heights');
+//   // Genre H : 0,407 x poids (kg) + 0,267 x taille (cm) - 19,2
+//   // Genre F : 0,252 x poids (kg) + 0,473 x taille (cm) - 48,3
+//   double firstDouble = 0;
+//   double secondDouble = 0;
+//   double thirdDouble = 0;
+//   String genre = 'M'; // M F O NULL
+//   if (genre == 'F') {
+//     print('A');
+//     firstDouble = 0.252;
+//     secondDouble = 0.473;
+//     thirdDouble = 48.3;
+//   } else {
+//     print('B');
+//     firstDouble = 0.407;
+//     secondDouble = 0.267;
+//     thirdDouble = 19.2;
+//   }
+//   List<double> data = List.generate(
+//       7,
+//       (index) => double.parse((firstDouble * weights[index] +
+//               secondDouble * heights[index] -
+//               thirdDouble)
+//           .toStringAsFixed(1)));
+//   print('data: $data');
+//   return data;
+// }
 
-List<double> generateDataIMC() {
-  // Weights
-  List<double> weights = generateDataWeights();
-  print('weights: $weights');
-  // Heights
-  List<double> heights = generateDataHeights();
-  print('heights: $heights');
-  // IMC = poid (kg) / taille (m)
-  List<double> data = List.generate(
-      7,
-      (index) => double.parse(
-          (weights[index] / (heights[index] / 100) / (heights[index] / 100))
-              .toStringAsFixed(1)));
-  print('data: $data');
-  return data;
-}
+// List<double> generateDataIMC() {
+//   // Weights
+//   List<double> weights = generateDataWeights();
+//   print('weights: $weights');
+//   // Heights
+//   List<double> heights = generateDataHeights();
+//   print('heights: $heights');
+//   // IMC = poid (kg) / taille (m)
+//   List<double> data = List.generate(
+//       7,
+//       (index) => double.parse(
+//           (weights[index] / (heights[index] / 100) / (heights[index] / 100))
+//               .toStringAsFixed(1)));
+//   print('data: $data');
+//   return data;
+// }
 
-List<double> generateDataHeights() {
-  // en cm
-  int startHeight = Random().nextInt(100) + 100;
-  List<double> data = List.generate(
-      7,
-      (index) =>
-          startHeight +
-          double.parse((Random().nextDouble()).toStringAsFixed(1)));
-  return data.map((e) => e.toDouble()).toList();
-}
+// List<double> generateDataHeights() {
+//   // en cm
+//   int startHeight = Random().nextInt(100) + 100;
+//   List<double> data = List.generate(
+//       7,
+//       (index) =>
+//           startHeight +
+//           double.parse((Random().nextDouble()).toStringAsFixed(1)));
+//   return data.map((e) => e.toDouble()).toList();
+// }
 
-List<double> generateDataWeights() {
-  double startWeight =
-      Random().nextDouble() * 100 > 0 ? Random().nextDouble() * 100 : 3;
-  startWeight = double.parse(startWeight.toStringAsFixed(1));
-  print('startWeight: $startWeight');
-  List<double> data = List.generate(
-      7,
-      (index) => double.parse(
-          (startWeight + Random().nextDouble() * 10).toStringAsFixed(1)));
-  print('data: $data');
-  print('min: ${data.reduce(min)}');
-  print('max: ${data.reduce(max)}');
-  print(
-      'minLine: ${(data.reduce(min) - 5) < 0 ? 0 : (data.reduce(min) - 5).toStringAsFixed(0)}');
-  print('moyLine: ${data.map}');
-  print(
-      'maxLine: ${(data.reduce(max) + 5) < 0 ? 0 : (data.reduce(max) + 5).toStringAsFixed(0)}');
-  calculMoy(data);
-  return data;
-}
+// List<double> generateDataWeights() {
+//   double startWeight =
+//       Random().nextDouble() * 100 > 0 ? Random().nextDouble() * 100 : 3;
+//   startWeight = double.parse(startWeight.toStringAsFixed(1));
+//   print('startWeight: $startWeight');
+//   List<double> data = List.generate(
+//       7,
+//       (index) => double.parse(
+//           (startWeight + Random().nextDouble() * 10).toStringAsFixed(1)));
+//   print('data: $data');
+//   print('min: ${data.reduce(min)}');
+//   print('max: ${data.reduce(max)}');
+//   print(
+//       'minLine: ${(data.reduce(min) - 5) < 0 ? 0 : (data.reduce(min) - 5).toStringAsFixed(0)}');
+//   print('moyLine: ${data.map}');
+//   print(
+//       'maxLine: ${(data.reduce(max) + 5) < 0 ? 0 : (data.reduce(max) + 5).toStringAsFixed(0)}');
+//   calculMoy(data);
+//   return data;
+// }
 
 calculMoy(List<double> values) {
   List<double> data = values;
