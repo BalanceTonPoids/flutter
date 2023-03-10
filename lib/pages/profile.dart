@@ -94,20 +94,8 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        buttonCard(
-                            'Modifier mon profil',
-                            'Renseignez ma taille, mes données, etc.',
-                            Colors.blue,
-                            true,
-                            context,
-                            const EditProfilePage()),
-                        buttonCard(
-                            'Changer ma balance',
-                            'Changer de balance connectée',
-                            Colors.blue,
-                            false,
-                            context,
-                            const Welcome())
+                        buttonCard("Modifier mon profil", "Renseignez ma taille, mes données, etc.", Colors.blue, true, context, const EditProfilePage(), true),
+                        buttonCard("Changer ma balance", "Changer de balance connectée", Colors.blue, false, context, Welcome(), true)
                       ],
                     ),
                   ),

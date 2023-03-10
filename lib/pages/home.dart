@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
                 Colors.white,
                 false,
                 context,
-                const Weight()),
+                const Weight(), false),
           ),
         ),
         Container(
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
               Colors.blue,
               true,
               context,
-              const EditProfilePage()),
+              const EditProfilePage(), false),
         ),
         Padding(
           padding:
@@ -82,9 +82,9 @@ class _HomeState extends State<Home> {
             spacing: 10,
             runSpacing: 10,
             children: [
-              squareButton("IMC", "assets/imc.jpg", context, IMCPage()),
-              squareButton("Evolution", "assets/evolution.jpg", context, null),
-              squareButton("Objectifs", "assets/objectifs.jpg", context, null),
+              squareButton("IMC", "assets/imc.jpg", context, IMCPage(), false),
+              squareButton("Evolution", "assets/evolution.jpg", context, null, false),
+              squareButton("Objectifs", "assets/objectifs.jpg", context, null, false),
             ],
           ),
         )
