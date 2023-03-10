@@ -80,45 +80,55 @@ class ApiClient {
     }
   }
 
-  Future<User> getUserInfo() async {
-    final token = await getHeaderToken();
-    final response = await httpClient.get(
-      Uri.parse('$apiUrl/users'),
-      headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $token',
-      },
-    );
-    if (response.statusCode == 200) {
-      // parse the user info from the response body and return it
-      final user =
-          User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-      // set the user in local storage
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('name', user.name);
-      await prefs.setString('email', user.email);
-      await prefs.setString('phone', user.phone);
-      await prefs.setString('gender', user.gender);
-      await prefs.setString('metric', user.metric);
-      await prefs.setInt('age', user.age);
-      await prefs.setInt('height', user.height);
-      final lastScale = user.getLastScale();
-      if (lastScale != null) {
-        await prefs.setDouble('weight', lastScale.weight);
-      } else {
-        await prefs.setDouble('weight', 0.0);
+  Future<bool> getUserInfo() async {
+    try {
+      final token = await getHeaderToken();
+      final response = await httpClient.get(
+        Uri.parse('$apiUrl/users'),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+        },
+      );
+      switch (response.statusCode) {
+        case 200:
+          // parse the user info from the response body and return it
+          final user =
+              User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+          // set the user in local storage
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('name', user.name);
+          await prefs.setString('email', user.email);
+          await prefs.setString('phone', user.phone);
+          await prefs.setString('gender', user.gender);
+          await prefs.setString('metric', user.metric);
+          await prefs.setInt('age', user.age);
+          await prefs.setInt('height', user.height);
+          final lastScale = user.getLastScale();
+          if (lastScale != null) {
+            await prefs.setDouble('weight', lastScale.weight);
+            await prefs.setString('date', lastScale.date);
+          } else {
+            await prefs.setDouble('weight', 0.0);
+            await prefs.setString('date', '');
+          }
+          final scaleDataList = user.scaleData;
+          if (scaleDataList.isNotEmpty) {
+            final List<String> encodedScaleDataList =
+                ScaleData.encode(scaleDataList);
+            await prefs.setStringList('scale', encodedScaleDataList);
+          } else {
+            await prefs.setStringList('scale', []);
+          }
+          return true;
+        case 401:
+        case 403:
+        case 404:
+        case 500:
+        default:
+          return false;
       }
-      final scaleDataList = user.scaleData;
-      if (scaleDataList.isNotEmpty) {
-        final List<String> encodedScaleDataList =
-            ScaleData.encode(scaleDataList);
-        await prefs.setStringList('scale', encodedScaleDataList);
-      } else {
-        await prefs.setStringList('scale', []);
-      }
-
-      return user;
-    } else {
-      throw Exception('Failed to get user info');
+    } catch (e) {
+      throw Exception('Failed to get user info $e');
     }
   }
 
@@ -127,7 +137,7 @@ class ApiClient {
     if (token != null) {
       return token;
     } else {
-      throw Exception('Token not found in local storage');
+      return '';
     }
   }
 }

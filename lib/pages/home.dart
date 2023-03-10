@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  late Future<User> user;
+  late Future<bool> user;
   // TODO remove after test
   late Future<double?> weight;
   late Future<List<String>?> scale;

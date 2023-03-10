@@ -3,6 +3,7 @@ import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/stats.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import './pages/welcome.dart';
 import 'pages/home.dart';
@@ -10,7 +11,7 @@ import './theme/theme_manager.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:balancetonpoids/pages/modifier_profil.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(Phoenix(child: const MyApp()));
 
 ThemeManager _themeManager = ThemeManager();
 
