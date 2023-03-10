@@ -9,7 +9,7 @@ import './pages/welcome.dart';
 import 'pages/home.dart';
 import './theme/theme_manager.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:balancetonpoids/pages/modifier_profil.dart';
+import 'package:balancetonpoids/pages/edit_profile.dart';
 
 void main() => runApp(Phoenix(child: const MyApp()));
 
