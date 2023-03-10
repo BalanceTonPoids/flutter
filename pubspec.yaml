@@ -51,6 +51,8 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   flutter_secure_storage: ^8.0.0
   fl_chart: ^0.61.0
+  intl: ^0.18.0
+  flutter_phoenix: ^1.1.0
 
 dev_dependencies:
   flutter_test:
