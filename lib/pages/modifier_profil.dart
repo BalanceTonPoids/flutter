@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../utils/widgets.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -7,151 +7,151 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar('Modifier mon Profil', true, context),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-
-          children: <Widget>[
-            Image.asset(
-            'assets/Settings.png',height: 150,width: 150,
+    return SafeArea(
+      child: Scaffold(
+        appBar: appBar('Modifier mon Profil', true, context),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                'assets/Settings.png',height: 150,width: 150,
               ),
-
-
-
-
-            const SizedBox(height: 10.0),
-            _buildPersonalInfoForm(),
-
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                // Enregistrer les modifications
-              },
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-                textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
+              _buildPersonalInfoForm(),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Enregistrer les modifications
+                  },
+                  style: ElevatedButton.styleFrom(
+                    side: const BorderSide(color: Colors.blue, width: 2),
+                    fixedSize: const Size(300, 50),
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
                   ),
+                  child: const Text('Enregistrer'),
                 ),
               ),
-              child:  const Text('Enregistrer'),
-            ),
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  EditProfileDetailsPage()),
-                );
-              },
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),backgroundColor: const MaterialStatePropertyAll(Colors.green),
-                textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    PersistentNavBarNavigator.pushNewScreen(context, screen: const EditProfileDetailsPage());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    side: const BorderSide(color: Colors.blue, width: 2),
+                    fixedSize: const Size(300, 50),
+                    foregroundColor: Colors.blue,
+                    backgroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
                   ),
+                  child: const Text('Données personnelles'),
                 ),
-              ),
-              child: const Text(
-                'Modifier mes Données Personnelles',),
-
-
-            ),
-
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildPersonalInfoForm() {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-
-      child: Column(
-        children: <Widget>[
-
-          const SizedBox(height: 16.0),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Sexe',
-
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+    final _heightController = TextEditingController();
+    final _weightFavoriteController = TextEditingController();
+    return Column(
+      children: <Widget>[
+        Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: DropdownButton(
+                    isExpanded: true,
+                    value: 'kg',
+                    items: const [
+                      DropdownMenuItem(
+                        child: Text('Kg'),
+                        value: 'kg',
+                      ),
+                      DropdownMenuItem(
+                        child: Text('Lbs'),
+                        value: 'lbs',
+                      )
+                    ],
+                    onChanged: (value) {
+                      // Enregistrer les modifications
+                    },
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Ma taille',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
+                const SizedBox(width: 30.0),
+                Expanded(
+                    child: DropdownButton(
+                      isExpanded: true,
+                      value: 'H',
+                      items: const [
+                        DropdownMenuItem(
+                          child: Text('Homme'),
+                          value: 'H',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('Femme'),
+                          value: 'F',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('Autre'),
+                          value: 'O',
+                        ),
+                      ],
+                      onChanged: (value) {
+                        // Enregistrer les modifications
+                      },
+                    )
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Préférence du poids',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
+              ],
+            )
+        ),
+        Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Expanded(
+                  child: inputForm(
+                      _heightController,
+                      true,
+                      false,
+                      true,
+                      true,
+                      'Poids souhaité',
+                      const Icon(
+                        Icons.monitor_weight,
+                        color: Colors.grey,
+                      )),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Poids souhaité',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.blue,width: 3),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
+                const SizedBox(width: 30.0),
+                Expanded(
+                  child: inputForm(
+                      _weightFavoriteController,
+                      true,
+                      false,
+                      true,
+                      true,
+                      'Ma taille',
+                      const Icon(
+                        Icons.height,
+                        color: Colors.grey,
+                      )),
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            )
+        ),
+      ],
     );
   }
 }
@@ -212,85 +212,75 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
   Widget build(BuildContext context) {
     key: _scaffoldKey;
     return Scaffold(
-        appBar: appBar('Données Personnelles', true, context),
-        body: SingleChildScrollView(
+      appBar: appBar('Données Personnelles', true, context),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
-    child: Form(
-    key: _formKey,
-    child: Center(
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[
-    Image.asset(
-    'assets/donnesPerso.png',height: 200,width: 150,
-    ),
-
-    const Text(
-    'Données personnelles',
-    textAlign: TextAlign.center,
-    style: TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 18.0,
-    color: Colors.white,
-    ),
-    ),
-    const SizedBox(height: 16.0),
-    TextFormField(
-    controller: _emailController,
-    style: const TextStyle(color: Colors.black),
-    decoration: InputDecoration(
-    labelText: 'Email',
-    fillColor: Colors.white,
-    filled: true,
-    enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8.0),
-    borderSide: const BorderSide(color: Colors.blue,width: 3),
-    ),
-    focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8.0),
-    borderSide: const BorderSide(color: Colors.blue,width: 3),
-    ),
-    ),
-    validator: _validateEmail,
-    ),
-    const SizedBox(height: 12),
-    TextFormField(
-    controller: _passwordController,
-    style: const TextStyle(color: Colors.black),
-    decoration: InputDecoration(
-    labelText: 'Mot de passe',
-    fillColor: Colors.white,
-    filled: true,
-    enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8.0),
-    borderSide: const BorderSide(color: Colors.blue,width: 3),
-    ),
-    focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8.0),
-    borderSide: const BorderSide(color: Colors.blue, width: 3),
-    ),
-    ),
-    obscureText: true,
-    validator: _validatePassword,),
-      const SizedBox(height: 16.0),
-      ElevatedButton(
-        onPressed: _submitForm,
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-          textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/donnesPerso.png',height: 200,width: 150,
+                  ),
+                  const Text(
+                    'Données personnelles',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: inputForm(
+                      _emailController,
+                      true,
+                      false,
+                      true,
+                      true,
+                      'Entrez votre e-mail',
+                      const Icon(
+                        Icons.alternate_email,
+                        color: Colors.grey,
+                      ),
+                    )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: inputForm(
+                        _passwordController,
+                        false,
+                        true,
+                        false,
+                        false,
+                        'Entrez votre mot de passe',
+                        const Icon(
+                          Icons.lock,
+                          color: Colors.grey,
+                        )
+                    )
+                  ),
+                  ElevatedButton(
+                    onPressed: _submitForm,
+                    style: ElevatedButton.styleFrom(
+                      side: const BorderSide(color: Colors.blue, width: 2),
+                      fixedSize: const Size(300, 50),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                    child: const Text('Enregistrer'),
+                  )
+                ]
             ),
           ),
         ),
-        child: const Text('Enregistrer'),
       ),
-]
-    ),
-    ),
-    ),
-        ),
     );
   }
 }
