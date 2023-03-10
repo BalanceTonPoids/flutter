@@ -5,7 +5,6 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../main.dart';
 import '../utils/widgets.dart';
-import 'package:balancetonpoids/pages/terms_and_policies.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -138,7 +137,7 @@ class _WelcomeState extends State<Welcome> {
                           text:
                               'Connectez-vous à votre compte pour retrouver votre progression ou '),
                       TextSpan(
-                          text: "continuez en tant qu'invité.",
+                          text: 'continuez en tant qu\'invité.',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ))
@@ -157,12 +156,13 @@ class _WelcomeState extends State<Welcome> {
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: button(
                     context,
-                    "Continuez en tant qu'invité",
+                    'Continuez en tant qu\'invité',
                     Colors.white,
                     Colors.blue,
                     Colors.blue,
                     2,
-                    const MainPage(), false)),
+                    const MainPage(),
+                    true)),
           ]),
         ),
       ],
