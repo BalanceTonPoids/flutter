@@ -142,7 +142,7 @@ class _IMCPageState extends State<IMCPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  child: buttonCard("Besoin de conseils ?", "Retrouvez divers conseils d’experts", Colors.blue, false, context, const ConseilsPage()),
+                  child: buttonCard("Besoin de conseils ?", "Retrouvez divers conseils d’experts", Colors.blue, false, context, const ConseilsPage(), true),
                 ),
               ],
             ),

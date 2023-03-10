@@ -30,7 +30,7 @@ class _WeightState extends State<Weight> {
             double showWeight = snapshot.data![0] as double;
             String showMetric = snapshot.data![1] as String;
             return Scaffold(
-                appBar: appBar('Mesure du poids', false, context),
+                appBar: appBar('Mesure du poids', true, context),
                 body: Column(children: [
                   Container(
                     alignment: Alignment.topCenter,

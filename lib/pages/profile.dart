@@ -64,8 +64,8 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        buttonCard("Modifier mon profil", "Renseignez ma taille, mes données, etc.", Colors.blue, true, context, const EditProfilePage()),
-                        buttonCard("Changer ma balance", "Changer de balance connectée", Colors.blue, false, context, Welcome())
+                        buttonCard("Modifier mon profil", "Renseignez ma taille, mes données, etc.", Colors.blue, true, context, const EditProfilePage(), true),
+                        buttonCard("Changer ma balance", "Changer de balance connectée", Colors.blue, false, context, Welcome(), true)
                       ],
                     ),
                   ),
@@ -73,7 +73,7 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
-                          button(context, "Se déconnecter", Colors.white, Colors.blue, Colors.blue, 2, null),
+                          button(context, "Se déconnecter", Colors.white, Colors.blue, Colors.blue, 2, null, false),
                           Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: RichText(

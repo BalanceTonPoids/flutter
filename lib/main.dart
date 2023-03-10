@@ -75,48 +75,68 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late PersistentTabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PersistentTabController();
+  }
+
+  List<Widget> _buildScreens() {
+    return [
+      Home(),
+      Weight(),
+      Profile(),
+      Stats()
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.home),
+        title: ("Accueil"),
+        activeColorPrimary: Colors.blue,
+        inactiveColorPrimary: Colors.black12,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.monitor_weight),
+        title: ("Poids"),
+        activeColorPrimary: Colors.blue,
+        inactiveColorPrimary: Colors.black12,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.person),
+        title: ("Profil"),
+        activeColorPrimary: Colors.blue,
+        inactiveColorPrimary: Colors.black12,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.query_stats),
+        title: ("Statistiques"),
+        activeColorPrimary: Colors.blue,
+        inactiveColorPrimary: Colors.black12,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
+      controller: _controller,
       backgroundColor: Theme.of(context).brightness == Brightness.dark
           ? Colors.black
           : Colors.white,
-      items: [
-        PersistentBottomNavBarItem(
-          icon: const Icon(Icons.home),
-          title: ("Accueil"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark
-              ? Colors.grey
-              : Colors.black,
-        ),
-        PersistentBottomNavBarItem(
-          icon: const Icon(Icons.monitor_weight),
-          title: ("Poids"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark
-              ? Colors.grey
-              : Colors.black,
-        ),
-        PersistentBottomNavBarItem(
-          icon: const Icon(Icons.person),
-          title: ("Profile"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark
-              ? Colors.grey
-              : Colors.black,
-        ),
-        PersistentBottomNavBarItem(
-          icon: const Icon(Icons.query_stats),
-          title: ("Statistiques"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Theme.of(context).brightness == Brightness.dark
-              ? Colors.grey
-              : Colors.black,
-        ),
-      ],
-      screens: const [Home(), Weight(), Profile(), Stats()],
+      items: _navBarsItems(),
+      screens: _buildScreens(),
+      stateManagement: true,
+      onItemSelected: (index) {
+        setState(() {
+          _controller.index = index;
+        });
+      },
     );
   }
 }

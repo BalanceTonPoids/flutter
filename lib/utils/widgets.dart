@@ -32,13 +32,14 @@ AppBar appBar(String title, bool automaticallyImplyLeading, context) {
 }
 
 GestureDetector buttonCard(
-    String title, String subtitle, Color color, bool isAlert, context, onTap) {
+    String title, String subtitle, Color color, bool isAlert, context, screen, bool withNavBar) {
   return GestureDetector(
     onTap: () => {
       PersistentNavBarNavigator.pushNewScreen(
-        context,
-        screen: onTap,
-        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          context,
+          screen: screen,
+          withNavBar: withNavBar,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
       )
     },
     child: Card(
@@ -46,26 +47,26 @@ GestureDetector buttonCard(
         children: [
           isAlert
               ? Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              color: Colors.red,
+            ),
+            child: RichText(
+                text: const TextSpan(children: [
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Icon(Icons.warning, color: Colors.white),
                   ),
-                  child: RichText(
-                      text: const TextSpan(children: [
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Icon(Icons.warning, color: Colors.white),
-                    ),
-                    TextSpan(
-                        text: " Actions requises",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Roboto',
-                          fontSize: 15,
-                        )),
-                  ])),
-                )
+                  TextSpan(
+                      text: " Actions requises",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                        fontSize: 15,
+                      )),
+                ])),
+          )
               : Container(),
           Container(
             decoration: BoxDecoration(color: color),
@@ -95,13 +96,14 @@ GestureDetector buttonCard(
   );
 }
 
-GestureDetector squareButton(String title, String filePath, context, screen) {
+GestureDetector squareButton(String title, String filePath, context, screen, bool withNavBar) {
   return GestureDetector(
     onTap: () => {
       PersistentNavBarNavigator.pushNewScreen(
-        context,
-        screen: screen,
-        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          context,
+          screen: screen,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          withNavBar: withNavBar
       )
     },
     child: SizedBox(
@@ -128,12 +130,15 @@ GestureDetector squareButton(String title, String filePath, context, screen) {
 }
 
 Widget button(context, String text, Color backgroundColor, Color textColor,
-    Color borderColor, int borderWidth, onPressed) {
+    Color borderColor, int borderWidth, screen, bool withNavBar) {
   return ElevatedButton(
       onPressed: () => {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => onPressed))
-          },
+        PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: screen,
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+            withNavBar: withNavBar
+        )},
       style: ElevatedButton.styleFrom(
           side: const BorderSide(color: Colors.blue, width: 2),
           fixedSize: const Size(300, 50),
@@ -161,9 +166,9 @@ Widget buttonForm(context, String text, Color backgroundColor, Color textColor,
 // end button for form
 
 Container titleSection(
-  String title,
-  String subtitle,
-) {
+    String title,
+    String subtitle,
+    ) {
   return Container(
     width: double.infinity,
     decoration: const BoxDecoration(
