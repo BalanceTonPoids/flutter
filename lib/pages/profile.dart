@@ -1,5 +1,5 @@
 import 'package:balancetonpoids/pages/imc.dart';
-import 'package:balancetonpoids/pages/modifier_profil.dart';
+import 'package:balancetonpoids/pages/edit_profile.dart';
 import 'package:balancetonpoids/pages/stats.dart';
 import 'package:balancetonpoids/pages/welcome.dart';
 import 'package:balancetonpoids/services/empty_storage.dart';

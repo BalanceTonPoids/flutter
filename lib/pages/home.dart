@@ -2,7 +2,7 @@ import 'package:balancetonpoids/pages/imc.dart';
 import 'dart:convert';
 
 import 'package:balancetonpoids/models/scale_data.dart';
-import 'package:balancetonpoids/pages/modifier_profil.dart';
+import 'package:balancetonpoids/pages/edit_profile.dart';
 import 'package:balancetonpoids/pages/profile.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:balancetonpoids/services/api_client.dart';

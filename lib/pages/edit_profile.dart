@@ -63,95 +63,89 @@ class EditProfilePage extends StatelessWidget {
   Widget _buildPersonalInfoForm() {
     final _heightController = TextEditingController();
     final _weightFavoriteController = TextEditingController();
-    return Column(
-      children: <Widget>[
-        Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: DropdownButton(
-                    isExpanded: true,
-                    value: 'kg',
-                    items: const [
-                      DropdownMenuItem(
-                        child: Text('Kg'),
-                        value: 'kg',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('Lbs'),
-                        value: 'lbs',
-                      )
-                    ],
-                    onChanged: (value) {
-                      // Enregistrer les modifications
-                    },
-                  ),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: DropdownButtonFormField(
+              key: const Key('metric'),
+              isExpanded: true,
+              value: 'kg',
+              decoration: const InputDecoration(
+                labelText: 'Unité de mesure',
+                labelStyle: TextStyle(color: Colors.grey),
+              ),
+              items: const [
+                DropdownMenuItem(
+                  value: 'kg',
+                  child: Text('Kg'),
                 ),
-                const SizedBox(width: 30.0),
-                Expanded(
-                    child: DropdownButton(
-                      isExpanded: true,
-                      value: 'H',
-                      items: const [
-                        DropdownMenuItem(
-                          child: Text('Homme'),
-                          value: 'H',
-                        ),
-                        DropdownMenuItem(
-                          child: Text('Femme'),
-                          value: 'F',
-                        ),
-                        DropdownMenuItem(
-                          child: Text('Autre'),
-                          value: 'O',
-                        ),
-                      ],
-                      onChanged: (value) {
-                        // Enregistrer les modifications
-                      },
-                    )
+                DropdownMenuItem(
+                  value: 'lbs',
+                  child: Text('Lbs'),
+                )
+              ],
+              onChanged: (value) {
+                // Enregistrer les modifications
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: DropdownButtonFormField(
+              isExpanded: true,
+              value: 'H',
+              decoration: const InputDecoration(
+                labelText: 'Sexe',
+                labelStyle: TextStyle(color: Colors.grey),
+              ),
+              items: const [
+                DropdownMenuItem(
+                  value: 'H',
+                  child: Text('Homme'),
+                ),
+                DropdownMenuItem(
+                  value: 'F',
+                  child: Text('Femme'),
+                ),
+                DropdownMenuItem(
+                  value: 'O',
+                  child: Text('Autre'),
                 ),
               ],
-            )
-        ),
-        Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Expanded(
-                  child: inputForm(
-                      _heightController,
-                      true,
-                      false,
-                      true,
-                      true,
-                      'Poids souhaité',
-                      const Icon(
-                        Icons.monitor_weight,
-                        color: Colors.grey,
-                      )),
-                ),
-                const SizedBox(width: 30.0),
-                Expanded(
-                  child: inputForm(
-                      _weightFavoriteController,
-                      true,
-                      false,
-                      true,
-                      true,
-                      'Ma taille',
-                      const Icon(
-                        Icons.height,
-                        color: Colors.grey,
-                      )),
-                ),
-              ],
-            )
-        ),
-      ],
+              onChanged: (value) {
+                // Enregistrer les modifications
+              },
+            ),
+          ),
+          inputForm(
+              _heightController,
+              false,
+              false,
+              true,
+              true,
+              'Poids souhaité',
+              const Icon(
+                Icons.monitor_weight,
+                color: Colors.grey,
+              )
+          ),
+          inputForm(
+              _weightFavoriteController,
+              false,
+              false,
+              true,
+              true,
+              'Ma taille',
+              const Icon(
+                Icons.height,
+                color: Colors.grey,
+              )
+          ),
+        ],
+      ),
     );
   }
 }
