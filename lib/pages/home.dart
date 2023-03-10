@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
     super.initState();
     user = ApiClient(httpClient: http.Client()).getUserInfo();
     // TODO remove after test
-    weight = user.then((value) => value.getLastScale()!.weight);
+    weight = prefs.then((value) => value.getDouble('weight'));
     weight.then((value) => print('weight : $value'));
 
     scale = prefs.then((value) => value.getStringList('scale'));
