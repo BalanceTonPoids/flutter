@@ -104,8 +104,10 @@ class ApiClient {
       final lastScale = user.getLastScale();
       if (lastScale != null) {
         await prefs.setDouble('weight', lastScale.weight);
+        await prefs.setString('date', lastScale.date);
       } else {
         await prefs.setDouble('weight', 0.0);
+        await prefs.setString('date', '');
       }
       final scaleDataList = user.scaleData;
       if (scaleDataList.isNotEmpty) {
