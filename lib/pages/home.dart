@@ -1,9 +1,6 @@
 import 'package:balancetonpoids/pages/imc.dart';
-import 'dart:convert';
-
-import 'package:balancetonpoids/models/scale_data.dart';
 import 'package:balancetonpoids/pages/modifier_profil.dart';
-import 'package:balancetonpoids/pages/profile.dart';
+import 'package:balancetonpoids/pages/stats.dart';
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:balancetonpoids/services/api_client.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   late Future<User> user;
+
   // TODO remove after test
   late Future<double?> weight;
   late Future<List<String>?> scale;
@@ -66,7 +64,9 @@ class _HomeState extends State<Home> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(
+              top: 60, bottom: 10, left: 20, right: 20),
+
           child: buttonCard(
               "Modifier mon profil",
               "Renseignez ma taille, mes objectifs, etc.",
@@ -75,19 +75,52 @@ class _HomeState extends State<Home> {
               context,
               const EditProfilePage()),
         ),
-        Padding(
-          padding:
-              const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
-          child: Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: [
-              squareButton("IMC", "assets/imc.jpg", context, IMCPage()),
-              squareButton("Evolution", "assets/evolution.jpg", context, null),
-              squareButton("Objectifs", "assets/objectifs.jpg", context, null),
-            ],
+        Container(
+          padding: const EdgeInsets.only(
+              top: 0, bottom: 20, left: 20, right: 20),
+
+          child: buttonCard(
+              "Stats",
+              "Renseignez les Statistiques ",
+              Colors.blue,
+              false,
+              context,
+              const Stats()),
+        ),
+        Container(
+          padding: const EdgeInsets.only(
+              top: 0, bottom: 10, left: 24, right: 24),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>  IMCPage()),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(double.infinity, 60),
+              shape: const RoundedRectangleBorder(
+
+                side: BorderSide(
+                  color: Colors.blue,
+                  width: 2,
+                ),
+              ),
+              primary: Colors.white,
+              onPrimary: Colors.blue,
+              elevation: 3,
+            ),
+            child: const Text(
+              "IMC",
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 18,
+              ),
+            ),
           ),
-        )
+        ),
+
+
       ]),
     );
   }
