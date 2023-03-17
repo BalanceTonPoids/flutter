@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/widgets.dart';
 import 'edit_profile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -63,13 +64,13 @@ class _HomeState extends State<Home> {
         ),
         Container(
           padding: const EdgeInsets.only(
-              top: 60, bottom: 10, left: 20, right: 20),
+              top: 30, bottom: 10, left: 20, right: 20),
 
           child: buttonCard(
               "Modifier mon profil",
               "Renseignez ma taille, mes objectifs, etc.",
               Colors.blue,
-              true,
+              false,
               context,
               const EditProfilePage(), false),
         ),
@@ -78,12 +79,12 @@ class _HomeState extends State<Home> {
               top: 0, bottom: 20, left: 20, right: 20),
 
           child: buttonCard(
-              "Stats",
-              "Renseignez les Statistiques ",
+              "Contact",
+              "Besoin d'aide! contactez nous",
               Colors.blue,
               false,
               context,
-              const Stats(), false),
+              const ContactPage(), false),
         ),
         Container(
           padding: const EdgeInsets.only(
@@ -118,6 +119,121 @@ class _HomeState extends State<Home> {
           ),
         ),
       ]),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Accueil'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ContactPage()),
+            );
+          },
+          child: const Text('Contact'),
+        ),
+      ),
+    );
+  }
+}
+
+
+class ContactPage extends StatelessWidget {
+  const ContactPage({Key? key}) : super(key: key);
+
+  static const String _phoneNumber = '0233445566'; // Numéro de téléphone à appeler
+  static const String _email = 'info@btp.fr'; // Adresse email de contact
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Contact'),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Nous contacter',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey,
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Nous sommes toujours heureux d\'entendre de vous. Si vous avez des questions ou des commentaires, n\'hésitez pas à nous contacter. Vous pouvez nous appeler ou nous envoyer un e-mail à tout moment.',
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: () {
+                launch('tel:$_phoneNumber'); // Ouvre l'application téléphone pour appeler le numéro
+              },
+              icon: const Icon(Icons.phone),
+              label: const Text(
+                'Appeler',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                onPrimary: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: () {
+                launch('mailto:$_email'); // Ouvre l'application email avec l'adresse email de contact pré-remplie
+              },
+              icon: const Icon(Icons.mail),
+              label: const Text(
+                'E-mail',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange,
+                onPrimary: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
