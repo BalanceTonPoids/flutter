@@ -3,6 +3,7 @@ import 'package:balancetonpoids/services/bluetooth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../main.dart';
 import '../utils/widgets.dart';
 
@@ -13,6 +14,24 @@ class Welcome extends StatefulWidget {
   State<Welcome> createState() => _WelcomeState();
 }
 
+checkPerm() async {
+  BuildContext context;
+  var status = await Permission.bluetooth.status;
+  if (status.isDenied) {
+    await [
+      Permission.bluetooth,
+      Permission.bluetoothConnect,
+      Permission.bluetoothScan,
+      Permission.bluetoothAdvertise,
+      Permission.location
+    ].request();
+  }
+  if (await Permission.bluetooth.status.isPermanentlyDenied) {
+    openAppSettings();
+  }
+  Bluetooth().startScan();
+}
+
 class _WelcomeState extends State<Welcome> {
   final storage = const FlutterSecureStorage();
   late String _connectionStatus;
@@ -20,7 +39,7 @@ class _WelcomeState extends State<Welcome> {
   @override
   void initState() {
     super.initState();
-    Bluetooth().startScan();
+    checkPerm();
     _connectionStatus = '';
   }
 
