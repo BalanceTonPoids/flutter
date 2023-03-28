@@ -47,6 +47,7 @@ class _StatsState extends State<Stats> {
                 [weightsList, fatList, waterList, imcList, muscleList]),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                print(snapshot.data);
                 List<double> wList = snapshot.data![0] as List<double>;
                 List<double> fList = snapshot.data![1] as List<double>;
                 List<double> waList = snapshot.data![2] as List<double>;
@@ -56,7 +57,7 @@ class _StatsState extends State<Stats> {
                   children: [
                     Column(
                       children: [
-                        headerPolygon(wList.last, 'kg', 'Mon poids',
+                        headerPolygon(wList.isNotEmpty ? wList.last : 0, 'kg', 'Mon poids',
                             'Dernier poids enregistré', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
@@ -67,13 +68,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: chartSample(wList),
+                          child: wList.isNotEmpty ? chartSample(wList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Poids actuel: ${wList.last} kg',
+                              'Poids actuel: ${wList.isNotEmpty ? wList.last : 0} kg',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -87,7 +88,7 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(fList.last, '%', 'Taux de graisse',
+                        headerPolygon(fList.isNotEmpty ? fList.last : 0, '%', 'Taux de graisse',
                             'Dernière donnée', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
@@ -98,13 +99,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: chartSample(fList),
+                          child: fList.isNotEmpty ? chartSample(fList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Taux actuel: ${fList.last} %',
+                              'Taux actuel: ${fList.isNotEmpty ? fList.last : 0} %',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -118,7 +119,7 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(waList.last, '%', 'Taux d\'eau',
+                        headerPolygon(waList.isNotEmpty ? waList.last : 0, '%', 'Taux d\'eau',
                             'Dernière donnée', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
@@ -129,13 +130,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: chartSample(waList),
+                          child: waList.isNotEmpty ? chartSample(waList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Taux actuelle: ${waList.last} %',
+                              'Taux actuelle: ${waList.isNotEmpty ? waList.last : 0} %',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -150,7 +151,7 @@ class _StatsState extends State<Stats> {
                     Column(
                       children: [
                         headerPolygon(
-                            iList.last, '%', 'Mon IMC', '', Colors.blue),
+                            iList.isNotEmpty ? iList.last : 0, '%', 'Mon IMC', '', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
                               top: 20, bottom: 20, left: 10, right: 10),
@@ -160,13 +161,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: chartSample(iList),
+                          child: iList.isNotEmpty ? chartSample(iList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'IMC actuel: ${iList.last}',
+                              'IMC actuel: ${iList.isNotEmpty ? iList.last : 0}',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -180,7 +181,7 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(mList.last, '', 'Masse musculaire', '',
+                        headerPolygon(mList.isNotEmpty ? mList.last : 0, '', 'Masse musculaire', '',
                             Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
@@ -191,13 +192,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: chartSample(mList),
+                          child: mList.isNotEmpty ? chartSample(mList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Masse musculaire actuelle: ${mList.last}',
+                              'Masse musculaire actuelle: ${mList.isNotEmpty ? mList.last : 0}',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -314,9 +315,9 @@ calculMoy(List<double> values) {
 LineChart chartSample(List<double> yValues) {
   return LineChart(LineChartData(
       minY:
-          yValues.reduce(min) - 5 < 0 ? 0.toDouble() : yValues.reduce(min) - 5,
+      yValues.reduce(min) - 5 < 0 ? 0.toDouble() : yValues.reduce(min) - 5,
       maxY:
-          yValues.reduce(max) + 5 < 0 ? 0.toDouble() : yValues.reduce(max) + 5,
+      yValues.reduce(max) + 5 < 0 ? 0.toDouble() : yValues.reduce(max) + 5,
       extraLinesData: ExtraLinesData(horizontalLines: [
         horizontalLine(
             (yValues.reduce(min) < 0 ? 0.toDouble() : yValues.reduce(min)),
