@@ -26,11 +26,11 @@ class GenerateData {
     final double randomMuscle =
         minMuscle + random.nextDouble() * (maxMuscle - minMuscle);
 
-    result['weight'] = randomWeight;
-    result['fat'] = randomFat;
-    result['water'] = randomWater;
-    result['imc'] = randomImc;
-    result['muscle'] = randomMuscle;
+    result['weight'] = double.parse(randomWeight.toStringAsFixed(2));
+    result['fat'] = double.parse(randomFat.toStringAsFixed(2));
+    result['water'] = double.parse(randomWater.toStringAsFixed(2));
+    result['imc'] = double.parse(randomImc.toStringAsFixed(2));
+    result['muscle'] = double.parse(randomMuscle.toStringAsFixed(2));
 
     return result;
   }
