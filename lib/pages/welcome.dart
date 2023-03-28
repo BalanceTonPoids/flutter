@@ -112,6 +112,7 @@ class _WelcomeState extends State<Welcome> {
                                       await storage.write(
                                           key: 'scaleId',
                                           value: r.device.id.toString()),
+                                      Bluetooth().stopScan(),
                                       setState(() {
                                         _connectionStatus =
                                             'Connected to ${r.device.name}';
