@@ -11,6 +11,9 @@ class EmptyStorage {
       await storage.deleteAll();
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
+      if (prefs.containsKey('scale')) {
+        await prefs.remove('scale');
+      }
       Phoenix.rebirth(context);
     } catch (e) {
       throw Exception('logout failed $e');
