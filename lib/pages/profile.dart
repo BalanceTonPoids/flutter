@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
 
             return Scaffold(
               appBar: appBar('Mon profil', false, context),
-              body: Column(
+              body: ListView(
                 children: [
                   Container(
                     decoration: const BoxDecoration(
