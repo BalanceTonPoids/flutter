@@ -161,7 +161,21 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  // late Future<User> _futureUser;
+  //
+  // Future<User> fetch_user() async {
+  //   var response = await http.get(Uri.parse('http://balancetonpoids.alexisbriet.fr/v1/user'));
+  //
+  //   if (response.statusCode == 200) {
+  //     // If the server did return a 200 OK response,
+  //     // then parse the JSON.
+  //     return User.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     // If the server did not return a 200 OK response,
+  //     // then throw an exception.
+  //     throw Exception('Failed to load album');
+  //   }
+  // }
   String? _validateEmail( value) {
     if (value.isEmpty) {
       return 'Veuillez saisir une adresse email.';
@@ -218,15 +232,7 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
                   Image.asset(
                     'assets/donnesPerso.png',height: 200,width: 150,
                   ),
-                  const Text(
-                    'Données personnelles',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                      color: Colors.white,
-                    ),
-                  ),
+                 
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: inputForm(

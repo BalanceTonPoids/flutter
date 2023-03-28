@@ -1,5 +1,6 @@
 import 'package:balancetonpoids/pages/imc.dart';
 import 'package:balancetonpoids/pages/edit_profile.dart';
+
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:balancetonpoids/services/api_client.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
   late Future<bool> user;
+
   // TODO remove after test
   late Future<double?> weight;
   late Future<List<String>?> scale;
@@ -73,6 +76,7 @@ class _HomeState extends State<Home> {
               context,
               const EditProfilePage(), false),
         ),
+
         Container(
           padding: const EdgeInsets.only(
               top: 0, bottom: 20, left: 20, right: 20),
@@ -81,10 +85,12 @@ class _HomeState extends State<Home> {
               "Contact",
               "Besoin d'aide! contactez nous",
               Colors.blue,
+
               false,
               context,
               const ContactPage(), false),
         ),
+
         Container(
           padding: const EdgeInsets.only(
               top: 0, bottom: 10, left: 24, right: 24),
@@ -115,8 +121,10 @@ class _HomeState extends State<Home> {
                 fontSize: 18,
               ),
             ),
+
           ),
         ),
+
       ]),
     );
   }
