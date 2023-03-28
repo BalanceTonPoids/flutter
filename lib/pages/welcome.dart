@@ -45,22 +45,21 @@ class _WelcomeState extends State<Welcome> {
             Padding(
               padding: const EdgeInsets.only(top: 200),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Swipez vers la droite pour continuer.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w100,
-                      )),
-                  SizedBox(width: 10),
-                  Icon(
-                    Icons.swipe_left,
-                    size: 40,
-                  ),
-                ],
-              ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text('Swipez vers la droite pour continuer.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w100,
+                        )),
+                    SizedBox(width: 10),
+                    Icon(
+                      Icons.swipe_left,
+                      size: 40,
+                    ),
+                  ]),
             ),
           ],
         ),
