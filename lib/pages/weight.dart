@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../models/scale_data.dart';
+import '../services/api_client.dart';
 import '../services/bluetooth.dart';
 import '../services/generateData.dart';
 import '../utils/widgets.dart';
@@ -50,7 +53,17 @@ class _WeightState extends State<Weight> {
     await Future.delayed(const Duration(seconds: 3));
     // add generate data here
     generatedData = GenerateData.generate(weight: val);
+    final ScaleData dataToSend = ScaleData(
+      weight: generatedData['weight'] as double,
+      imc: generatedData['imc'] as double,
+      fat: generatedData['fat'] as double,
+      water: generatedData['water'] as double,
+      muscle: generatedData['muscle'] as double,
+      date: DateTime.now().toIso8601String(),
+    );
+    ApiClient(httpClient: http.Client()).sendScaleData(dataToSend);
     setState(() {
+      weight = prefs.then((value) => value.getDouble('weight'));
       isLoading = false;
     });
   }
@@ -99,7 +112,8 @@ class _WeightState extends State<Weight> {
                 ]),
                 floatingActionButton: FloatingActionButton(
                     onPressed: () => {
-                          if (!isLoading) {fetchData(showWeight)}
+                          if (!isLoading)
+                            {fetchData(showWeight > 0.0 ? showWeight : 70.0)}
                         },
                     child: isLoading
                         ? const CircularProgressIndicator(
