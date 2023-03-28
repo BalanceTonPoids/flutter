@@ -34,7 +34,7 @@ class _WelcomeState extends State<Welcome> {
             const LogoSection(),
             titleText,
             const Padding(
-                padding: EdgeInsets.only(top: 50),
+                padding: EdgeInsets.only(top: 20),
                 child: Text('Bienvenue sur l\'application de suivi de poids.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -43,7 +43,7 @@ class _WelcomeState extends State<Welcome> {
                       fontWeight: FontWeight.normal,
                     ))),
             Padding(
-              padding: const EdgeInsets.only(top: 200),
+              padding: const EdgeInsets.only(top: 100),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [

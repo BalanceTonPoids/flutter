@@ -72,7 +72,7 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 20, bottom: 20, left: 10, right: 10),
+                                top: 0, bottom: 20, left: 10, right: 10),
                             child: Text(
                               'Poids actuel: ${wList.isNotEmpty ? wList.last : 0} kg',
                               style: const TextStyle(
@@ -92,7 +92,7 @@ class _StatsState extends State<Stats> {
                             'Dernière donnée', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
+                              top: 0, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de mon taux de graisse',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -103,7 +103,7 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 20, bottom: 20, left: 10, right: 10),
+                                top: 0, bottom: 20, left: 10, right: 10),
                             child: Text(
                               'Taux actuel: ${fList.isNotEmpty ? fList.last : 0} %',
                               style: const TextStyle(
@@ -123,7 +123,7 @@ class _StatsState extends State<Stats> {
                             'Dernière donnée', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
+                              top: 0, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de mon taux d\'eau',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -134,7 +134,7 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 20, bottom: 20, left: 10, right: 10),
+                                top: 0, bottom: 20, left: 10, right: 10),
                             child: Text(
                               'Taux actuelle: ${waList.isNotEmpty ? waList.last : 0} %',
                               style: const TextStyle(
@@ -154,7 +154,7 @@ class _StatsState extends State<Stats> {
                             iList.isNotEmpty ? iList.last : 0, '%', 'Mon IMC', '', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
+                              top: 0, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de mon IMC',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -185,7 +185,7 @@ class _StatsState extends State<Stats> {
                             Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
+                              top: 0, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de ma masse musculaire',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -196,7 +196,7 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 20, bottom: 20, left: 10, right: 10),
+                                top: 0, bottom: 20, left: 10, right: 10),
                             child: Text(
                               'Masse musculaire actuelle: ${mList.isNotEmpty ? mList.last : 0}',
                               style: const TextStyle(
