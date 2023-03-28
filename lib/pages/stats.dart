@@ -315,9 +315,9 @@ calculMoy(List<double> values) {
 LineChart chartSample(List<double> yValues) {
   return LineChart(LineChartData(
       minY:
-          yValues.reduce(min) - 5 < 0 ? 0.toDouble() : yValues.reduce(min) - 5,
+      yValues.reduce(min) - 5 < 0 ? 0.toDouble() : yValues.reduce(min) - 5,
       maxY:
-          yValues.reduce(max) + 5 < 0 ? 0.toDouble() : yValues.reduce(max) + 5,
+      yValues.reduce(max) + 5 < 0 ? 0.toDouble() : yValues.reduce(max) + 5,
       extraLinesData: ExtraLinesData(horizontalLines: [
         horizontalLine(
             (yValues.reduce(min) < 0 ? 0.toDouble() : yValues.reduce(min)),
