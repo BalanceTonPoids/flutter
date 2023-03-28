@@ -20,6 +20,7 @@ class EmptyStorage {
   Future<void> removeScale() async {
     try {
       await storage.delete(key: 'scaleId');
+      await storage.delete(key: 'scaleName');
     } catch (e) {
       throw Exception('remove scale failed $e');
     }
