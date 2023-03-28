@@ -1,16 +1,11 @@
 import 'package:balancetonpoids/pages/imc.dart';
-import 'dart:convert';
-
-import 'package:balancetonpoids/models/scale_data.dart';
 import 'package:balancetonpoids/pages/edit_profile.dart';
-import 'package:balancetonpoids/pages/profile.dart';
 
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:balancetonpoids/services/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/user.dart';
 import '../utils/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -90,9 +85,10 @@ class _HomeState extends State<Home> {
               "Contact",
               "Besoin d'aide! contactez nous",
               Colors.blue,
-              false,context,
-              const ContactPage(),false
-              ),
+
+              false,
+              context,
+              const ContactPage(), false),
         ),
 
         Container(
@@ -128,7 +124,6 @@ class _HomeState extends State<Home> {
 
           ),
         ),
-
 
       ]),
     );
