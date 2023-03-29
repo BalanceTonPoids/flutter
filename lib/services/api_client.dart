@@ -132,6 +132,57 @@ class ApiClient {
     }
   }
 
+  Future<Map<String, dynamic>> sendScaleData(ScaleData data) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('weight', data.weight);
+    await prefs.setString('date', data.date);
+
+    final rawScaleDataList = prefs.getStringList('scale') ?? [];
+    final List<ScaleData> scaleDataList = ScaleData.decode(rawScaleDataList);
+    scaleDataList.add(data);
+
+    if (scaleDataList.isNotEmpty) {
+      final List<String> encodedScaleDataList = ScaleData.encode(scaleDataList);
+      await prefs.setStringList('scale', encodedScaleDataList);
+    } else {
+      await prefs.setStringList('scale', []);
+    }
+    try {
+      final token = await getHeaderToken();
+      final response = await httpClient.post(
+        Uri.parse('$apiUrl/data_scale'),
+        headers: <String, String>{
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'weight': data.weight,
+          'date': data.date,
+          'water': data.water,
+          'muscle': data.muscle,
+          'fat': data.fat,
+          'IMC': data.imc,
+        }),
+      );
+      switch (response.statusCode) {
+        case 200:
+          return {'success': 'scale data sent'};
+        case 201:
+          return {'success': 'scale data added'};
+        case 400:
+          var json = jsonDecode(response.body);
+          return json;
+        case 500:
+          return {'erreur': 'server error'};
+        default:
+          return {'erreur': 'unknown error'};
+      }
+    } catch (error) {
+      // return {'erreur': 'register failed $error'};
+      throw Exception('send scale data fail $error');
+    }
+  }
+
   Future<String> getHeaderToken() async {
     String? token = await storage.read(key: 'token');
     if (token != null) {

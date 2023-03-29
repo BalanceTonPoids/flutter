@@ -11,6 +11,9 @@ class EmptyStorage {
       await storage.deleteAll();
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
+      if (prefs.containsKey('scale')) {
+        await prefs.remove('scale');
+      }
       Phoenix.rebirth(context);
     } catch (e) {
       throw Exception('logout failed $e');
@@ -20,6 +23,7 @@ class EmptyStorage {
   Future<void> removeScale() async {
     try {
       await storage.delete(key: 'scaleId');
+      await storage.delete(key: 'scaleName');
     } catch (e) {
       throw Exception('remove scale failed $e');
     }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class ScaleData {
-  final String id;
+  final String? id;
   final String date;
   final double weight;
   final double fat;
@@ -10,7 +10,7 @@ class ScaleData {
   final double imc;
 
   const ScaleData(
-      {required this.id,
+      {this.id,
       required this.date,
       required this.weight,
       required this.fat,
@@ -20,7 +20,7 @@ class ScaleData {
 
   factory ScaleData.fromJson(Map<String, dynamic> json) {
     return ScaleData(
-      id: json['_id'] ?? json['id'] as String,
+      id: json['_id'] ?? '',
       date: json['date'] as String,
       weight: json['weight'].toDouble(),
       fat: json['fat'].toDouble(),
