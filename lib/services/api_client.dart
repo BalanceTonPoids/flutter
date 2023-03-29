@@ -134,7 +134,7 @@ class ApiClient {
 
   Future<bool> updateUser(String name, String phone, String gender,
       String metric, int age, int height) async {
-    const body = {};
+    var body = {};
     if (name.isNotEmpty) {
       body['name'] = name;
     }
@@ -167,33 +167,16 @@ class ApiClient {
         case 200:
         case 201:
           // parse the user info from the response body and return it
-          final user =
-              User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+          final user = jsonDecode(response.body);
           // set the user in local storage
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('name', user.name);
-          await prefs.setString('email', user.email);
-          await prefs.setString('phone', user.phone);
-          await prefs.setString('gender', user.gender);
-          await prefs.setString('metric', user.metric);
-          await prefs.setInt('age', user.age);
-          await prefs.setInt('height', user.height);
-          final lastScale = user.getLastScale();
-          if (lastScale != null) {
-            await prefs.setDouble('weight', lastScale.weight);
-            await prefs.setString('date', lastScale.date);
-          } else {
-            await prefs.setDouble('weight', 0.0);
-            await prefs.setString('date', '');
-          }
-          final scaleDataList = user.scaleData;
-          if (scaleDataList.isNotEmpty) {
-            final List<String> encodedScaleDataList =
-                ScaleData.encode(scaleDataList);
-            await prefs.setStringList('scale', encodedScaleDataList);
-          } else {
-            await prefs.setStringList('scale', []);
-          }
+          await prefs.setString('name', user['name'] ?? '');
+          await prefs.setString('email', user['email'] ?? '');
+          await prefs.setString('phone', user['phone'] ?? '');
+          await prefs.setString('gender', user['gender'] ?? '');
+          await prefs.setString('metric', user['metric'] ?? '');
+          await prefs.setInt('age', user['age'] ?? 0);
+          await prefs.setInt('height', user['height'] ?? 0);
           return true;
         case 401:
         case 403:
