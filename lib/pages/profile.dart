@@ -1,6 +1,5 @@
-import 'package:balancetonpoids/pages/imc.dart';
+import 'package:balancetonpoids/pages/connecter_ma_balance.dart';
 import 'package:balancetonpoids/pages/edit_profile.dart';
-import 'package:balancetonpoids/pages/stats.dart';
 import 'package:balancetonpoids/pages/welcome.dart';
 import 'package:balancetonpoids/services/empty_storage.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +107,7 @@ class _ProfileState extends State<Profile> {
                             Colors.blue,
                             false,
                             context,
-                            const Welcome(),
+                            const connecterMaBalance(),
                             true)
                       ],
                     ),
