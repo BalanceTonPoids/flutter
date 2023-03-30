@@ -293,6 +293,29 @@ class ApiClient {
     }
   }
 
+  Future<Map<String, dynamic>> resetPwd(String email) async {
+    try {
+      final response = await httpClient.post(
+          Uri.parse('$apiUrl/auth/forgotPassword'),
+          body: {'email': email});
+      switch (response.statusCode) {
+        case 200:
+          final res = jsonDecode(response.body);
+          return res;
+        case 400:
+          var json = jsonDecode(response.body);
+          return json;
+        case 500:
+          return {'erreur': 'server error'};
+        default:
+          return {'erreur': 'unknown error'};
+      }
+    } catch (error) {
+      // return {'erreur': 'register failed $error'};
+      throw Exception('register failed $error');
+    }
+  }
+
   Future<String> getHeaderToken() async {
     String? token = await storage.read(key: 'token');
     if (token != null) {

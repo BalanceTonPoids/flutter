@@ -39,16 +39,16 @@ class SignupPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     inputForm(
-                        _emailController,
-                        true,
-                        false,
-                        true,
-                        true,
-                        'Entrez votre e-mail',
-                        const Icon(
-                          Icons.alternate_email,
-                          color: Colors.grey,
-                        ),
+                      _emailController,
+                      true,
+                      false,
+                      true,
+                      true,
+                      'Entrez votre e-mail',
+                      const Icon(
+                        Icons.alternate_email,
+                        color: Colors.grey,
+                      ),
                     ),
                     inputForm(
                         _passwordController,
@@ -81,47 +81,45 @@ class SignupPage extends StatelessWidget {
                           Colors.white,
                           Colors.white,
                           0,
-                              () => {
+                          () => {
                             ApiClient(httpClient: http.Client())
                                 .registerUser(
-                                _emailController.text,
-                                _passwordController.text,
-                                _confirmPasswordController.text)
+                                    _emailController.text,
+                                    _passwordController.text,
+                                    _confirmPasswordController.text)
                                 .then((value) => {
-                              if (value.keys.contains('success'))
-                                {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        const MainPage()),
-                                  )
-                                }
-                              else
-                                {
-                                  showDialog(
-                                    context: context,
-                                    builder:
-                                        (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Erreur'),
-                                        content: const Text(
-                                            'Une erreur est survenue'),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                            child: const Text(
-                                                'Fermer'),
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop();
+                                      if (value.keys.contains('success'))
+                                        {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MainPage()),
+                                          )
+                                        }
+                                      else
+                                        {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text('Erreur'),
+                                                content: const Text(
+                                                    'Une erreur est survenue'),
+                                                actions: <Widget>[
+                                                  ElevatedButton(
+                                                    child: const Text('Fermer'),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
                                             },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  )
-                                }
-                            })
+                                          )
+                                        }
+                                    })
                           },
                         )),
                     Padding(
@@ -133,7 +131,8 @@ class SignupPage extends StatelessWidget {
                           Colors.blue,
                           Colors.blue,
                           0,
-                          const LoginPage(), false),
+                          const LoginPage(),
+                          false),
                     ),
                   ],
                 ),
@@ -202,48 +201,46 @@ class LoginPage extends StatelessWidget {
                           Colors.white,
                           Colors.white,
                           0,
-                              () => {
-                            ApiClient(httpClient: http.Client())
-                                .loginUser(_emailController.text,
-                                _passwordController.text)
-                                .then((value) => {
-                              if (value)
-                                {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        const MainPage()),
-                                  )
-                                }
-                              else
-                                {
-                                  showDialog(
-                                    context: context,
-                                    builder:
-                                        (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text(
-                                            'Erreur'),
-                                        content: const Text(
-                                            'Une erreur est survenue'),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                            child: const Text(
-                                                'Fermer'),
-                                            onPressed: () {
-                                              Navigator.of(
-                                                  context)
-                                                  .pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  )
-                                }
-                            })
-                          }),
+                          () => {
+                                ApiClient(httpClient: http.Client())
+                                    .loginUser(_emailController.text,
+                                        _passwordController.text)
+                                    .then((value) => {
+                                          if (value)
+                                            {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const MainPage()),
+                                              )
+                                            }
+                                          else
+                                            {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: const Text('Erreur'),
+                                                    content: const Text(
+                                                        'Une erreur est survenue'),
+                                                    actions: <Widget>[
+                                                      ElevatedButton(
+                                                        child: const Text(
+                                                            'Fermer'),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              )
+                                            }
+                                        })
+                              }),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
@@ -254,7 +251,20 @@ class LoginPage extends StatelessWidget {
                           Colors.blue,
                           Colors.blue,
                           0,
-                          const TermsAndPoliciesPage(), false),
+                          const TermsAndPoliciesPage(),
+                          false),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: button(
+                          context,
+                          'J\'ai oublié mon mot de passe',
+                          Colors.white,
+                          Colors.blue,
+                          Colors.blue,
+                          0,
+                          const MdpOubliePage(),
+                          false),
                     ),
                   ],
                 ),
@@ -267,7 +277,6 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-
 //mdp oublie
 class MdpOubliePage extends StatefulWidget {
   const MdpOubliePage({super.key});
@@ -278,24 +287,36 @@ class MdpOubliePage extends StatefulWidget {
 
 class _MdpOubliePageState extends State<MdpOubliePage> {
   final TextEditingController _emailController = TextEditingController();
-  bool _emailSent = false;
 
-  void _sendResetLink() {
-    // Code pour envoyer l'e-mail de réinitialisation de mot de passe
-    // Cette fonction doit renvoyer true si l'e-mail a été envoyé avec succès ou false si l'adresse e-mail est introuvable.
-    bool emailSent = true; // j'ai mis true pour afficher le message mais remplace ceci par ton propre code mon gaaars.
-
-    setState(() {
-      _emailSent = emailSent;
-    });
+  void _sendResetLink() async {
+    final response = await ApiClient(httpClient: http.Client())
+        .resetPwd(_emailController.text);
+    if (response.keys.contains('error')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(response.values.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    if (response.keys.contains('message')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Un e-mail contenant un lien de réinitialisation a été envoyé à l\'adresse e-mail spécifiée.'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.of(context).pop();
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: appBar("Mot de passe oublié", true, context),
+        appBar: appBar('Mot de passe oublié', true, context),
         body: SingleChildScrollView(
           child: Center(
             child: Padding(
@@ -313,7 +334,7 @@ class _MdpOubliePageState extends State<MdpOubliePage> {
                   ),
                   const SizedBox(height: 40),
                   const Text(
-                    "Entrez votre adresse e-mail pour réinitialiser votre mot de passe :",
+                    'Entrez votre adresse e-mail pour réinitialiser votre mot de passe :',
                     style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
@@ -321,7 +342,7 @@ class _MdpOubliePageState extends State<MdpOubliePage> {
                   TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration(
-                      labelText: "Adresse e-mail",
+                      labelText: 'Adresse e-mail',
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -330,24 +351,14 @@ class _MdpOubliePageState extends State<MdpOubliePage> {
                     onPressed: () {
                       _sendResetLink();
                     },
-                    child: const Text("Envoyer un lien de réinitialisation"),
+                    child: const Text('Envoyer un lien de réinitialisation'),
                   ),
                   const SizedBox(height: 20),
-                  if (_emailSent)
-                    const Text(
-                      "Un e-mail contenant un lien de réinitialisation a été envoyé à l'adresse e-mail spécifiée.",
-                      style: TextStyle(color: Colors.green),
-                      textAlign: TextAlign.center,
-                    ),
-                  if (_emailController.text.isNotEmpty && !_emailSent)
-                    const Text(
-                      "L'adresse e-mail spécifiée est introuvable. Veuillez vérifier votre adresse e-mail et réessayer.",
-                      style: TextStyle(color: Colors.red),
-                      textAlign: TextAlign.center,
-                    ),
-                  const SizedBox(height: 250,),
+                  const SizedBox(
+                    height: 250,
+                  ),
                   const Text(
-                    "Contactez nous par mail pour tout renseignement : info@btp.fr",
+                    'Contactez nous par mail pour tout renseignement : info@btp.fr',
                     style: TextStyle(fontSize: 16),
                     textAlign: TextAlign.center,
                   ),
@@ -365,7 +376,8 @@ class _MdpOubliePageState extends State<MdpOubliePage> {
 //réinitialiser le mdp
 class ResetPasswordPage extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   bool _isPasswordValid() {
     String password = _passwordController.text.trim();
@@ -379,15 +391,17 @@ class ResetPasswordPage extends StatelessWidget {
   }
 
   void _resetPassword(BuildContext context) {
-    if (_isPasswordValid() && _doPasswordsMatch() ) {
+    if (_isPasswordValid() && _doPasswordsMatch()) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-
-            title: Text("Félicitation! votre mot de passe réinitialisé", style: TextStyle(
-              color: Colors.green,
-            ),),
+            title: Text(
+              "Félicitation! votre mot de passe réinitialisé",
+              style: TextStyle(
+                color: Colors.green,
+              ),
+            ),
             content: Text("Vous allez être rédiger vers la page de connexion"),
             actions: <Widget>[
               TextButton(
@@ -403,16 +417,19 @@ class ResetPasswordPage extends StatelessWidget {
           );
         },
       );
-
     } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Erreur de réinitialisation du mot de passe", style: TextStyle(
-              color: Colors.red,
-            ),),
-            content: Text("Veuillez entrer un mot de passe valide et assurez-vous que les deux champs de mot de passe correspondent."),
+            title: Text(
+              "Erreur de réinitialisation du mot de passe",
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
+            content: Text(
+                "Veuillez entrer un mot de passe valide et assurez-vous que les deux champs de mot de passe correspondent."),
             actions: <Widget>[
               TextButton(
                 child: Text("OK"),
@@ -432,7 +449,8 @@ class ResetPasswordPage extends StatelessWidget {
     return Scaffold(
       appBar: appBar("Réinitialiser le mot de passe", true, context),
       body: SingleChildScrollView(
-        child:Center( child: Padding(
+          child: Center(
+        child: Padding(
           padding: const EdgeInsets.all(30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -455,9 +473,9 @@ class ResetPasswordPage extends StatelessWidget {
                 false,
                 "Nouveau mot de passe",
                 const Icon(
-                Icons.lock,
-                color: Colors.grey,
-              ),
+                  Icons.lock,
+                  color: Colors.grey,
+                ),
               ),
               inputForm(
                 _confirmPasswordController,
@@ -467,20 +485,22 @@ class ResetPasswordPage extends StatelessWidget {
                 false,
                 "Confirmez le nouveau mot de passe",
                 const Icon(
-                Icons.lock,
-                color: Colors.grey,
-              ),
+                  Icons.lock,
+                  color: Colors.grey,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: ElevatedButton(
-                  onPressed:  () {
+                  onPressed: () {
                     _resetPassword(context);
                   },
                   child: Text("Réinitialiser le mot de passe"),
                 ),
               ),
-              const SizedBox(height: 250,),
+              const SizedBox(
+                height: 250,
+              ),
               const Text(
                 "Contactez nous par mail pour tout renseignement : info@btp.fr",
                 style: TextStyle(fontSize: 16),
@@ -489,9 +509,8 @@ class ResetPasswordPage extends StatelessWidget {
               const SizedBox(height: 20),
             ],
           ),
-        ),)
-
-      ),
+        ),
+      )),
     );
   }
 }
