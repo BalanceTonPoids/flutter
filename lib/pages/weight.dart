@@ -30,7 +30,6 @@ class _WeightState extends State<Weight> {
   @override
   void initState() {
     super.initState();
-    Bluetooth().startScan();
     weight = prefs.then((value) => value.getDouble('weight') ?? 0.0);
     metric = prefs.then((value) => value.getString('metric') ?? 'kg');
     scaleId = storage.read(key: 'scaleId');
