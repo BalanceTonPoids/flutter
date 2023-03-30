@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
               const EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
           child: buttonCard(
               'Modifier mon profil',
-              'Renseignez ma taille, mes objectifs, etc.',
+              'Renseignez ma taille et bien plus.',
               Colors.blue,
               false,
               context,
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
         Container(
           padding:
               const EdgeInsets.only(top: 0, bottom: 20, left: 20, right: 20),
-          child: buttonCard('Contact', 'Besoin d\'aide! contactez nous',
+          child: buttonCard('Contact', 'Besoin d\'aide, contactez nous',
               Colors.blue, false, context, const ContactPage(), false),
         ),
         Container(
@@ -172,7 +172,7 @@ class ContactPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Nous sommes toujours heureux d\'entendre de vous. Si vous avez des questions ou des commentaires, n\'hésitez pas à nous contacter. Vous pouvez nous appeler ou nous envoyer un e-mail à tout moment.',
+              'Si vous avez des questions ou des commentaires, n\'hésitez pas à nous contacter. Vous pouvez nous appeler ou nous envoyer un e-mail à tout moment.',
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 18,

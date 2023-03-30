@@ -128,7 +128,7 @@ class _IMCPageState extends State<IMCPage> {
                   ),
                 ),
                 Text(
-                  "Votre IMC est : ${_imc.toStringAsFixed(2)}",
+                  "Votre IMC est de : ${_imc.toStringAsFixed(2)}",
                   style: const TextStyle(fontSize: 18.0),
                 ),
                 Text(
@@ -160,7 +160,7 @@ class ConseilsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Consensual d'experts"),
+        title: const Text("Conseils d'experts"),
       ),
       body: ListView(
         children: [

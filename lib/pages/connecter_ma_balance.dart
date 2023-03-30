@@ -77,7 +77,7 @@ class _connecterMaBalanceState extends State<connecterMaBalance> {
             ), );
           }
           if (snapshot.data!.isEmpty) {
-            return const Text('No devices found');
+            return const Text('Aucun appareil détecté');
           }
           return Column(
             children: (snapshot.data ?? [])
@@ -85,7 +85,7 @@ class _connecterMaBalanceState extends State<connecterMaBalance> {
                 ? Column(children: [Padding(padding: EdgeInsets.only(top: 20)),
               Text(r.device.name),
               ElevatedButton(
-                  child: const Text('Connect'),
+                  child: const Text('Connecter'),
                   onPressed: () async => {
                     await r.device.connect(),
                     await storage.write(
@@ -97,7 +97,7 @@ class _connecterMaBalanceState extends State<connecterMaBalance> {
                     Bluetooth().stopScan(),
                     setState(() {Padding(padding: EdgeInsets.only(top: 20));
                       _connectionStatus =
-                      'Connected to ${r.device.name}';
+                      'Connecté sur : ${r.device.name}';
                     }),
                   })
             ])
