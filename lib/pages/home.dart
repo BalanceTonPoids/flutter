@@ -21,20 +21,10 @@ class _HomeState extends State<Home> {
 
   late Future<bool> user;
 
-  // TODO remove after test
-  late Future<double?> weight;
-  late Future<List<String>?> scale;
-
   @override
   void initState() {
     super.initState();
     user = ApiClient(httpClient: http.Client()).getUserInfo();
-    // TODO remove after test
-    weight = prefs.then((value) => value.getDouble('weight'));
-    weight.then((value) => print('weight : $value'));
-
-    scale = prefs.then((value) => value.getStringList('scale'));
-    scale.then((value) => print('scale : $value'));
   }
 
   @override
@@ -65,18 +55,18 @@ class _HomeState extends State<Home> {
                 false),
           ),
         ),
-        Container(
-          padding:
-              const EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
-          child: buttonCard(
-              'Modifier mon profil',
-              'Renseignez ma taille, mes objectifs, etc.',
-              Colors.blue,
-              false,
-              context,
-              const EditProfilePage(),
-              false),
-        ),
+        // Container(
+        //   padding:
+        //       const EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
+        //   child: buttonCard(
+        //       'Modifier mon profil',
+        //       'Renseignez ma taille, mes objectifs, etc.',
+        //       Colors.blue,
+        //       false,
+        //       context,
+        //       const EditProfilePage(),
+        //       false),
+        // ),
         Container(
           padding:
               const EdgeInsets.only(top: 0, bottom: 20, left: 20, right: 20),

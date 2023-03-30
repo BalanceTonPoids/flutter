@@ -96,7 +96,7 @@ class _ProfileState extends State<Profile> {
                             'Modifier mon profil',
                             'Renseignez ma taille, mes données, etc.',
                             Colors.blue,
-                            true,
+                            false,
                             context,
                             const EditProfilePage(),
                             true),
