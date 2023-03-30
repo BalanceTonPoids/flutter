@@ -215,7 +215,7 @@ class DeviceList extends StatelessWidget {
                                 onDeviceConnected();
                                 Bluetooth().stopScan();
                                 // ignore: use_build_context_synchronously
-                                Navigator.pop(context);
+                                Navigator.of(context).pop();
                               }),
                         ],
                       ))

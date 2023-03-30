@@ -40,9 +40,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar("Bienvenue", false, context),
+      appBar: appBar('Bienvenue', false, context),
       body: Column(children: [
-        titleSection("Mon poids", "Dernier poids enregistré"),
+        titleSection('Mon poids', 'Dernier poids enregistré'),
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -56,55 +56,46 @@ class _HomeState extends State<Home> {
             ),
             padding: const EdgeInsets.all(20),
             child: buttonCard(
-                "Commencer la prise de poids",
-                "Effectuer la première prise de poids",
+                'Commencer la prise de poids',
+                'Effectuer la première prise de poids',
                 Colors.white,
                 false,
                 context,
-                const Weight(), false),
+                const Weight(),
+                false),
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(
-              top: 30, bottom: 10, left: 20, right: 20),
-
+          padding:
+              const EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
           child: buttonCard(
-              "Modifier mon profil",
-              "Renseignez ma taille, mes objectifs, etc.",
+              'Modifier mon profil',
+              'Renseignez ma taille, mes objectifs, etc.',
               Colors.blue,
               false,
               context,
-              const EditProfilePage(), false),
+              const EditProfilePage(),
+              false),
         ),
-
         Container(
-          padding: const EdgeInsets.only(
-              top: 0, bottom: 20, left: 20, right: 20),
-
-          child: buttonCard(
-              "Contact",
-              "Besoin d'aide! contactez nous",
-              Colors.blue,
-
-              false,
-              context,
-              const ContactPage(), false),
+          padding:
+              const EdgeInsets.only(top: 0, bottom: 20, left: 20, right: 20),
+          child: buttonCard('Contact', 'Besoin d\'aide! contactez nous',
+              Colors.blue, false, context, const ContactPage(), false),
         ),
-
         Container(
-          padding: const EdgeInsets.only(
-              top: 0, bottom: 10, left: 24, right: 24),
+          padding:
+              const EdgeInsets.only(top: 0, bottom: 10, left: 24, right: 24),
           child: ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  IMCPage()),
+                MaterialPageRoute(builder: (context) => IMCPage()),
               );
             },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 60),
               shape: const RoundedRectangleBorder(
-
                 side: BorderSide(
                   color: Colors.blue,
                   width: 2,
@@ -115,16 +106,14 @@ class _HomeState extends State<Home> {
               elevation: 3,
             ),
             child: const Text(
-              "IMC",
+              'IMC',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 18,
               ),
             ),
-
           ),
         ),
-
       ]),
     );
   }
@@ -154,11 +143,11 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
 class ContactPage extends StatelessWidget {
   const ContactPage({Key? key}) : super(key: key);
 
-  static const String _phoneNumber = '0233445566'; // Numéro de téléphone à appeler
+  static const String _phoneNumber =
+      '0233445566'; // Numéro de téléphone à appeler
   static const String _email = 'info@btp.fr'; // Adresse email de contact
 
   @override
@@ -193,7 +182,8 @@ class ContactPage extends StatelessWidget {
             const SizedBox(height: 32),
             ElevatedButton.icon(
               onPressed: () {
-                launch('tel:$_phoneNumber'); // Ouvre l'application téléphone pour appeler le numéro
+                launch(
+                    'tel:$_phoneNumber'); // Ouvre l'application téléphone pour appeler le numéro
               },
               icon: const Icon(Icons.phone),
               label: const Text(
@@ -217,7 +207,8 @@ class ContactPage extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: () {
-                launch('mailto:$_email'); // Ouvre l'application email avec l'adresse email de contact pré-remplie
+                launch(
+                    'mailto:$_email'); // Ouvre l'application email avec l'adresse email de contact pré-remplie
               },
               icon: const Icon(Icons.mail),
               label: const Text(

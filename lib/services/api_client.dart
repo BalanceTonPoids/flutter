@@ -132,6 +132,116 @@ class ApiClient {
     }
   }
 
+  Future<bool> updateUser(String name, String phone, String gender,
+      String metric, int age, int height) async {
+    var body = {};
+    if (name.isNotEmpty) {
+      body['name'] = name;
+    }
+    if (phone.isNotEmpty) {
+      body['phone'] = phone;
+    }
+    if (gender.isNotEmpty) {
+      body['gender'] = gender;
+    }
+    if (metric.isNotEmpty) {
+      body['metric'] = metric;
+    }
+    if (age != 0) {
+      body['age'] = age;
+    }
+    if (height != 0) {
+      body['height'] = height;
+    }
+    try {
+      final token = await getHeaderToken();
+      final response = await httpClient.put(
+        Uri.parse('$apiUrl/users'),
+        headers: <String, String>{
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(body),
+      );
+      switch (response.statusCode) {
+        case 200:
+        case 201:
+          // parse the user info from the response body and return it
+          final user = jsonDecode(response.body);
+          // set the user in local storage
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('name', user['name'] ?? '');
+          await prefs.setString('email', user['email'] ?? '');
+          await prefs.setString('phone', user['phone'] ?? '');
+          await prefs.setString('gender', user['gender'] ?? '');
+          await prefs.setString('metric', user['metric'] ?? '');
+          await prefs.setInt('age', user['age'] ?? 0);
+          await prefs.setInt('height', user['height'] ?? 0);
+          return true;
+        case 401:
+        case 403:
+        case 404:
+        case 500:
+        default:
+          return false;
+      }
+    } catch (e) {
+      throw Exception('Failed to get user info $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> updateSecurityUser(
+      String email, String password, String confirmPassword) async {
+    final alphanumeric = RegExp(r'^[a-zA]');
+    final oneNumber = RegExp(r'\d');
+
+    if (email.isEmpty || password.isEmpty) {
+      return {'erreur': 'email and password are required'};
+    }
+    if (!email.contains('@')) {
+      return {'erreur': 'email is not valid'};
+    }
+    if (password != confirmPassword) {
+      return {'erreur': 'passwords do not match'};
+    }
+    if (password.length < 8) {
+      return {'erreur': 'password must be at least 8 characters'};
+    }
+    if (alphanumeric.hasMatch(password) && !oneNumber.hasMatch(password)) {
+      return {'erreur': 'password must contain at least one letter'};
+    }
+
+    try {
+      final token = await getHeaderToken();
+      final response = await httpClient.put(
+        Uri.parse('$apiUrl/users'),
+        headers: <String, String>{
+          HttpHeaders.authorizationHeader: 'Bearer $token'
+        },
+        body: {'email': email, 'password': password},
+      );
+      switch (response.statusCode) {
+        case 200:
+        case 201:
+          final user = jsonDecode(response.body);
+          // set the user in local storage
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('email', user['email']);
+          return {'success': 'user updated'};
+        case 400:
+          var json = jsonDecode(response.body);
+          return json;
+        case 500:
+          return {'erreur': 'server error'};
+        default:
+          return {'erreur': 'unknown error'};
+      }
+    } catch (error) {
+      return {'erreur': 'update security failed $error'};
+      // throw Exception('update security failed $error');
+    }
+  }
+
   Future<Map<String, dynamic>> sendScaleData(ScaleData data) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('weight', data.weight);
