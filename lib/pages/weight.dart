@@ -23,7 +23,6 @@ class _WeightState extends State<Weight> {
   late Future<String?> metric;
   late Future<String?> scaleId;
   late Future<String?> scaleName;
-  late bool scaleAvailable;
   bool isLoading = false;
   late Map<String, double> generatedData;
 
@@ -35,7 +34,6 @@ class _WeightState extends State<Weight> {
     metric = prefs.then((value) => value.getString('metric') ?? 'kg');
     scaleId = storage.read(key: 'scaleId');
     scaleName = storage.read(key: 'scaleName');
-    scaleAvailable = false;
     generatedData = {
       'weight': 0.0,
       'imc': 0.0,
@@ -77,13 +75,9 @@ class _WeightState extends State<Weight> {
             double showWeight = snapshot.data![0] as double;
             String showMetric = snapshot.data![1] as String;
             String? showScaleId = snapshot.data![2] as String?;
-            String? showScaleName = snapshot.data![2] as String?;
+            String? showScaleName = snapshot.data![3] as String?;
 
             if (showScaleId != null && showScaleName != null) {
-              Bluetooth().stopScan();
-              scaleAvailable = true;
-            }
-            if (scaleAvailable) {
               return Scaffold(
                 appBar: appBar('Mesure du poids', true, context),
                 body: Column(children: [
@@ -135,14 +129,15 @@ class _WeightState extends State<Weight> {
                             showWeight, showMetric, Colors.blue, 200, 200),
                       ),
                     ),
-                    buttonCard(
-                        'Aucune balance trouvée',
-                        'Lancer un scan ',
-                        Colors.blue,
-                        false,
-                        context,
-                        const bluetoothWidget(),
-                        true)
+                    buttonCard('Aucune balance trouvée', 'Lancer un scan ',
+                        Colors.blue, false, context, bluetoothWidget(
+                      onDeviceSelected: () {
+                        setState(() {
+                          scaleId = storage.read(key: 'scaleId');
+                          scaleName = storage.read(key: 'scaleName');
+                        });
+                      },
+                    ), true)
                   ]));
             }
           } else {

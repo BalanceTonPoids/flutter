@@ -6,7 +6,9 @@ import 'package:permission_handler/permission_handler.dart';
 import '../services/bluetooth.dart';
 
 class bluetoothWidget extends StatefulWidget {
-  const bluetoothWidget({Key? key}) : super(key: key);
+  final void Function() onDeviceSelected;
+  const bluetoothWidget({Key? key, required this.onDeviceSelected})
+      : super(key: key);
 
   @override
   State<bluetoothWidget> createState() => _bluetoothWidgetState();
@@ -15,6 +17,7 @@ class bluetoothWidget extends StatefulWidget {
 class _bluetoothWidgetState extends State<bluetoothWidget> {
   final storage = const FlutterSecureStorage();
   late String _connectionStatus;
+
   @override
   void initState() {
     super.initState();
@@ -76,7 +79,6 @@ class _bluetoothWidgetState extends State<bluetoothWidget> {
                                       await storage.write(
                                           key: 'scaleId',
                                           value: r.device.id.toString()),
-                                      Bluetooth().stopScan(),
                                       setState(() {
                                         Padding(
                                             padding: EdgeInsets.only(top: 20));
@@ -85,6 +87,8 @@ class _bluetoothWidgetState extends State<bluetoothWidget> {
                                       }),
                                       await Future.delayed(
                                           const Duration(seconds: 2)),
+                                      Bluetooth().stopScan(),
+                                      widget.onDeviceSelected(),
                                       Navigator.of(context).pop(),
                                     })
                           ])

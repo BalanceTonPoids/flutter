@@ -105,9 +105,11 @@ class _ProfileState extends State<Profile> {
                             'Changer de balance connectée',
                             Colors.blue,
                             false,
-                            context,
-                            const bluetoothWidget(),
-                            true)
+                            context, bluetoothWidget(
+                          onDeviceSelected: () {
+                            print('Device selected');
+                          },
+                        ), true)
                       ],
                     ),
                   ),
