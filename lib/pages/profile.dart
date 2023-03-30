@@ -15,15 +15,15 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 
-isEmptyToken() async {
+getToken() async {
   final storage = const FlutterSecureStorage();
   String? token = await storage.read(key: 'token');
   print(token);
+  return token;
 }
 
 class _ProfileState extends State<Profile> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  // TODO: si il existe et qu'il est pas vide on enlève modifier profil
   late Future<double?> weight;
   late Future<String?> metric;
   late Future<int?> height;
@@ -33,7 +33,6 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    isEmptyToken();
     weight = prefs.then((value) => value.getDouble('weight') ?? 0.0);
     metric = prefs.then((value) => value.getString('metric') ?? 'kg');
     height = prefs.then((value) => value.getInt('height') ?? 0);
@@ -102,6 +101,7 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
+                        if (getToken() != null)
                         buttonCard(
                             'Modifier mon profil',
                             'Renseignez ma taille, mes données, etc.',
