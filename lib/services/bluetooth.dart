@@ -5,15 +5,21 @@ import 'package:permission_handler/permission_handler.dart';
 class Bluetooth {
   final storage = const FlutterSecureStorage();
 
-  Future<bool> checkAndRequestBluetoothPermission() async {
+  Future<void> checkAndRequestBluetoothPermission() async {
     var status = await Permission.bluetooth.status;
-    await Permission.bluetooth.request();
-    print(status);
-    await Permission.location.request();
-    if (status.isGranted == false) {
-      var requestStatus = await Permission.bluetooth.request();
+    if (status.isDenied) {
+      await [
+        Permission.bluetooth,
+        Permission.bluetoothConnect,
+        Permission.bluetoothScan,
+        Permission.bluetoothAdvertise,
+        Permission.location
+      ].request();
     }
-    return status.isGranted;
+    print(status);
+    if (await Permission.bluetooth.status.isPermanentlyDenied) {
+      openAppSettings();
+    }
   }
 
   void startScan() {

@@ -1,6 +1,5 @@
-import 'package:balancetonpoids/pages/connecter_ma_balance.dart';
+import 'package:balancetonpoids/utils/bluetooth.widget.dart';
 import 'package:balancetonpoids/pages/edit_profile.dart';
-import 'package:balancetonpoids/pages/welcome.dart';
 import 'package:balancetonpoids/services/empty_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,9 +82,9 @@ class _ProfileState extends State<Profile> {
                             '$showHeight cm'),
                         resumeDiv(const Icon(Icons.wc, color: Colors.blue),
                             returnGender(showGender)),
-                        resumeDiv(
-                            const Icon(Icons.favorite, color: Colors.blue),
-                            '$showWeight $showMetric'),
+                        // resumeDiv(
+                        //     const Icon(Icons.favorite, color: Colors.blue),
+                        //     '$showWeight $showMetric'),
                       ],
                     ),
                   ),
@@ -107,7 +106,7 @@ class _ProfileState extends State<Profile> {
                             Colors.blue,
                             false,
                             context,
-                            const connecterMaBalance(),
+                            const bluetoothWidget(),
                             true)
                       ],
                     ),

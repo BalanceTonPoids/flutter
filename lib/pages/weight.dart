@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +6,7 @@ import '../models/scale_data.dart';
 import '../services/api_client.dart';
 import '../services/bluetooth.dart';
 import '../services/generateData.dart';
+import '../utils/bluetooth.widget.dart';
 import '../utils/widgets.dart';
 
 class Weight extends StatefulWidget {
@@ -30,7 +30,7 @@ class _WeightState extends State<Weight> {
   @override
   void initState() {
     super.initState();
-    Bluetooth().startScan();
+    Bluetooth().checkAndRequestBluetoothPermission();
     weight = prefs.then((value) => value.getDouble('weight') ?? 0.0);
     metric = prefs.then((value) => value.getString('metric') ?? 'kg');
     scaleId = storage.read(key: 'scaleId');
@@ -135,95 +135,19 @@ class _WeightState extends State<Weight> {
                             showWeight, showMetric, Colors.blue, 200, 200),
                       ),
                     ),
-                    const Text('Aucune balance trouvée'),
-                    ElevatedButton(
-                      child: const Text('Rechercher'),
-                      onPressed: () async {
-                        Bluetooth().startScan();
-                        final scanResults =
-                            await FlutterBlue.instance.scanResults.first;
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DeviceList(
-                              scanResults: scanResults,
-                              onDeviceConnected: () {
-                                setState(() {
-                                  scaleAvailable = true;
-                                });
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    buttonCard(
+                        'Aucune balance trouvée',
+                        'Lancer un scan ',
+                        Colors.blue,
+                        false,
+                        context,
+                        const bluetoothWidget(),
+                        true)
                   ]));
             }
           } else {
             return const CircularProgressIndicator();
           }
         });
-  }
-}
-
-class DeviceList extends StatelessWidget {
-  const DeviceList(
-      {Key? key, required this.scanResults, required this.onDeviceConnected})
-      : super(key: key);
-
-  final List<ScanResult> scanResults;
-  final Function() onDeviceConnected;
-  final storage = const FlutterSecureStorage();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Available Devices'),
-      ),
-      body: Column(
-        children: [
-          StreamBuilder<bool>(
-            stream: FlutterBlue.instance.isScanning,
-            initialData: false,
-            builder: (c, snapshot) {
-              if (snapshot.data!) {
-                return const LinearProgressIndicator();
-              } else {
-                return Container();
-              }
-            },
-          ),
-          Expanded(
-            child: ListView(
-              children: scanResults
-                  .where((r) => r.device.name.isNotEmpty)
-                  .map((r) => Column(
-                        children: [
-                          Text(r.device.name),
-                          ElevatedButton(
-                              child: const Text('Connect'),
-                              onPressed: () async {
-                                await r.device.connect();
-                                await storage.write(
-                                    key: 'scaleName',
-                                    value: r.device.name.toString());
-                                await storage.write(
-                                    key: 'scaleId',
-                                    value: r.device.id.toString());
-                                onDeviceConnected();
-                                Bluetooth().stopScan();
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).pop();
-                              }),
-                        ],
-                      ))
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
