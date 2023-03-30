@@ -72,7 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: appBar('Modifier mon Profil', true, context),
+        appBar: appBar('Modifier mon profil', true, context),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -188,17 +188,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               },
             ),
           ),
-          // inputForm(
-          //     _weightFavoriteController,
-          //     false,
-          //     false,
-          //     true,
-          //     true,
-          //     'Poids souhaité',
-          //     const Icon(
-          //       Icons.monitor_weight,
-          //       color: Colors.grey,
-          //     )),
           inputForm(
               _heightController,
               false,
@@ -301,7 +290,7 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
                         false,
                         true,
                         true,
-                        'Entrez votre e-mail',
+                        'Adresse mail',
                         const Icon(
                           Icons.alternate_email,
                           color: Colors.grey,
@@ -315,7 +304,7 @@ class _EditProfileDetailsPageState extends State<EditProfileDetailsPage> {
                           true,
                           false,
                           false,
-                          'Entrez votre mot de passe',
+                          'Mot de passe',
                           const Icon(
                             Icons.lock,
                             color: Colors.grey,

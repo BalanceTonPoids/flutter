@@ -179,7 +179,7 @@ class DeviceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Available Devices'),
+        title: const Text('Appareils disponibles'),
       ),
       body: Column(
         children: [
@@ -202,7 +202,7 @@ class DeviceList extends StatelessWidget {
                         children: [
                           Text(r.device.name),
                           ElevatedButton(
-                              child: const Text('Connect'),
+                              child: const Text('Connecter'),
                               onPressed: () async {
                                 await r.device.connect();
                                 await storage.write(

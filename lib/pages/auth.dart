@@ -44,7 +44,7 @@ class SignupPage extends StatelessWidget {
                       false,
                       true,
                       true,
-                      'Entrez votre e-mail',
+                      'Adresse mail',
                       const Icon(
                         Icons.alternate_email,
                         color: Colors.grey,
@@ -56,7 +56,7 @@ class SignupPage extends StatelessWidget {
                         true,
                         false,
                         false,
-                        'Entrez votre mot de passe',
+                        'Mot de passe',
                         const Icon(
                           Icons.lock,
                           color: Colors.grey,
@@ -67,7 +67,7 @@ class SignupPage extends StatelessWidget {
                         true,
                         false,
                         false,
-                        'Confirmez votre mot de passe',
+                        'Confirmer le mot de passe',
                         const Icon(
                           Icons.lock,
                           color: Colors.grey,
@@ -105,7 +105,7 @@ class SignupPage extends StatelessWidget {
                                               return AlertDialog(
                                                 title: const Text('Erreur'),
                                                 content: const Text(
-                                                    'Une erreur est survenue'),
+                                                    'Une erreur est survenue. Veuillez réessayer ultérieurement en vérifiant tous les champs.'),
                                                 actions: <Widget>[
                                                   ElevatedButton(
                                                     child: const Text('Fermer'),
@@ -176,7 +176,7 @@ class LoginPage extends StatelessWidget {
                         false,
                         true,
                         true,
-                        'Entrez un e-mail',
+                        'Adresse mail',
                         const Icon(
                           Icons.alternate_email,
                           color: Colors.grey,
@@ -187,7 +187,7 @@ class LoginPage extends StatelessWidget {
                         true,
                         false,
                         false,
-                        'Entrez un mot de passe',
+                        'Mot de passe',
                         const Icon(
                           Icons.lock,
                           color: Colors.grey,
@@ -224,7 +224,7 @@ class LoginPage extends StatelessWidget {
                                                   return AlertDialog(
                                                     title: const Text('Erreur'),
                                                     content: const Text(
-                                                        'Une erreur est survenue'),
+                                                        'Une erreur est survenue. Veuillez réessayer ultérieurement en vérifiant tous les champs.'),
                                                     actions: <Widget>[
                                                       ElevatedButton(
                                                         child: const Text(
@@ -397,12 +397,12 @@ class ResetPasswordPage extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
-              "Félicitation! votre mot de passe réinitialisé",
+              "Félicitation ! Votre mot de passe a été réinitialisé.",
               style: TextStyle(
                 color: Colors.green,
               ),
             ),
-            content: Text("Vous allez être rédiger vers la page de connexion"),
+            content: Text("Vous allez être rédigé vers la page de connexion."),
             actions: <Widget>[
               TextButton(
                 child: Text("OK"),
