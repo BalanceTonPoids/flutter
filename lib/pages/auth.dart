@@ -104,8 +104,8 @@ class SignupPage extends StatelessWidget {
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 title: const Text('Erreur'),
-                                                content: const Text(
-                                                    'Une erreur est survenue'),
+                                                content: Text(
+                                                    value.values.toString()),
                                                 actions: <Widget>[
                                                   ElevatedButton(
                                                     child: const Text('Fermer'),
