@@ -122,7 +122,7 @@ class _MainPageState extends State<MainPage> {
       context,
       controller: _controller,
       backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.black
+          ? Colors.white
           : Colors.white,
       items: _navBarsItems(),
       screens: _buildScreens(),
