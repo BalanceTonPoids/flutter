@@ -82,10 +82,7 @@ class _ProfileState extends State<Profile> {
                         resumeDiv(const Icon(Icons.height, color: Colors.blue),
                             '$showHeight cm'),
                         resumeDiv(const Icon(Icons.wc, color: Colors.blue),
-                            returnGender(showGender)),
-                        resumeDiv(
-                            const Icon(Icons.favorite, color: Colors.blue),
-                            '$showWeight $showMetric'),
+                            returnGender(showGender))
                       ],
                     ),
                   ),
