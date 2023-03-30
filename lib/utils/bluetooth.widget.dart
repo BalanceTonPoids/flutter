@@ -83,6 +83,8 @@ class _bluetoothWidgetState extends State<bluetoothWidget> {
                                         _connectionStatus =
                                             'Connecter à ${r.device.name}';
                                       }),
+                                      await Future.delayed(
+                                          const Duration(seconds: 2)),
                                       Navigator.of(context).pop(),
                                     })
                           ])
@@ -92,64 +94,5 @@ class _bluetoothWidgetState extends State<bluetoothWidget> {
             },
           ),
         ]));
-  }
-}
-
-class DeviceList extends StatelessWidget {
-  const DeviceList(
-      {Key? key, required this.scanResults, required this.onDeviceConnected})
-      : super(key: key);
-
-  final List<ScanResult> scanResults;
-  final Function() onDeviceConnected;
-  final storage = const FlutterSecureStorage();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Appareil disponible'),
-      ),
-      body: Column(
-        children: [
-          StreamBuilder<bool>(
-            stream: FlutterBlue.instance.isScanning,
-            initialData: false,
-            builder: (c, snapshot) {
-              if (snapshot.data!) {
-                return const LinearProgressIndicator();
-              } else {
-                return Container();
-              }
-            },
-          ),
-          Expanded(
-            child: ListView(
-              children: scanResults
-                  .where((r) => r.device.name.isNotEmpty)
-                  .map((r) => Column(
-                        children: [
-                          Text(r.device.name),
-                          ElevatedButton(
-                              child: const Text('Se connecter'),
-                              onPressed: () async {
-                                await r.device.connect();
-                                await storage.write(
-                                    key: 'scaleName',
-                                    value: r.device.name.toString());
-                                await storage.write(
-                                    key: 'scaleId',
-                                    value: r.device.id.toString());
-                                Bluetooth().stopScan();
-                                onDeviceConnected();
-                              }),
-                        ],
-                      ))
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

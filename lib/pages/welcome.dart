@@ -98,7 +98,11 @@ class _WelcomeState extends State<Welcome> {
                 return Text('Error: ${snapshot.error}');
               }
               if (_connectionStatus.isNotEmpty) {
-                return Text(_connectionStatus);
+                return Text(
+                  _connectionStatus,
+                  style:
+                      TextStyle(color: Colors.green, fontSize: 18, height: 20),
+                );
               }
               if (snapshot.data!.isEmpty) {
                 return const Text('No devices found');
