@@ -3,6 +3,7 @@ import 'package:balancetonpoids/pages/edit_profile.dart';
 import 'package:balancetonpoids/pages/welcome.dart';
 import 'package:balancetonpoids/services/empty_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/widgets.dart';
 import 'package:intl/intl.dart';
@@ -14,8 +15,15 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 
+isEmptyToken() async {
+  final storage = const FlutterSecureStorage();
+  String? token = await storage.read(key: 'token');
+  print(token);
+}
+
 class _ProfileState extends State<Profile> {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  // TODO: si il existe et qu'il est pas vide on enlève modifier profil
   late Future<double?> weight;
   late Future<String?> metric;
   late Future<int?> height;
@@ -25,6 +33,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
+    isEmptyToken();
     weight = prefs.then((value) => value.getDouble('weight') ?? 0.0);
     metric = prefs.then((value) => value.getString('metric') ?? 'kg');
     height = prefs.then((value) => value.getInt('height') ?? 0);
