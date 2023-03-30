@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
                       children: [
                         buttonCard(
                             'Modifier mon profil',
-                            'Renseignez ma taille, mes données, etc.',
+                            'Renseigner ma taille, mes données, etc.',
                             Colors.blue,
                             true,
                             context,
