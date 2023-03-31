@@ -289,9 +289,14 @@ class _StatsState extends State<Stats> {
                     )
                   ],
                 );
-              } else {
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
+                );
+              } else {
+                return const Center(
+                  child: Text('Aucune donnée'),
                 );
               }
             }));
