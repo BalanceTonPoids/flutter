@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../services/bluetooth.dart';
 

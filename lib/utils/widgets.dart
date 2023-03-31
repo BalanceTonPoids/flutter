@@ -16,13 +16,13 @@ AppBar appBar(String title, bool automaticallyImplyLeading, context) {
           child: Text(title),
         ),
         Expanded(
-          child: GestureDetector(
-            onTap: () => {
-              AdaptiveTheme.of(context).toggleThemeMode(),
-            },
-            child: Image.asset("assets/logo_white.png",
-                width: 50, height: 50, alignment: Alignment.centerRight),
-          ),
+          child: Image.asset("assets/logo_white.png",
+              width: 50, height: 50, alignment: Alignment.centerRight),
+          // GestureDetector(
+          //   onTap: () => {
+          //     AdaptiveTheme.of(context).toggleThemeMode(),
+          //   },
+          // ),
         ),
       ],
     ),
@@ -31,15 +31,15 @@ AppBar appBar(String title, bool automaticallyImplyLeading, context) {
   );
 }
 
-GestureDetector buttonCard(
-    String title, String subtitle, Color color, bool isAlert, context, screen, bool withNavBar) {
+GestureDetector buttonCard(String title, String subtitle, Color color,
+    bool isAlert, context, screen, bool withNavBar) {
   return GestureDetector(
     onTap: () => {
       PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: screen,
-          withNavBar: withNavBar,
-          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        context,
+        screen: screen,
+        withNavBar: withNavBar,
+        pageTransitionAnimation: PageTransitionAnimation.cupertino,
       )
     },
     child: Card(
@@ -47,26 +47,26 @@ GestureDetector buttonCard(
         children: [
           isAlert
               ? Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              color: Colors.red,
-            ),
-            child: RichText(
-                text: const TextSpan(children: [
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Icon(Icons.warning, color: Colors.white),
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
                   ),
-                  TextSpan(
-                      text: " Actions requises",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Roboto',
-                        fontSize: 15,
-                      )),
-                ])),
-          )
+                  child: RichText(
+                      text: const TextSpan(children: [
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Icon(Icons.warning, color: Colors.white),
+                    ),
+                    TextSpan(
+                        text: " Actions requises",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                          fontSize: 15,
+                        )),
+                  ])),
+                )
               : Container(),
           Container(
             decoration: BoxDecoration(color: color),
@@ -96,15 +96,14 @@ GestureDetector buttonCard(
   );
 }
 
-GestureDetector squareButton(String title, String filePath, context, screen, bool withNavBar) {
+GestureDetector squareButton(
+    String title, String filePath, context, screen, bool withNavBar) {
   return GestureDetector(
     onTap: () => {
-      PersistentNavBarNavigator.pushNewScreen(
-          context,
+      PersistentNavBarNavigator.pushNewScreen(context,
           screen: screen,
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
-          withNavBar: withNavBar
-      )
+          withNavBar: withNavBar)
     },
     child: SizedBox(
       width: (screenWidth - 40) / 2,
@@ -133,12 +132,11 @@ Widget button(context, String text, Color backgroundColor, Color textColor,
     Color borderColor, int borderWidth, screen, bool withNavBar) {
   return ElevatedButton(
       onPressed: () => {
-        PersistentNavBarNavigator.pushNewScreen(
-            context,
-            screen: screen,
-            pageTransitionAnimation: PageTransitionAnimation.cupertino,
-            withNavBar: withNavBar
-        )},
+            PersistentNavBarNavigator.pushNewScreen(context,
+                screen: screen,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                withNavBar: withNavBar)
+          },
       style: ElevatedButton.styleFrom(
           side: const BorderSide(color: Colors.blue, width: 2),
           fixedSize: const Size(300, 50),
@@ -166,9 +164,9 @@ Widget buttonForm(context, String text, Color backgroundColor, Color textColor,
 // end button for form
 
 Container titleSection(
-    String title,
-    String subtitle,
-    ) {
+  String title,
+  String subtitle,
+) {
   return Container(
     width: double.infinity,
     decoration: const BoxDecoration(
@@ -237,12 +235,7 @@ class WeightPainter extends CustomPainter {
 }
 
 Stack weightStack(
-    double weight,
-    String metric,
-    Color bgColor,
-    double width,
-    int height
-    ) {
+    double weight, String metric, Color bgColor, double width, int height) {
   return Stack(
     alignment: Alignment.center,
     children: [
@@ -285,14 +278,14 @@ Column loadingSpinner() {
 }
 
 SizedBox inputForm(
-    TextEditingController controller,
-    bool autofocus,
-    bool obscureText,
-    bool enableSuggestions,
-    bool autocorrect,
-    String label,
-    Icon icon,
-    ) {
+  TextEditingController controller,
+  bool autofocus,
+  bool obscureText,
+  bool enableSuggestions,
+  bool autocorrect,
+  String label,
+  Icon icon,
+) {
   return SizedBox(
     width: 300,
     height: 60,
@@ -311,12 +304,12 @@ SizedBox inputForm(
 }
 
 Container headerPolygon(
-    double double,
-    String metric,
-    String title,
-    String description,
-    Color bgColor,
-    ) {
+  double double,
+  String metric,
+  String title,
+  String description,
+  Color bgColor,
+) {
   return Container(
     decoration: BoxDecoration(
       color: bgColor,
@@ -324,7 +317,8 @@ Container headerPolygon(
     child: Column(
       children: [
         titleSection(title, description),
-        weightStack(double, metric, bgColor == Colors.blue ? Colors.white : Colors.blue, 200, 220)
+        weightStack(double, metric,
+            bgColor == Colors.blue ? Colors.white : Colors.blue, 200, 220)
       ],
     ),
   );
