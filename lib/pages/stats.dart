@@ -40,6 +40,10 @@ class _StatsState extends State<Stats> {
         scaleDataList.then((value) => value?.map((e) => e.muscle).toList());
   }
 
+  double oneAfter(double n) {
+    return num.parse(n.toStringAsFixed(1)) as double;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +85,7 @@ class _StatsState extends State<Stats> {
                     Column(
                       children: [
                         headerPolygon(
-                            wList.isNotEmpty ? wList.last : 0,
+                            wList.isNotEmpty ? oneAfter(wList.last) : 0,
                             'kg',
                             'Mon poids',
                             'Dernier poids enregistré',
@@ -105,9 +109,9 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 0, bottom: 20, left: 10, right: 10),
+                                top: 10, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Poids actuel: ${wList.isNotEmpty ? wList.last : 0} kg',
+                              'Poids actuel: ${wList.isNotEmpty ? (wList.last.toStringAsFixed(1)) : 0} kg',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -121,11 +125,15 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(fList.isNotEmpty ? fList.last : 0, '%',
-                            'Taux de graisse', 'Dernière donnée', Colors.blue),
+                        headerPolygon(
+                            fList.isNotEmpty ? oneAfter(fList.last) : 0,
+                            '%',
+                            'Taux de graisse',
+                            'Dernière donnée',
+                            Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 0, bottom: 20, left: 10, right: 10),
+                              top: 10, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de mon taux de graisse',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -142,9 +150,9 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 0, bottom: 20, left: 10, right: 10),
+                                top: 10, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Taux actuel: ${fList.isNotEmpty ? fList.last : 0} %',
+                              'Taux actuel: ${fList.isNotEmpty ? (fList.last.toStringAsFixed(1)) : 0} %',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -158,11 +166,15 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(waList.isNotEmpty ? waList.last : 0, '%',
-                            'Taux d\'eau', 'Dernière donnée', Colors.blue),
+                        headerPolygon(
+                            waList.isNotEmpty ? oneAfter(waList.last) : 0,
+                            '%',
+                            'Taux d\'eau',
+                            'Dernière donnée',
+                            Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 0, bottom: 20, left: 10, right: 10),
+                              top: 10, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de mon taux d\'eau',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -179,9 +191,9 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 0, bottom: 20, left: 10, right: 10),
+                                top: 10, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Taux actuelle: ${waList.isNotEmpty ? waList.last : 0} %',
+                              'Taux actuelle: ${waList.isNotEmpty ? (waList.last.toStringAsFixed(1)) : 0} %',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -195,11 +207,15 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(iList.isNotEmpty ? iList.last : 0, '',
-                            'Mon IMC', '', Colors.blue),
+                        headerPolygon(
+                            iList.isNotEmpty ? oneAfter(iList.last) : 0,
+                            '',
+                            'Mon IMC',
+                            '',
+                            Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 0, bottom: 20, left: 10, right: 10),
+                              top: 10, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de mon IMC',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -218,7 +234,7 @@ class _StatsState extends State<Stats> {
                             padding: const EdgeInsets.only(
                                 top: 20, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'IMC actuel: ${iList.isNotEmpty ? iList.last : 0}',
+                              'IMC actuel: ${iList.isNotEmpty ? (iList.last.toStringAsFixed(1)) : 0}',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -232,11 +248,15 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(mList.isNotEmpty ? mList.last : 0, '%',
-                            'Masse musculaire', '', Colors.blue),
+                        headerPolygon(
+                            mList.isNotEmpty ? oneAfter(mList.last) : 0,
+                            '%',
+                            'Masse musculaire',
+                            '',
+                            Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
-                              top: 0, bottom: 20, left: 10, right: 10),
+                              top: 10, bottom: 20, left: 10, right: 10),
                           child: Text('Évolution de ma masse musculaire',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
@@ -253,9 +273,9 @@ class _StatsState extends State<Stats> {
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
-                                top: 0, bottom: 20, left: 10, right: 10),
+                                top: 10, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Masse musculaire actuelle: ${mList.isNotEmpty ? mList.last : 0}%',
+                              'Masse musculaire actuelle: ${mList.isNotEmpty ? (mList.last.toStringAsFixed(1)) : 0}%',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
