@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +6,7 @@ import '../models/scale_data.dart';
 import '../services/api_client.dart';
 import '../services/bluetooth.dart';
 import '../services/generateData.dart';
+import '../utils/bluetooth.widget.dart';
 import '../utils/widgets.dart';
 
 class Weight extends StatefulWidget {
@@ -23,18 +23,17 @@ class _WeightState extends State<Weight> {
   late Future<String?> metric;
   late Future<String?> scaleId;
   late Future<String?> scaleName;
-  late bool scaleAvailable;
   bool isLoading = false;
   late Map<String, double> generatedData;
 
   @override
   void initState() {
     super.initState();
+    Bluetooth().checkAndRequestBluetoothPermission();
     weight = prefs.then((value) => value.getDouble('weight') ?? 0.0);
     metric = prefs.then((value) => value.getString('metric') ?? 'kg');
     scaleId = storage.read(key: 'scaleId');
     scaleName = storage.read(key: 'scaleName');
-    scaleAvailable = false;
     generatedData = {
       'weight': 0.0,
       'imc': 0.0,
@@ -76,13 +75,9 @@ class _WeightState extends State<Weight> {
             double showWeight = snapshot.data![0] as double;
             String showMetric = snapshot.data![1] as String;
             String? showScaleId = snapshot.data![2] as String?;
-            String? showScaleName = snapshot.data![2] as String?;
+            String? showScaleName = snapshot.data![3] as String?;
 
             if (showScaleId != null && showScaleName != null) {
-              Bluetooth().stopScan();
-              scaleAvailable = true;
-            }
-            if (scaleAvailable) {
               return Scaffold(
                 appBar: appBar('Mesure du poids', true, context),
                 body: Column(children: [
@@ -134,95 +129,20 @@ class _WeightState extends State<Weight> {
                             showWeight, showMetric, Colors.blue, 200, 200),
                       ),
                     ),
-                    const Text('Aucune balance trouvée'),
-                    ElevatedButton(
-                      child: const Text('Rechercher'),
-                      onPressed: () async {
-                        Bluetooth().startScan();
-                        final scanResults =
-                            await FlutterBlue.instance.scanResults.first;
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DeviceList(
-                              scanResults: scanResults,
-                              onDeviceConnected: () {
-                                setState(() {
-                                  scaleAvailable = true;
-                                });
-                              },
-                            ),
-                          ),
-                        );
+                    buttonCard('Aucune balance trouvée', 'Lancer un scan ',
+                        Colors.blue, false, context, bluetoothWidget(
+                      onDeviceSelected: () {
+                        setState(() {
+                          scaleId = storage.read(key: 'scaleId');
+                          scaleName = storage.read(key: 'scaleName');
+                        });
                       },
-                    ),
+                    ), true)
                   ]));
             }
           } else {
             return const CircularProgressIndicator();
           }
         });
-  }
-}
-
-class DeviceList extends StatelessWidget {
-  const DeviceList(
-      {Key? key, required this.scanResults, required this.onDeviceConnected})
-      : super(key: key);
-
-  final List<ScanResult> scanResults;
-  final Function() onDeviceConnected;
-  final storage = const FlutterSecureStorage();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Appareils disponibles'),
-      ),
-      body: Column(
-        children: [
-          StreamBuilder<bool>(
-            stream: FlutterBlue.instance.isScanning,
-            initialData: false,
-            builder: (c, snapshot) {
-              if (snapshot.data!) {
-                return const LinearProgressIndicator();
-              } else {
-                return Container();
-              }
-            },
-          ),
-          Expanded(
-            child: ListView(
-              children: scanResults
-                  .where((r) => r.device.name.isNotEmpty)
-                  .map((r) => Column(
-                        children: [
-                          Text(r.device.name),
-                          ElevatedButton(
-                              child: const Text('Connecter'),
-                              onPressed: () async {
-                                await r.device.connect();
-                                await storage.write(
-                                    key: 'scaleName',
-                                    value: r.device.name.toString());
-                                await storage.write(
-                                    key: 'scaleId',
-                                    value: r.device.id.toString());
-                                onDeviceConnected();
-                                Bluetooth().stopScan();
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).pop();
-                              }),
-                        ],
-                      ))
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

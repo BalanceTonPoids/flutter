@@ -3,7 +3,6 @@ import 'package:balancetonpoids/services/bluetooth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../main.dart';
 import '../utils/widgets.dart';
 
@@ -16,19 +15,7 @@ class Welcome extends StatefulWidget {
 
 checkPerm() async {
   BuildContext context;
-  var status = await Permission.bluetooth.status;
-  if (status.isDenied) {
-    await [
-      Permission.bluetooth,
-      Permission.bluetoothConnect,
-      Permission.bluetoothScan,
-      Permission.bluetoothAdvertise,
-      Permission.location
-    ].request();
-  }
-  if (await Permission.bluetooth.status.isPermanentlyDenied) {
-    openAppSettings();
-  }
+  await Bluetooth().checkAndRequestBluetoothPermission();
   Bluetooth().startScan();
 }
 
@@ -111,7 +98,11 @@ class _WelcomeState extends State<Welcome> {
                 return Text('Error: ${snapshot.error}');
               }
               if (_connectionStatus.isNotEmpty) {
-                return Text(_connectionStatus);
+                return Text(
+                  _connectionStatus,
+                  style:
+                      TextStyle(color: Colors.green, fontSize: 18, height: 20),
+                );
               }
               if (snapshot.data!.isEmpty) {
                 return const Text('Aucun appareil détecté');

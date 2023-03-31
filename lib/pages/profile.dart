@@ -1,6 +1,5 @@
-import 'package:balancetonpoids/pages/connecter_ma_balance.dart';
+import 'package:balancetonpoids/utils/bluetooth.widget.dart';
 import 'package:balancetonpoids/pages/edit_profile.dart';
-import 'package:balancetonpoids/pages/welcome.dart';
 import 'package:balancetonpoids/services/empty_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -99,22 +98,24 @@ class _ProfileState extends State<Profile> {
                     child: Column(
                       children: [
                         if (getToken() != null)
-                        buttonCard(
-                            'Modifier mon profil',
-                            'Renseigner ma taille, mes données, etc.',
-                            Colors.blue,
-                            true,
-                            context,
-                            const EditProfilePage(),
-                            true),
+                          buttonCard(
+                              'Modifier mon profil',
+                              'Renseigner ma taille, mes données, etc.',
+                              Colors.blue,
+                              false,
+                              context,
+                              const EditProfilePage(),
+                              true),
                         buttonCard(
                             'Changer ma balance',
                             'Changer de balance connectée',
                             Colors.blue,
                             false,
-                            context,
-                            const connecterMaBalance(),
-                            true)
+                            context, bluetoothWidget(
+                          onDeviceSelected: () {
+                            print('Device selected');
+                          },
+                        ), true)
                       ],
                     ),
                   ),
