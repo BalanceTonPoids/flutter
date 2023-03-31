@@ -32,7 +32,7 @@ class User {
         email: json['email'],
         name: json['name'] ?? '',
         phone: json['phone'] ?? '',
-        gender: json['gender'] ?? 'N/A',
+        gender: json['gender'] ?? 'M',
         metric: json['metric'] ?? '',
         age: json['age'] ?? 0,
         height: json['height'] ?? 0,
