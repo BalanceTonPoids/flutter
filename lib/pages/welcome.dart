@@ -105,7 +105,7 @@ class _WelcomeState extends State<Welcome> {
                 );
               }
               if (snapshot.data!.isEmpty) {
-                return const Text('No devices found');
+                return const Text('Aucun appareil détecté');
               }
               return Column(
                 children: (snapshot.data ?? [])
@@ -113,7 +113,7 @@ class _WelcomeState extends State<Welcome> {
                         ? Column(children: [
                             Text(r.device.name),
                             ElevatedButton(
-                                child: const Text('Connect'),
+                                child: const Text('Connecter'),
                                 onPressed: () async => {
                                       await r.device.connect(),
                                       await storage.write(
@@ -160,7 +160,7 @@ class _WelcomeState extends State<Welcome> {
                     ))),
             Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: button(context, 'Continuez avec un Email', Colors.blue,
+                child: button(context, 'Continuez avec un compte', Colors.blue,
                     Colors.white, Colors.blue, 2, const LoginPage(), false)),
             Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
