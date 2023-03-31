@@ -57,8 +57,12 @@ class _StatsState extends State<Stats> {
                   children: [
                     Column(
                       children: [
-                        headerPolygon(wList.isNotEmpty ? wList.last : 0, 'kg', 'Mon poids',
-                            'Dernier poids enregistré', Colors.blue),
+                        headerPolygon(
+                            wList.isNotEmpty ? wList.last : 0,
+                            'kg',
+                            'Mon poids',
+                            'Dernier poids enregistré',
+                            Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
                               top: 20, bottom: 20, left: 10, right: 10),
@@ -68,7 +72,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: wList.isNotEmpty ? chartSample(wList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          child: wList.isNotEmpty
+                              ? chartSample(wList)
+                              : const Text('Aucune donnée',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
@@ -88,8 +98,8 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(fList.isNotEmpty ? fList.last : 0, '%', 'Taux de graisse',
-                            'Dernière donnée', Colors.blue),
+                        headerPolygon(fList.isNotEmpty ? fList.last : 0, '%',
+                            'Taux de graisse', 'Dernière donnée', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
                               top: 0, bottom: 20, left: 10, right: 10),
@@ -99,7 +109,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: fList.isNotEmpty ? chartSample(fList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          child: fList.isNotEmpty
+                              ? chartSample(fList)
+                              : const Text('Aucune donnée',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
@@ -119,8 +135,8 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(waList.isNotEmpty ? waList.last : 0, '%', 'Taux d\'eau',
-                            'Dernière donnée', Colors.blue),
+                        headerPolygon(waList.isNotEmpty ? waList.last : 0, '%',
+                            'Taux d\'eau', 'Dernière donnée', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
                               top: 0, bottom: 20, left: 10, right: 10),
@@ -130,7 +146,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: waList.isNotEmpty ? chartSample(waList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          child: waList.isNotEmpty
+                              ? chartSample(waList)
+                              : const Text('Aucune donnée',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
@@ -150,8 +172,8 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(
-                            iList.isNotEmpty ? iList.last : 0, '%', 'Mon IMC', '', Colors.blue),
+                        headerPolygon(iList.isNotEmpty ? iList.last : 0, '',
+                            'Mon IMC', '', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
                               top: 0, bottom: 20, left: 10, right: 10),
@@ -161,7 +183,13 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: iList.isNotEmpty ? chartSample(iList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          child: iList.isNotEmpty
+                              ? chartSample(iList)
+                              : const Text('Aucune donnée',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
@@ -181,8 +209,8 @@ class _StatsState extends State<Stats> {
                     ),
                     Column(
                       children: [
-                        headerPolygon(mList.isNotEmpty ? mList.last : 0, '', 'Masse musculaire', '',
-                            Colors.blue),
+                        headerPolygon(mList.isNotEmpty ? mList.last : 0, '%',
+                            'Masse musculaire', '', Colors.blue),
                         const Padding(
                           padding: EdgeInsets.only(
                               top: 0, bottom: 20, left: 10, right: 10),
@@ -192,13 +220,19 @@ class _StatsState extends State<Stats> {
                         ),
                         AspectRatio(
                           aspectRatio: 1.7,
-                          child: mList.isNotEmpty ? chartSample(mList) : const Text('Aucune donnée', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          child: mList.isNotEmpty
+                              ? chartSample(mList)
+                              : const Text('Aucune donnée',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 0, bottom: 20, left: 10, right: 10),
                             child: Text(
-                              'Masse musculaire actuelle: ${mList.isNotEmpty ? mList.last : 0}',
+                              'Masse musculaire actuelle: ${mList.isNotEmpty ? mList.last : 0}%',
                               style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
@@ -221,90 +255,6 @@ class _StatsState extends State<Stats> {
   }
 }
 
-// // Generate data
-// List<double> generateMuscularMass() {
-//   // Weights
-//   List<double> weights = generateDataWeights();
-//   print('weights: $weights');
-//   // Heights
-//   List<double> heights = generateDataHeights();
-//   print('heights: $heights');
-//   // Genre H : 0,407 x poids (kg) + 0,267 x taille (cm) - 19,2
-//   // Genre F : 0,252 x poids (kg) + 0,473 x taille (cm) - 48,3
-//   double firstDouble = 0;
-//   double secondDouble = 0;
-//   double thirdDouble = 0;
-//   String genre = 'M'; // M F O NULL
-//   if (genre == 'F') {
-//     print('A');
-//     firstDouble = 0.252;
-//     secondDouble = 0.473;
-//     thirdDouble = 48.3;
-//   } else {
-//     print('B');
-//     firstDouble = 0.407;
-//     secondDouble = 0.267;
-//     thirdDouble = 19.2;
-//   }
-//   List<double> data = List.generate(
-//       7,
-//       (index) => double.parse((firstDouble * weights[index] +
-//               secondDouble * heights[index] -
-//               thirdDouble)
-//           .toStringAsFixed(1)));
-//   print('data: $data');
-//   return data;
-// }
-
-// List<double> generateDataIMC() {
-//   // Weights
-//   List<double> weights = generateDataWeights();
-//   print('weights: $weights');
-//   // Heights
-//   List<double> heights = generateDataHeights();
-//   print('heights: $heights');
-//   // IMC = poid (kg) / taille (m)
-//   List<double> data = List.generate(
-//       7,
-//       (index) => double.parse(
-//           (weights[index] / (heights[index] / 100) / (heights[index] / 100))
-//               .toStringAsFixed(1)));
-//   print('data: $data');
-//   return data;
-// }
-
-// List<double> generateDataHeights() {
-//   // en cm
-//   int startHeight = Random().nextInt(100) + 100;
-//   List<double> data = List.generate(
-//       7,
-//       (index) =>
-//           startHeight +
-//           double.parse((Random().nextDouble()).toStringAsFixed(1)));
-//   return data.map((e) => e.toDouble()).toList();
-// }
-
-// List<double> generateDataWeights() {
-//   double startWeight =
-//       Random().nextDouble() * 100 > 0 ? Random().nextDouble() * 100 : 3;
-//   startWeight = double.parse(startWeight.toStringAsFixed(1));
-//   print('startWeight: $startWeight');
-//   List<double> data = List.generate(
-//       7,
-//       (index) => double.parse(
-//           (startWeight + Random().nextDouble() * 10).toStringAsFixed(1)));
-//   print('data: $data');
-//   print('min: ${data.reduce(min)}');
-//   print('max: ${data.reduce(max)}');
-//   print(
-//       'minLine: ${(data.reduce(min) - 5) < 0 ? 0 : (data.reduce(min) - 5).toStringAsFixed(0)}');
-//   print('moyLine: ${data.map}');
-//   print(
-//       'maxLine: ${(data.reduce(max) + 5) < 0 ? 0 : (data.reduce(max) + 5).toStringAsFixed(0)}');
-//   calculMoy(data);
-//   return data;
-// }
-
 calculMoy(List<double> values) {
   List<double> data = values;
   double moy = data.reduce((value, element) => value + element) / data.length;
@@ -315,9 +265,9 @@ calculMoy(List<double> values) {
 LineChart chartSample(List<double> yValues) {
   return LineChart(LineChartData(
       minY:
-      yValues.reduce(min) - 5 < 0 ? 0.toDouble() : yValues.reduce(min) - 5,
+          yValues.reduce(min) - 5 < 0 ? 0.toDouble() : yValues.reduce(min) - 5,
       maxY:
-      yValues.reduce(max) + 5 < 0 ? 0.toDouble() : yValues.reduce(max) + 5,
+          yValues.reduce(max) + 5 < 0 ? 0.toDouble() : yValues.reduce(max) + 5,
       extraLinesData: ExtraLinesData(horizontalLines: [
         horizontalLine(
             (yValues.reduce(min) < 0 ? 0.toDouble() : yValues.reduce(min)),
