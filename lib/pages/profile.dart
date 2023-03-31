@@ -45,6 +45,8 @@ class _ProfileState extends State<Profile> {
         return 'Homme';
       case 'F':
         return 'Femme';
+      case 'O':
+        return 'Autre';
       default:
         return 'Autre';
     }
