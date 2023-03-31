@@ -91,25 +91,25 @@ class _MainPageState extends State<MainPage> {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
-        title: ("Accueil"),
+        title: ('Accueil'),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.monitor_weight),
-        title: ("Poids"),
+        title: ('Poids'),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.person),
-        title: ("Profil"),
+        title: ('Profil'),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.query_stats),
-        title: ("Statistiques"),
+        title: ('Statistiques'),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.black12,
       ),
