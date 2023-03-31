@@ -47,6 +47,7 @@ class _WeightState extends State<Weight> {
     setState(() {
       isLoading = true;
     });
+    Bluetooth().connectToScale();
     // Simulate fetching data from scale
     await Future.delayed(const Duration(seconds: 3));
     // add generate data here
