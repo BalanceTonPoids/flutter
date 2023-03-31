@@ -129,15 +129,16 @@ class _WeightState extends State<Weight> {
                             showWeight, showMetric, Colors.blue, 200, 200),
                       ),
                     ),
-                    buttonCard('Aucune balance trouvée', 'Lancer un scan ',
-                        Colors.blue, false, context, bluetoothWidget(
-                      onDeviceSelected: () {
-                        setState(() {
-                          scaleId = storage.read(key: 'scaleId');
-                          scaleName = storage.read(key: 'scaleName');
-                        });
-                      },
-                    ), true)
+                    Padding(padding: EdgeInsets.all(20),
+                        child: buttonCard('Aucune balance trouvée', 'Lancer un scan ',
+                            Colors.blue, false, context, bluetoothWidget(
+                              onDeviceSelected: () {
+                                setState(() {
+                                  scaleId = storage.read(key: 'scaleId');
+                                  scaleName = storage.read(key: 'scaleName');
+                                });
+                              },
+                            ), true))
                   ]));
             }
           } else {
