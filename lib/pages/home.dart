@@ -53,21 +53,9 @@ class _HomeState extends State<Home> {
                 false),
           ),
         ),
-        // Container(
-        //   padding:
-        //       const EdgeInsets.only(top: 30, bottom: 10, left: 20, right: 20),
-        //   child: buttonCard(
-        //       'Modifier mon profil',
-        //       'Renseignez ma taille, mes objectifs, etc.',
-        //       Colors.blue,
-        //       false,
-        //       context,
-        //       const EditProfilePage(),
-        //       false),
-        // ),
         Container(
           padding:
-              const EdgeInsets.only(top: 0, bottom: 20, left: 20, right: 20),
+              const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
           child: buttonCard('Contact', 'Besoin d\'aide, contactez nous',
               Colors.blue, false, context, const ContactPage(), false),
         ),
@@ -145,7 +133,6 @@ class ContactPage extends StatelessWidget {
         title: const Text('Contact'),
       ),
       body: Container(
-        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,7 +145,6 @@ class ContactPage extends StatelessWidget {
                 color: Colors.blueGrey,
               ),
             ),
-            const SizedBox(height: 16),
             const Text(
               'Si vous avez des questions ou des commentaires, n\'hésitez pas à nous contacter. Vous pouvez nous appeler ou nous envoyer un e-mail à tout moment.',
               textAlign: TextAlign.justify,
@@ -167,7 +153,6 @@ class ContactPage extends StatelessWidget {
                 color: Colors.black54,
               ),
             ),
-            const SizedBox(height: 32),
             ElevatedButton.icon(
               onPressed: () {
                 launch(
@@ -192,7 +177,6 @@ class ContactPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: () {
                 launch(
