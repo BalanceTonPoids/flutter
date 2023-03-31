@@ -1,6 +1,4 @@
 import 'package:balancetonpoids/pages/imc.dart';
-import 'package:balancetonpoids/pages/edit_profile.dart';
-
 import 'package:balancetonpoids/pages/weight.dart';
 import 'package:balancetonpoids/services/api_client.dart';
 import 'package:flutter/material.dart';

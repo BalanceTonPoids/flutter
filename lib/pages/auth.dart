@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:balancetonpoids/services/api_client.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
