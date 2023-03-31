@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:balancetonpoids/models/scale_data.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/widgets.dart';
 
@@ -22,6 +23,7 @@ class _StatsState extends State<Stats> {
   late Future<List<double>?> waterList;
   late Future<List<double>?> imcList;
   late Future<List<double>?> muscleList;
+  int _currentPageIndex = 0;
 
   @override
   void initState() {
@@ -54,6 +56,27 @@ class _StatsState extends State<Stats> {
                 List<double> iList = snapshot.data![3] as List<double>;
                 List<double> mList = snapshot.data![4] as List<double>;
                 return PageView(
+                  onPageChanged: (index) {
+                    // Update data when page changes
+                    setState(() {
+                      _currentPageIndex = index;
+                      // Re-fetch data
+                      scaleData =
+                          prefs.then((value) => value.getStringList('scale'));
+                      scaleDataList =
+                          scaleData.then((value) => ScaleData.decode(value!));
+                      weightsList = scaleDataList.then(
+                          (value) => value!.map((e) => e.weight).toList());
+                      fatList = scaleDataList
+                          .then((value) => value?.map((e) => e.fat).toList());
+                      waterList = scaleDataList
+                          .then((value) => value?.map((e) => e.water).toList());
+                      imcList = scaleDataList
+                          .then((value) => value?.map((e) => e.imc).toList());
+                      muscleList = scaleDataList.then(
+                          (value) => value?.map((e) => e.muscle).toList());
+                    });
+                  },
                   children: [
                     Column(
                       children: [
